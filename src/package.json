@@ -29,6 +29,7 @@
     "gulp-uglify": "^2.1.1",
     "jquery": "^3.2.0",
     "jquery-ui": "^1.12.1",
+    "jquery-ui-dist": "^1.12.1",
     "mousetrap": "^1.6.0"
   }
 }

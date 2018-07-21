@@ -10,5 +10,7 @@ CREATE TABLE IF NOT EXISTS `?` (
   `visible` tinyint(1) NOT NULL DEFAULT '1',
   `downloadable` tinyint(1) NOT NULL DEFAULT '0',
   `password` varchar(100) DEFAULT NULL,
+  `min_takestamp` int(11) NOT NULL,
+  `max_takestamp` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
