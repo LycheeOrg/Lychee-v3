@@ -194,6 +194,8 @@ final class Settings {
 			case 'title':       $sorting .= 'title'; break;
 			case 'description': $sorting .= 'description'; break;
 			case 'public':      $sorting .= 'public'; break;
+			case 'min_takestamp':   $sorting .= 'min_takestamp'; break;
+			case 'max_takestamp':   $sorting .= 'max_takestamp'; break;
 			default:            Log::error(Database::get(), __METHOD__, __LINE__, 'Could not update settings. Unknown type for sorting.');
 			                    return false;
 			                    break;
