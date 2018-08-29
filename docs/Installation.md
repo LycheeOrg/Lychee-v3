@@ -12,15 +12,15 @@ To use Lychee without restrictions, we recommend to increase the values of the f
 	upload_max_filesize = 20M
 	memory_limit = 256M
 	
-You might also take a look at [Issue #106](https://github.com/electerious/Lychee/issues/106) if you are using nginx or in the [FAQ](https://github.com/electerious/Lychee/blob/master/docs/FAQ.md#i-cant-upload-multiple-photos-at-once) if you are using CGI or FastCGI.
+You might also take a look at [Issue #106](https://github.com/electerious/Lychee/issues/106) if you are using nginx or in the [FAQ](https://github.com/LycheeOrg/Lychee/blob/master/docs/FAQ.md#i-cant-upload-multiple-photos-at-once) if you are using CGI or FastCGI.
 	
 ### 2. Download
 
 The easiest way to download Lychee is with `git`:
 
-	git clone https://github.com/electerious/Lychee.git
+	git clone https://github.com/LycheeOrg/Lychee.git
 	
-You can also use the [direct download](https://github.com/electerious/Lychee/archive/master.zip).
+You can also use the [direct download](https://github.com/LycheeOrg/Lychee/archive/master.zip).
 
 ### 3. Permissions
 
