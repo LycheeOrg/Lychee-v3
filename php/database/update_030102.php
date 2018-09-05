@@ -69,5 +69,3 @@ if ($result===false) Response::error('Could not change type of the id field!');
 
 // Set version
 if (Database::setVersion($connection, '030102')===false) Response::error('Could not update version of database!');
-
-?>

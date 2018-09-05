@@ -15,5 +15,3 @@ if ($result===false) Response::error('Could not adjust the length of the album i
 
 // Set version
 if (Database::setVersion($connection, '030100')===false) Response::error('Could not update version of database!');
-
-?>

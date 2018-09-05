@@ -71,5 +71,3 @@ function search($term) {
 	return $return;
 
 }
-
-?>

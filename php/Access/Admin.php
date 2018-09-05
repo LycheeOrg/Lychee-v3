@@ -340,5 +340,3 @@ final class Admin extends Access {
 	}
 
 }
-
-?>

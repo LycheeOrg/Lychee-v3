@@ -181,5 +181,3 @@ final class Guest extends Access {
 	}
 
 }
-
-?>

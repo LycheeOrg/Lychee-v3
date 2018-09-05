@@ -229,5 +229,3 @@ final class Settings {
 	}
 
 }
-
-?>

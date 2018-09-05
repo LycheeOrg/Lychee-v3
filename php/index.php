@@ -88,5 +88,3 @@ if (!empty($fn)) {
 	Response::error('No API function specified!');
 
 }
-
-?>

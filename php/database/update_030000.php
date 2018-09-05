@@ -28,5 +28,3 @@ if ($result===false) Response::error('Could not reset publicity of photos in dat
 
 // Set version
 if (Database::setVersion($connection, '030000')===false) Response::error('Could not update version of database!');
-
-?>

@@ -187,5 +187,3 @@ final class Albums {
 	}
 
 }
-
-?>
