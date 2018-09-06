@@ -190,5 +190,3 @@ final class Import {
 	}
 
 }
-
-?>

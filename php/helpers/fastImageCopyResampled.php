@@ -31,5 +31,3 @@ function fastImageCopyResampled(&$dst_image, $src_image, $dst_x, $dst_y, $src_x,
 	return true;
 
 }
-
-?>

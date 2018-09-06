@@ -9,5 +9,3 @@ function hasPermissions($path) {
 	return false;
 
 }
-
-?>

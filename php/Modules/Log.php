@@ -43,5 +43,3 @@ final class Log {
 	}
 
 }
-
-?>

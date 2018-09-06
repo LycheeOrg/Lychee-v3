@@ -695,5 +695,3 @@ final class Album {
 	}
 
 }
-
-?>

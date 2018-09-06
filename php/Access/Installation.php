@@ -41,5 +41,3 @@ final class Installation extends Access {
 	}
 
 }
-
-?>

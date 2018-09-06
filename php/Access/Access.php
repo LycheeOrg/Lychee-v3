@@ -13,5 +13,3 @@ abstract class Access {
 	}
 
 }
-
-?>

@@ -16,5 +16,3 @@ function generateID() {
 	return $id;
 
 }
-
-?>

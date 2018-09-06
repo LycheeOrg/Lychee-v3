@@ -20,5 +20,3 @@ function getExtension($filename, $isURI = false) {
 	return $extension;
 
 }
-
-?>

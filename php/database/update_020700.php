@@ -33,5 +33,3 @@ if (is_dir(LYCHEE_UPLOADS_MEDIUM)===false) {
 
 // Set version
 if (Database::setVersion($connection, '020700')===false) Response::error('Could not update version of database!');
-
-?>

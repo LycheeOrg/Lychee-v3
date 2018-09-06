@@ -133,5 +133,3 @@ final class Session {
 	}
 
 }
-
-?>

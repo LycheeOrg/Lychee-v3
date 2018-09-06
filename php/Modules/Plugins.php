@@ -95,5 +95,3 @@ final class Plugins implements SplSubject {
 	}
 
 }
-
-?>

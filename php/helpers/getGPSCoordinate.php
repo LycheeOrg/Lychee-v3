@@ -26,5 +26,3 @@ function formattedToFloatGPS($coordinate) {
 	return (float)$parts[0] / $parts[1];
 
 }
-
-?>

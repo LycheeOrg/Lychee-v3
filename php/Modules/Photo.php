@@ -1338,5 +1338,3 @@ final class Photo {
 	}
 
 }
-
-?>

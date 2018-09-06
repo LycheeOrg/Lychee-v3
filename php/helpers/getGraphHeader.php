@@ -52,5 +52,3 @@ function getGraphHeader($photoID) {
 	return $return;
 
 }
-
-?>

@@ -60,5 +60,3 @@ if ((isset($_SESSION['login'])&&$_SESSION['login']===true)&&
 	exit('You have to be logged in to see the log.');
 
 }
-
-?>

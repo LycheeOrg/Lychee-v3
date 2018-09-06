@@ -44,5 +44,3 @@ function defineTablePrefix($dbTablePrefix) {
 	define('LYCHEE_TABLE_SETTINGS', $dbTablePrefix . 'lychee_settings');
 
 }
-
-?>

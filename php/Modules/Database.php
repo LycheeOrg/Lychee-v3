@@ -418,5 +418,3 @@ final class Database {
 	}
 
 }
-
-?>

@@ -34,5 +34,3 @@ function getHashedString($password) {
 	return crypt($password, $salt);
 
 }
-
-?>
