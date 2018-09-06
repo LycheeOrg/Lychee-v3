@@ -208,7 +208,7 @@ final class Photo {
 		$info = $this->getInfo($path);
 
 		// Use title of file if IPTC title missing
-		if ($info['title']==='') $info['title'] = substr(basename($file['name'], $extension), 0, 30);
+		if ($info['title']==='') $info['title'] = substr(basename($file['name'], $extension), 0, 100);
 
 		if ($exists===false) {
 
@@ -246,6 +246,11 @@ final class Photo {
 			if ($returnOnError===true) return false;
 			Response::error('Could not save photo in database!');
 		}
+
+		// Update takestamp info of album
+		$values = array(LYCHEE_TABLE_ALBUMS, $info['takestamp'], $info['takestamp'], $info['takestamp'], $info['takestamp'], $albumID);
+		$query = Database::prepare(Database::get(), "UPDATE ? SET min_takestamp = CASE WHEN min_takestamp > '?' OR min_takestamp = '0' THEN '?' ELSE min_takestamp END,  max_takestamp = CASE WHEN max_takestamp < '?' THEN '?' ELSE max_takestamp END WHERE id = '?'", $values);
+		$result = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
 
 		// Call plugins
 		Plugins::get()->activate(__METHOD__, 1, func_get_args());
@@ -709,7 +714,7 @@ final class Photo {
 
 		// Parse photo
 		$photo['sysdate'] = strftime('%d %b. %Y', substr($photo['id'], 0, -4));
-		if (strlen($photo['takestamp'])>1) $photo['takedate'] = strftime('%d %b. %Y', $photo['takestamp']);
+		if (strlen($photo['takestamp'])>1) $photo['takedate'] = strftime('%d %b. %Y %T', $photo['takestamp']);
 
 		// Parse medium
 		if ($photo['medium']==='1') $photo['medium'] = LYCHEE_URL_UPLOADS_MEDIUM . $photo['url'];
@@ -832,7 +837,7 @@ final class Photo {
 		}
 
 		// Read EXIF
-		if ($info['mime']=='image/jpeg') $exif = @exif_read_data($url, 'EXIF', false, false);
+		if ($info['mime']=='image/jpeg') $exif = @exif_read_data($url, 'EXIF, IFD0', false, false);
 		else $exif = false;
 
 		// EXIF Metadata
@@ -1152,9 +1157,20 @@ final class Photo {
 		// Call plugins
 		Plugins::get()->activate(__METHOD__, 0, func_get_args());
 
+		// Get current albums
+		$query  = Database::prepare(Database::get(), "SELECT album FROM ? WHERE id IN (?)", array(LYCHEE_TABLE_PHOTOS, $this->photoIDs));
+		$result = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
+		$albums = mysqli_fetch_array($result, MYSQLI_NUM);
+		array_push($albums, $albumID);
+
 		// Set album
 		$query  = Database::prepare(Database::get(), "UPDATE ? SET album = '?' WHERE id IN (?)", array(LYCHEE_TABLE_PHOTOS, $albumID, $this->photoIDs));
 		$result = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
+
+		// Update albums takestamp info
+		$values = array(LYCHEE_TABLE_ALBUMS, LYCHEE_TABLE_PHOTOS, LYCHEE_TABLE_PHOTOS, implode(", ", $albums));
+		$query = Database::prepare(Database::get(), "UPDATE ? a SET a.min_takestamp = (SELECT IFNULL(min(takestamp), 0) FROM ? WHERE album = a.id), a.max_takestamp = (SELECT IFNULL(max(takestamp), 0) FROM ? WHERE album = a.id) WHERE a.id IN (?)", $values);
+		$result = $result && Database::execute(Database::get(), $query, __METHOD__, __LINE__);
 
 		// Call plugins
 		Plugins::get()->activate(__METHOD__, 1, func_get_args());
@@ -1252,8 +1268,9 @@ final class Photo {
 		$error = false;
 
 		// Get photos
-		$query  = Database::prepare(Database::get(), "SELECT id, url, thumbUrl, checksum FROM ? WHERE id IN (?)", array(LYCHEE_TABLE_PHOTOS, $this->photoIDs));
+		$query  = Database::prepare(Database::get(), "SELECT id, url, thumbUrl, checksum, album FROM ? WHERE id IN (?)", array(LYCHEE_TABLE_PHOTOS, $this->photoIDs));
 		$photos = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
+		$albums = array();
 
 		if ($photos===false) return false;
 
@@ -1300,6 +1317,16 @@ final class Photo {
 
 			if ($result===false) $error = true;
 
+			array_push($albums, $photo->album);
+
+		}
+
+		// Update takestamp info of album
+		if (!empty($albums)) {
+			$query  = Database::prepare(Database::get(), "UPDATE ? a SET a.min_takestamp = (SELECT IFNULL(min(takestamp), 0) FROM ? WHERE album = a.id), a.max_takestamp = (SELECT IFNULL(max(takestamp), 0) FROM ? WHERE album = a.id) WHERE a.id IN (?)",
+										array(LYCHEE_TABLE_ALBUMS, LYCHEE_TABLE_PHOTOS, LYCHEE_TABLE_PHOTOS, implode(",", $albums)));
+			$result = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
+			if ($result===false) $error = true;
 		}
 
 		// Call plugins

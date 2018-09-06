@@ -31,11 +31,13 @@ final class Album {
 		// Properties
 		$id       = generateID();
 		$sysstamp = time();
+		$min_takestamp = 0;
+		$max_takestamp = 0;
 		$public   = 0;
 		$visible  = 1;
 
 		// Database
-		$query  = Database::prepare(Database::get(), "INSERT INTO ? (id, title, sysstamp, public, visible) VALUES ('?', '?', '?', '?', '?')", array(LYCHEE_TABLE_ALBUMS, $id, $title, $sysstamp, $public, $visible));
+		$query  = Database::prepare(Database::get(), "INSERT INTO ? (id, title, sysstamp, min_takestamp, max_takestamp, public, visible) VALUES ('?', '?', '?', '?', '?', '?', '?')", array(LYCHEE_TABLE_ALBUMS, $id, $title, $sysstamp, $min_takestamp, $max_takestamp, $public, $visible));
 		$result = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
 
 		// Call plugins
@@ -73,6 +75,18 @@ final class Album {
 		// Parse date
 		$album['sysdate'] = strftime('%B %Y', $data['sysstamp']);
 
+		if ($data['min_takestamp']!=="0") {
+            $album['min_takestamp'] = strftime('%B %Y', $data['min_takestamp']);
+        }
+        else {
+		    $album['min_takestamp'] = "";
+        }
+        if ($data['max_takestamp']!=="0") {
+            $album['max_takestamp'] = strftime('%B %Y', $data['max_takestamp']);
+        }
+        else {
+            $album['max_takestamp'] = "";
+        }
 		// Parse password
 		$album['password'] = ($data['password']=='' ? '0' : '1');
 
@@ -344,6 +358,41 @@ final class Album {
 
 	}
 
+	public function setPosition(){
+		// Check dependencies
+		Validator::required(isset($_POST['photoOrder']), __METHOD__);
+
+		// Call plugins
+		Plugins::get()->activate(__METHOD__, 0, func_get_args());
+
+		$id_list = implode(',', $_POST['photoOrder']);
+		$indices = [];
+		$size = count(explode(',',$id_list));
+		for($i = 0; $i < $size; $i++){
+			$indices[$i] = $i;
+		}
+
+		$whens = implode(
+			"  ",
+			array_map(
+				function ($id, $value) {
+					return "WHEN {$id} THEN {$value}";
+				},
+				explode(',',$id_list),
+				$indices
+			)
+		);
+
+		$query  = Database::prepare(Database::get(), "UPDATE ? SET position = CASE id ? END WHERE id IN (?)", array(LYCHEE_TABLE_PHOTOS, $whens, $id_list));
+		$result = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
+
+		// Call plugins
+		Plugins::get()->activate(__METHOD__, 1, func_get_args());
+
+		if ($result===false) return false;
+		return true;
+	}
+
 	/**
 	 * @return boolean Returns true when successful.
 	 */
@@ -584,6 +633,11 @@ final class Album {
 
 		$query  = Database::prepare(Database::get(), "DELETE FROM ? WHERE id IN (?)", array(LYCHEE_TABLE_ALBUMS, $filteredIDs));
 		$result = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
+
+		// Update the takestamp
+		$query  = Database::prepare(Database::get(), "UPDATE ? a SET a.min_takestamp = (SELECT IFNULL(min(takestamp), 0) FROM ? WHERE album = a.id), a.max_takestamp = (SELECT IFNULL(max(takestamp), 0) FROM ? WHERE album = a.id) WHERE a.id = ?",
+									array(LYCHEE_TABLE_ALBUMS, LYCHEE_TABLE_PHOTOS, LYCHEE_TABLE_PHOTOS, $albumID));
+		$result = $result && Database::execute(Database::get(), $query, __METHOD__, __LINE__);
 
 		// Call plugins
 		Plugins::get()->activate(__METHOD__, 1, func_get_args());

@@ -32,8 +32,8 @@ final class Albums {
 		if ($public===false) $return['smartalbums'] = $this->getSmartAlbums();
 
 		// Albums query
-		if ($public===false) $query = Database::prepare(Database::get(), 'SELECT id, title, public, sysstamp, password FROM ? ' . Settings::get()['sortingAlbums'], array(LYCHEE_TABLE_ALBUMS));
-		else                 $query = Database::prepare(Database::get(), 'SELECT id, title, public, sysstamp, password FROM ? WHERE public = 1 AND visible <> 0 ' . Settings::get()['sortingAlbums'], array(LYCHEE_TABLE_ALBUMS));
+		if ($public===false) $query = Database::prepare(Database::get(), 'SELECT id, title, public, sysstamp, min_takestamp, max_takestamp, password FROM ? ' . Settings::get()['sortingAlbums'], array(LYCHEE_TABLE_ALBUMS));
+		else                 $query = Database::prepare(Database::get(), 'SELECT id, title, public, sysstamp, min_takestamp, max_takestamp, password FROM ? WHERE public = 1 AND visible <> 0 ' . Settings::get()['sortingAlbums'], array(LYCHEE_TABLE_ALBUMS));
 
 		// Execute query
 		$albums = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
