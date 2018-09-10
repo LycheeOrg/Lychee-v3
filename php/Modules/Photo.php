@@ -734,8 +734,8 @@ final class Photo {
 				// Get album object
 				$album = $albums->fetch_assoc();
 
-				// Photo not found?
-				if ($photo===null) {
+				// Album not found?
+				if ($album===null) {
 					Log::error(Database::get(), __METHOD__, __LINE__, 'Could not find specified album');
 					return false;
 				}

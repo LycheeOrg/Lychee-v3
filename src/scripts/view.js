@@ -146,7 +146,7 @@ view.album = {
 			if (album.json.content && album.json.content!==false) {
 
 				// Build photos
-				$.each(album.json.content, function() {
+				$.each(album.json.photos, function() {
 					photosData += build.photo(this)
 				})
 
