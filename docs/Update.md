@@ -7,7 +7,9 @@
 
 Updating Lychee with `git` is the easiest way:
 
-	git pull
+```
+git pull
+```
 
 ### Update manually
 

@@ -59,7 +59,6 @@ class ExamplePlugin implements SplObserver {
 
 }
 
-?>
 ```
 
 3. Add the class name to the database of Lychee
@@ -80,8 +79,8 @@ Hooks named `:after` will be executed after the original function.
 ##### Album
 These hooks are called from `php/modules/Album.php`.
 
-| Name | Description |
-|:-----------|:------------|:------------|
+| Name       | Description |
+| ------------------ | ------------ |
 | Album::add:before | User adds album |
 | Album::add:after |  |
 | Album::get:before | User opens album |
@@ -109,7 +108,7 @@ These hooks are called from `php/modules/Album.php`.
 These hooks are called from `php/modules/Photo.php`.
 
 | Name | Description |
-|:-----------|:------------|:------------|
+| ----------- | ------------ |
 | Photo::add:before | User uploads photos |
 | Photo::add:after |  |
 | Photo::createThumb:before | Lychee creates thumbs |
@@ -143,7 +142,7 @@ These hooks are called from `php/modules/Photo.php`.
 These hooks are called from `php/modules/Session.php`.
 
 | Name | Description |
-|:-----------|:------------|:------------|
+| ----------- | ------------ |
 | Session::init:before | Someone opens Lychee |
 | Session::init:after |  |
 | Session::login:before | Someone logs in |
@@ -155,6 +154,6 @@ These hooks are called from `php/modules/Session.php`.
 These hooks are called from `php/modules/Import.php`.
 
 | Name | Description |
-|:-----------|:------------|:------------|
+| ----------- | ------------|
 | Import::server:before | User imports photos from the server |
 | Import::server:after |  |

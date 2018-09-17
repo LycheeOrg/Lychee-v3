@@ -3,11 +3,12 @@
 Your MySQL details are stored in `data/config.php`. This file doesn't exist until you installed Lychee. If you need to change your connection details, you can edit this file manually.
 
 
-
-	$dbHost = Your MySQL host (in most cases you can use localhost)
-	$dbUser = Your MySQL username
-	$dbPassword = Your MySQL password
-	$dbName = The name of the database you want to use
+```php
+$dbHost = "Your MySQL host (in most cases you can use localhost)";
+$dbUser = "Your MySQL username";
+$dbPassword = "Your MySQL password";
+$dbName = "The name of the database you want to use";
+```
 
 Fill these properties with your MySQL information. Lychee will create the database and tables for you, if they doesn't exist.
 
