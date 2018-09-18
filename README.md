@@ -11,7 +11,7 @@ Lychee is a free photo-management tool, which runs on your server or web-space. 
 
 ## Installation
 
-To run Lychee, everything you need is a web-server with PHP 5.5 or later and a MySQL-Database. Follow the instructions to install Lychee on your server. [Installation &#187;](docs/Installation.md)
+To run Lychee, everything you need is a web-server with PHP 5.5 or later and a MySQL-Database. Follow the instructions to install Lychee on your server. [Installation &#187;](wiki/Installation)
 
 ## How to use
 
@@ -19,23 +19,23 @@ You can use Lychee right after the installation. Here are some advanced features
 
 ### Settings
 
-Sign in and click the gear in the top left corner to change your settings. If you want to edit them manually: MySQL details are stored in `data/config.php`. Other options and hidden settings are stored directly in the database. [Settings &#187;](docs/Settings.md)
+Sign in and click the gear in the top left corner to change your settings. If you want to edit them manually: MySQL details are stored in `data/config.php`. Other options and hidden settings are stored directly in the database. [Settings &#187;](wiki/Settings)
 
 ### Update
 
-Updating is as easy as it should be.  [Update &#187;](docs/Update.md)
+Updating is as easy as it should be.  [Update &#187;](wiki/Update)
 
 ### Build
 
-Lychee is ready to use, right out of the box. If you want to contribute and edit CSS or JS files, you need to rebuild Lychee. [Build &#187;](docs/Build.md)
+Lychee is ready to use, right out of the box. If you want to contribute and edit CSS or JS files, you need to rebuild Lychee. [Build &#187;](wiki/Build)
 
 ### Keyboard Shortcuts
 
-These shortcuts will help you to use Lychee even faster. [Keyboard Shortcuts &#187;](docs/Keyboard%20Shortcuts.md)
+These shortcuts will help you to use Lychee even faster. [Keyboard Shortcuts &#187;](wiki/Keyboard%20Shortcuts)
 
 ### Dropbox import
 
-In order to use the Dropbox import from your server, you need a valid drop-ins app key from [their website](https://www.dropbox.com/developers/apps/create). Lychee will ask you for this key, the first time you try to use the import. Want to change your code? Take a look at [the settings](docs/Settings.md) of Lychee.
+In order to use the Dropbox import from your server, you need a valid drop-ins app key from [their website](https://www.dropbox.com/developers/apps/create). Lychee will ask you for this key, the first time you try to use the import. Want to change your code? Take a look at [the settings](wiki/Settings) of Lychee.
 
 ### Twitter Cards
 
@@ -43,7 +43,7 @@ Lychee supports [Twitter Cards](https://dev.twitter.com/docs/cards) and [Open Gr
 
 ### Imagick
 
-Lychee uses [Imagick](https://www.imagemagick.org) when installed on your server. In this case you will benefit from a faster processing of your uploads, better looking thumbnails and intermediate sized images for small screen devices. You can disable the usage of [Imagick](https://www.imagemagick.org) in [the settings](docs/Settings.md).
+Lychee uses [Imagick](https://www.imagemagick.org) when installed on your server. In this case you will benefit from a faster processing of your uploads, better looking thumbnails and intermediate sized images for small screen devices. You can disable the usage of [Imagick](https://www.imagemagick.org) in [the settings](wiki/Settings).
 
 ### Docker
 
@@ -51,7 +51,7 @@ Browse the [Docker Hub Registry](https://hub.docker.com/r/kdelfour/lychee-docker
 
 ### Plugins and Extensions
 
-The plugin-system of Lychee allows you to execute scripts when a certain action fires. Plugins are hooks, which are injected directly into Lychee. [Plugin documentation &#187;](docs/Plugins.md)
+The plugin-system of Lychee allows you to execute scripts when a certain action fires. Plugins are hooks, which are injected directly into Lychee. [Plugin documentation &#187;](wiki/Plugins)
 
 It's also possible to build extensions upon Lychee. The way to do so isn't documented and can change every time. We recommend using the plugin-system, when possible.
 
@@ -71,4 +71,4 @@ Here's a list of all available Plugins and Extensions:
 
 ## Troubleshooting
 
-Take a look at the [FAQ](docs/FAQ.md) if you have problems. Discovered a bug? Please create an issue here on GitHub!
+Take a look at the [FAQ](wiki/FAQ) if you have problems. Discovered a bug? Please create an issue here on GitHub!
