@@ -1,3 +1,6 @@
 [submodule "docs"]
 	path = docs
 	url = https://github.com/LycheeOrg/Lychee.wiki.git
+[submodule "src"]
+	path = src
+	url = https://github.com/LycheeOrg/Lychee-front.git
