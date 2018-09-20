@@ -2,5 +2,5 @@
 	path = docs
 	url = https://github.com/LycheeOrg/Lychee.wiki.git
 [submodule "src"]
-	path = src
+	path = Lychee-front
 	url = ../Lychee-front.git
