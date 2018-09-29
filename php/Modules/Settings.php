@@ -2,6 +2,8 @@
 
 namespace Lychee\Modules;
 
+use Lychee\Locale\Lang;
+
 final class Settings {
 
 	private static $cache = null;
@@ -22,6 +24,8 @@ final class Settings {
 
 		// Convert plugins to array
 		$return['plugins'] = explode(';', $return['plugins']);
+
+		$return['lang_available'] = Lang::get_lang_available();
 
 		self::$cache = $return;
 
