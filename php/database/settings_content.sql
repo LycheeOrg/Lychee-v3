@@ -12,5 +12,6 @@ VALUES
   ('imagick','1'),
   ('dropboxKey',''),
   ('identifier',''),
+  ('lang','en'),
   ('skipDuplicates','0'),
   ('plugins','');

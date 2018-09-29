@@ -2,6 +2,8 @@
 
 namespace Lychee\Modules;
 
+use Lychee\Locale\Lang;
+
 final class Session {
 
 	/**
@@ -53,6 +55,8 @@ final class Session {
 			unset($return['config']['plugins']);
 
 		}
+
+		$return['locale'] = Lang::get_lang(Settings::get()['lang']);
 
 		// Call plugins
 		Plugins::get()->activate(__METHOD__, 1, func_get_args());

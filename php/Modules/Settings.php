@@ -134,6 +134,20 @@ final class Settings {
 
 	}
 
+	public static function setLang($lang) {
+		$lang_available = Lang::get_lang_available();
+		for ($i = 0; $i < count($lang_available); $i++)
+		{
+			if($lang == $lang_available[$i])
+			{
+				if (self::set('lang', $lang, true)===false) return false;
+				return true;
+			}
+		}
+		Log::error(Database::get(), __METHOD__, __LINE__, 'Could not update settings. Unknown lang.');
+		return false;
+	}
+
 	/**
 	 * Sets a new sorting for the photos.
 	 * @return boolean Returns true when successful.
