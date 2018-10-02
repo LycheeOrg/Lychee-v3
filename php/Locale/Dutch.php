@@ -2,11 +2,11 @@
 
 namespace Lychee\Locale;
 
-final class English
+final class Dutch
 {
     static public function code()
     {
-        return 'en';
+        return 'nl';
     }
 
     static public function get_locale()
