@@ -44,7 +44,7 @@ final class French
 
             'DELETE_ALBUM_QUESTION' 		=> 'Supprimer l\'album et ses photos',
             'KEEP_ALBUM'					=> 'Garder l\'album',
-            'DELETE_ALBUM_CONFIRMATION_1' 	=> 'Voulez-vous vraiment supprimer l\'album ?',
+            'DELETE_ALBUM_CONFIRMATION_1' 	=> 'Voulez-vous vraiment supprimer l\'album ',
             'DELETE_ALBUM_CONFIRMATION_2'	=> 'et toutes les photos qu\'il contient ? Cette action est definitive !',
 
             'DELETE_ALBUMS_QUESTION' 		=> 'Supprimer les albums et leurs photos',
@@ -136,7 +136,7 @@ final class French
             'PHOTO_UPLOADED'			=> 'Importer',
             'PHOTO_DESCRIPTION'			=> 'Description',
             'PHOTO_NEW_DESCRIPTION'		=> 'Entrez une nouvelle description pour cette photo:',
-            'PHOTO_SET_DESCRIPTION'		=> 'Enregistrer la description',
+            'PHOTO_SET_DESCRIPTION'		=> 'Choisir une description',
             'PHOTO_IMAGE'				=> 'Image',
             'PHOTO_SIZE'				=> 'Taille',
             'PHOTO_FORMAT'				=> 'Format',
@@ -162,8 +162,8 @@ final class French
             'PHOTO_SHR_NO'				=> 'Non',
             'PHOTO_DELETE'				=> 'Supprimer la photo',
             'PHOTO_KEEP'				=> 'Conserver la photo',
-            'PHOTO_DELETE_1'			=> 'Voulez-vous vraiment supprimer cette photo ?',
-            'PHOTO_DELETE_2'			=> 'Cette action est definitive !',
+            'PHOTO_DELETE_1'			=> 'Voulez-vous vraiment supprimer la photo ',
+            'PHOTO_DELETE_2'			=> ' ? Cette action est definitive !',
             'PHOTO_DELETE_ALL_1'		=> 'Voulez-vous vraiment supprimer toutes les',
             'PHOTO_DELETE_ALL_2'		=> 'photos selectionnees ? Cette action est definitive !',
             'PHOTO_NEW_TITLE' 			=> 'Entrer un nouveau titre pour cette photo:',
