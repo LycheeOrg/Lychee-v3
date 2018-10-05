@@ -38,8 +38,7 @@ $config = "<?php
 \$dbPassword = '$password'; // Password of the database
 \$dbName = '$name'; // Database name
 \$dbTablePrefix = '$prefix'; // Table prefix
-
-?>";
+";
 
 		// Save file
 		if (@file_put_contents(LYCHEE_CONFIG_FILE, $config)===false) return 'Warning: Could not create file!';
