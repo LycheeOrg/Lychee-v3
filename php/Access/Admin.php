@@ -50,10 +50,10 @@ final class Admin extends Access {
 			case 'search':                  self::searchAction(); break;
 
 			// Users functions
-            case 'Users::get':              self::listUsersAction(); break;
+			case 'Users::get':              self::listUsersAction(); break;
 
-            // User functions
-            case 'User::createMod':        self::createUserAction(); break;
+			// User functions
+			case 'User::createMod':        self::createUserAction(); break;
 
 			// Session functions
 			case 'Session::init':           self::initAction(); break;
@@ -298,14 +298,14 @@ final class Admin extends Access {
 	}
 
 	private static function createUserAction() {
-	    Validator::required(isset($_POST['username'], $_POST['password']), __METHOD__);
-        Response::json(User::createUser($_POST['username'], $_POST['password']));
-    }
+		Validator::required(isset($_POST['username'], $_POST['password']), __METHOD__);
+		Response::json(User::createUser($_POST['username'], $_POST['password']));
+	}
 
-    private static function listUsersAction() {
-        Validator::required(isset($_POST['username'], $_POST['password']), __METHOD__);
-        Response::json(User::listAllUsers());
-    }
+	private static function listUsersAction() {
+		Validator::required(isset($_POST['username'], $_POST['password']), __METHOD__);
+		Response::json(User::listAllUsers());
+	}
 
 	// Settings functions
 

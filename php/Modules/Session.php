@@ -73,56 +73,56 @@ final class Session {
 
 		// Call plugins
 		Plugins::get()->activate(__METHOD__, 0, func_get_args());
-        if (($user = self::checkCredentials($username, $password)) !== false) {
-            $_SESSION['login']      = true;
-            $_SESSION['identifier'] = Settings::get()['identifier'];
-            $_SESSION['username']   = $user['username'];
-            Log::notice(Database::get(), __METHOD__, __LINE__, 'User (' . $username . ') has logged in from ' . $_SERVER['REMOTE_ADDR']);
-            return true;
-        }
+		if (($user = self::checkCredentials($username, $password)) !== false) {
+			$_SESSION['login']      = true;
+			$_SESSION['identifier'] = Settings::get()['identifier'];
+			$_SESSION['username']   = $user['username'];
+			Log::notice(Database::get(), __METHOD__, __LINE__, 'User (' . $username . ') has logged in from ' . $_SERVER['REMOTE_ADDR']);
+			return true;
+		}
 
-        // No login
-        if ($this->noLogin()===true) return true;
+		// No login
+		if ($this->noLogin()===true) return true;
 
-        // Call plugins
-        Plugins::get()->activate(__METHOD__, 1, func_get_args());
+		// Call plugins
+		Plugins::get()->activate(__METHOD__, 1, func_get_args());
 
-        // Log failed log in
-        Log::error(Database::get(), __METHOD__, __LINE__, 'User (' . $username . ') has tried to log in from ' . $_SERVER['REMOTE_ADDR']);
+		// Log failed log in
+		Log::error(Database::get(), __METHOD__, __LINE__, 'User (' . $username . ') has tried to log in from ' . $_SERVER['REMOTE_ADDR']);
 
-        return false;
+		return false;
 
 	}
 
-    /**
-     * Check if credentials are valid or not.
-     * @param $username
-     * @param $password
-     *
-     * @return array|bool Returns user array on success, bool on error.
-     */
+	/**
+	 * Check if credentials are valid or not.
+	 * @param $username
+	 * @param $password
+	 *
+	 * @return array|bool Returns user array on success, bool on error.
+	 */
 	public static function checkCredentials($username, $password) {
-        //Find user based on username and password.
-        $query = Database::prepare(
-            Database::get(),
-            "SELECT id, username, password FROM ? WHERE username = '?'",
-            array(LYCHEE_TABLE_USERS, $username)
-        );
+		//Find user based on username and password.
+		$query = Database::prepare(
+			Database::get(),
+			"SELECT id, username, password FROM ? WHERE username = '?'",
+			array(LYCHEE_TABLE_USERS, $username)
+		);
 
-        $accounts = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
+		$accounts = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
 
-        if ($accounts && $accounts->num_rows === 1) {
-            $account = $accounts->fetch_assoc();
-            if ($account && isset($account['password']) && password_verify($password, $account['password'])) {
-                unset($account['password']);
-                return $account;
-            }
-        } elseif ($accounts->num_rows > 1) {
-            Log::error(Database::get(), __METHOD__, __LINE__, 'There are multiple users with the username (' . $username . ')');
-        }
+		if ($accounts && $accounts->num_rows === 1) {
+			$account = $accounts->fetch_assoc();
+			if ($account && isset($account['password']) && password_verify($password, $account['password'])) {
+				unset($account['password']);
+				return $account;
+			}
+		} elseif ($accounts->num_rows > 1) {
+			Log::error(Database::get(), __METHOD__, __LINE__, 'There are multiple users with the username (' . $username . ')');
+		}
 
-        return false;
-    }
+		return false;
+	}
 
 	/**
 	 * Sets the session values when no there is no username and password in the database.
@@ -130,19 +130,19 @@ final class Session {
 	 */
 	private function noLogin() {
 
-        $q = Database::prepare(
-            Database::get(),
-            "SELECT * FROM ?",
-            array(LYCHEE_TABLE_USERS)
-        );
+		$q = Database::prepare(
+			Database::get(),
+			"SELECT * FROM ?",
+			array(LYCHEE_TABLE_USERS)
+		);
 
-        $accounts = Database::execute(Database::get(), $q, __METHOD__, __LINE__);
-        if ($accounts && $accounts->num_rows === 0) {
-            $_SESSION['login']      = true;
-            $_SESSION['identifier'] = Settings::get()['identifier'];
-            return true;
-        }
-        return false;
+		$accounts = Database::execute(Database::get(), $q, __METHOD__, __LINE__);
+		if ($accounts && $accounts->num_rows === 0) {
+			$_SESSION['login']      = true;
+			$_SESSION['identifier'] = Settings::get()['identifier'];
+			return true;
+		}
+		return false;
 	}
 
 	/**

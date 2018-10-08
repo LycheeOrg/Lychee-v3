@@ -18,7 +18,7 @@ final class Database {
 		'030102', // 3.1.2
 		'030108', // 3.1.8
 		'030109', // 3.1.9
-        '030110', // 3.10.0
+		'030110', // 3.10.0
 	);
 
 	/**
@@ -269,28 +269,28 @@ final class Database {
 
 		}
 
-        // Check if users table exists
-        $exist  = self::prepare($connection, 'SELECT * FROM ? LIMIT 0', array(LYCHEE_TABLE_USERS));
-        $result = self::execute($connection, $exist, __METHOD__, __LINE__);
+		// Check if users table exists
+		$exist  = self::prepare($connection, 'SELECT * FROM ? LIMIT 0', array(LYCHEE_TABLE_USERS));
+		$result = self::execute($connection, $exist, __METHOD__, __LINE__);
 
-        if ($result===false) {
+		if ($result===false) {
 
-            // Read file
-            $file  = __DIR__ . '/../database/users_table.sql';
-            $query = @file_get_contents($file);
+			// Read file
+			$file  = __DIR__ . '/../database/users_table.sql';
+			$query = @file_get_contents($file);
 
-            if ($query===false) {
-                Log::error($connection, __METHOD__, __LINE__, 'Could not load query for lychee_users');
-                return false;
-            }
+			if ($query===false) {
+				Log::error($connection, __METHOD__, __LINE__, 'Could not load query for lychee_users');
+				return false;
+			}
 
-            // Create table
-            $query  = self::prepare($connection, $query, array(LYCHEE_TABLE_USERS));
-            $result = self::execute($connection, $query, __METHOD__, __LINE__);
+			// Create table
+			$query  = self::prepare($connection, $query, array(LYCHEE_TABLE_USERS));
+			$result = self::execute($connection, $query, __METHOD__, __LINE__);
 
-            if ($result===false) return false;
+			if ($result===false) return false;
 
-        }
+		}
 
 		return true;
 
@@ -442,15 +442,15 @@ final class Database {
 
 	}
 
-    /**
-     * Check if there is an error on the connection provided.
-     * @param $connection mysqli
-     *
-     * @return bool|string error code if error present, else false.
-     */
+	/**
+	 * Check if there is an error on the connection provided.
+	 * @param $connection mysqli
+	 *
+	 * @return bool|string error code if error present, else false.
+	 */
 	public static function error($connection = null) {
-	    $connection = is_null($connection) ? Database::get() : $connection;
-        return $connection->errno !== 0 ? $connection->error : false;
-    }
+		$connection = is_null($connection) ? Database::get() : $connection;
+		return $connection->errno !== 0 ? $connection->error : false;
+	}
 
 }

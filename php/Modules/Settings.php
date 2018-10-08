@@ -67,31 +67,31 @@ final class Settings {
 	 */
 	public static function setLogin($oldPassword = '', $username, $password) {
 
-	    $query = Database::prepare(Database::get(),
-            "SELECT * FROM ?",
-            array(LYCHEE_TABLE_USERS)
-        );
-	    $count = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
+		$query = Database::prepare(Database::get(),
+			"SELECT * FROM ?",
+			array(LYCHEE_TABLE_USERS)
+		);
+		$count = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
 
-        if ($count && $count->num_rows === 0) {
-            // No user accounts exists, create the first user.
-            if (User::createUser($username, $password)) {
-                return true;
-            } else {
-                Response::error("Failed to create new user");
-            }
-        } else {
-            // User accounts exist, this must be an account update request.
-            if (isset($_SESSION['username']) && Session::checkCredentials($_SESSION['username'], $oldPassword)) {
-                if (User::changeAccount($_SESSION['username'], $username, $password)) {
-                    return true;
-                } else {
-                    Response::error("Failed to update password");
-                }
-            } else {
-                Response::error('Current password entered incorrectly!');
-            }
-        }
+		if ($count && $count->num_rows === 0) {
+			// No user accounts exists, create the first user.
+			if (User::createUser($username, $password)) {
+				return true;
+			} else {
+				Response::error("Failed to create new user");
+			}
+		} else {
+			// User accounts exist, this must be an account update request.
+			if (isset($_SESSION['username']) && Session::checkCredentials($_SESSION['username'], $oldPassword)) {
+				if (User::changeAccount($_SESSION['username'], $username, $password)) {
+					return true;
+				} else {
+					Response::error("Failed to update password");
+				}
+			} else {
+				Response::error('Current password entered incorrectly!');
+			}
+		}
 	}
 
 	/**
@@ -143,8 +143,8 @@ final class Settings {
 			case 'star':        $sorting .= 'star'; break;
 			case 'takestamp':   $sorting .= 'takestamp'; break;
 			default:            Log::error(Database::get(), __METHOD__, __LINE__, 'Could not update settings. Unknown type for sorting.');
-			                    return false;
-			                    break;
+								return false;
+								break;
 
 		}
 
@@ -156,8 +156,8 @@ final class Settings {
 			case 'ASC':  $sorting .= 'ASC'; break;
 			case 'DESC': $sorting .= 'DESC'; break;
 			default:     Log::error(Database::get(), __METHOD__, __LINE__, 'Could not update settings. Unknown order for sorting.');
-			             return false;
-			             break;
+						 return false;
+						 break;
 
 		}
 
@@ -187,8 +187,8 @@ final class Settings {
 			case 'min_takestamp':   $sorting .= 'min_takestamp'; break;
 			case 'max_takestamp':   $sorting .= 'max_takestamp'; break;
 			default:            Log::error(Database::get(), __METHOD__, __LINE__, 'Could not update settings. Unknown type for sorting.');
-			                    return false;
-			                    break;
+								return false;
+								break;
 
 		}
 
@@ -200,8 +200,8 @@ final class Settings {
 			case 'ASC':  $sorting .= 'ASC'; break;
 			case 'DESC': $sorting .= 'DESC'; break;
 			default:     Log::error(Database::get(), __METHOD__, __LINE__, 'Could not update settings. Unknown order for sorting.');
-			             return false;
-			             break;
+						 return false;
+						 break;
 
 		}
 
