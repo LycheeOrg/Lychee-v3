@@ -52,6 +52,7 @@ final class Admin extends Access {
 			case 'Session::init':           self::initAction(); break;
 			case 'Session::login':          self::loginAction(); break;
 			case 'Session::logout':         self::logoutAction(); break;
+            case 'Session::createUser':     self::createUserAction(); break;
 
 			// Settings functions
 			case 'Settings::setLang':      	self::setLangAction(); break;
@@ -289,6 +290,11 @@ final class Admin extends Access {
 		Response::json($session->logout());
 
 	}
+
+	private static function createUserAction() {
+	    Validator::required(isset($_POST['username'], $_POST['password']), __METHOD__);
+        Response::json(Session::createUser($_POST['username'], $_POST['password']));
+    }
 
 	// Settings functions
 

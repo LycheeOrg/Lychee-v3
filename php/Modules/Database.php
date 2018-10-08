@@ -153,7 +153,7 @@ final class Database {
 		Validator::required(isset($connection), __METHOD__);
 
 		// Check if tables exist
-		$query  = self::prepare($connection, 'SELECT * FROM ?, ?, ?, ? LIMIT 0', array(LYCHEE_TABLE_PHOTOS, LYCHEE_TABLE_ALBUMS, LYCHEE_TABLE_SETTINGS, LYCHEE_TABLE_LOG));
+		$query  = self::prepare($connection, 'SELECT * FROM ?, ?, ?, ? LIMIT 0', array(LYCHEE_TABLE_PHOTOS, LYCHEE_TABLE_ALBUMS, LYCHEE_TABLE_SETTINGS, LYCHEE_TABLE_LOG, LYCHEE_TABLE_USERS));
 		$result = self::execute($connection, $query, null, null);
 		if ($result!==false) return true;
 
@@ -267,6 +267,29 @@ final class Database {
 			if ($result===false) return false;
 
 		}
+
+        // Check if users table exists
+        $exist  = self::prepare($connection, 'SELECT * FROM ? LIMIT 0', array(LYCHEE_TABLE_USERS));
+        $result = self::execute($connection, $exist, __METHOD__, __LINE__);
+
+        if ($result===false) {
+
+            // Read file
+            $file  = __DIR__ . '/../database/users_table.sql';
+            $query = @file_get_contents($file);
+
+            if ($query===false) {
+                Log::error($connection, __METHOD__, __LINE__, 'Could not load query for lychee_users');
+                return false;
+            }
+
+            // Create table
+            $query  = self::prepare($connection, $query, array(LYCHEE_TABLE_USERS));
+            $result = self::execute($connection, $query, __METHOD__, __LINE__);
+
+            if ($result===false) return false;
+
+        }
 
 		return true;
 
@@ -395,7 +418,7 @@ final class Database {
 	}
 
 	/**
-	 * @return object|false Returns the results on success.
+	 * @return \mysqli_result|false Returns the results on success.
 	 */
 	public static function execute($connection, $query, $function, $line) {
 

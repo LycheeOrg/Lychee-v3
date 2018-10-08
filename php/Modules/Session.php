@@ -73,31 +73,56 @@ final class Session {
 
 		// Call plugins
 		Plugins::get()->activate(__METHOD__, 0, func_get_args());
+        if (($user = self::checkCredentials($username, $password)) !== false) {
+            $_SESSION['login']      = true;
+            $_SESSION['identifier'] = Settings::get()['identifier'];
+            $_SESSION['username']   = $user['username'];
+            Log::notice(Database::get(), __METHOD__, __LINE__, 'User (' . $username . ') has logged in from ' . $_SERVER['REMOTE_ADDR']);
+            return true;
+        }
 
-		$username_crypt = crypt($username, Settings::get()['username']);
-		$password_crypt = crypt($password, Settings::get()['password']);
+        // No login
+        if ($this->noLogin()===true) return true;
 
-		// Check login with crypted hash
-		if (Settings::get()['username']===$username_crypt&&
-			Settings::get()['password']===$password_crypt) {
-				$_SESSION['login']      = true;
-				$_SESSION['identifier'] = Settings::get()['identifier'];
-				Log::notice(Database::get(), __METHOD__, __LINE__, 'User (' . $username . ') has logged in from ' . $_SERVER['REMOTE_ADDR']);
-				return true;
-		}
+        // Call plugins
+        Plugins::get()->activate(__METHOD__, 1, func_get_args());
 
-		// No login
-		if ($this->noLogin()===true) return true;
+        // Log failed log in
+        Log::error(Database::get(), __METHOD__, __LINE__, 'User (' . $username . ') has tried to log in from ' . $_SERVER['REMOTE_ADDR']);
 
-		// Call plugins
-		Plugins::get()->activate(__METHOD__, 1, func_get_args());
-
-		// Log failed log in
-		Log::error(Database::get(), __METHOD__, __LINE__, 'User (' . $username . ') has tried to log in from ' . $_SERVER['REMOTE_ADDR']);
-
-		return false;
+        return false;
 
 	}
+
+    /**
+     * Check if credentials are valid or not.
+     * @param $username
+     * @param $password
+     *
+     * @return array|bool Returns user array on success, bool on error.
+     */
+	public static function checkCredentials($username, $password) {
+        //Find user based on username and password.
+        $query = Database::prepare(
+            Database::get(),
+            "SELECT id, username, password FROM ? WHERE username = '?'",
+            array(LYCHEE_TABLE_USERS, $username)
+        );
+
+        $accounts = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
+
+        if ($accounts && $accounts->num_rows === 1) {
+            $account = $accounts->fetch_assoc();
+            if ($account && isset($account['password']) && password_verify($password, $account['password'])) {
+                unset($account['password']);
+                return $account;
+            }
+        } elseif ($accounts->num_rows > 1) {
+            Log::error(Database::get(), __METHOD__, __LINE__, 'There are multiple users with the username (' . $username . ')');
+        }
+
+        return false;
+    }
 
 	/**
 	 * Sets the session values when no there is no username and password in the database.
@@ -105,16 +130,19 @@ final class Session {
 	 */
 	private function noLogin() {
 
-		// Check if login credentials exist and login if they don't
-		if (Settings::get()['username']===''&&
-			Settings::get()['password']==='') {
-				$_SESSION['login']      = true;
-				$_SESSION['identifier'] = Settings::get()['identifier'];
-				return true;
-		}
+        $q = Database::prepare(
+            Database::get(),
+            "SELECT * FROM ?",
+            array(LYCHEE_TABLE_USERS)
+        );
 
-		return false;
-
+        $accounts = Database::execute(Database::get(), $q, __METHOD__, __LINE__);
+        if ($accounts && $accounts->num_rows === 0) {
+            $_SESSION['login']      = true;
+            $_SESSION['identifier'] = Settings::get()['identifier'];
+            return true;
+        }
+        return false;
 	}
 
 	/**
@@ -135,5 +163,77 @@ final class Session {
 		return true;
 
 	}
+
+    /**
+     * Creates a new user.
+     * @param $username
+     * @param $password
+     *
+     * @return bool
+     */
+	public static function createUser($username, $password) {
+        $q = Database::prepare(
+            Database::get(),
+            "SELECT * FROM ? WHERE username = '?'",
+            array(LYCHEE_TABLE_USERS, $username)
+        );
+
+        $accounts = Database::execute(Database::get(), $q, __METHOD__, __LINE__);
+        if ($accounts && $accounts->num_rows > 0) {
+            Log::error(Database::get(), __METHOD__, __LINE__, "Username (" . $username . ") is already in use.");
+            return false;
+        }
+
+        $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+        $q = Database::prepare(
+            Database::get(),
+            "INSERT INTO ? (username, password) VALUES ('?','?')",
+            array(LYCHEE_TABLE_USERS, $username, $passwordHash)
+        );
+        $result = Database::execute(Database::get(), $q, __METHOD__, __LINE__);
+        return $result !== false;
+    }
+
+
+    public static function changePassword($username, $password) {
+	    $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+	    $query = Database::prepare(
+	        Database::get(),
+            "UPDATE ? SET password = '?' WHERE username = '?'",
+            array(LYCHEE_TABLE_USERS, $passwordHash, $username)
+        );
+	    $result = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
+	    return $result !== false;
+    }
+
+    public static function changeAccount($currentUsername, $newUsername, $newPassword) {
+
+	    if ($currentUsername !== $newUsername) {
+            // Check if the username is already in use or not?
+            $query = Database::prepare(
+                Database::get(),
+                "SELECT * FROM ? WHERE username = '?'",
+                array(LYCHEE_TABLE_USERS, $newUsername)
+            );
+            $result = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
+            if ($result && $result->num_rows > 0) {
+                response::error("Username already in use.");
+            }
+        }
+
+        $newPasswordHash = password_hash($newPassword, PASSWORD_DEFAULT);
+        $q = Database::prepare(
+            Database::get(),
+            "UPDATE ? SET username = '?', password = '?' WHERE username = '?'",
+            array(LYCHEE_TABLE_USERS, $newUsername, $newPasswordHash, $currentUsername)
+        );
+        $result = Database::execute(Database::get(), $q, __METHOD__, __LINE__);
+        if ($result !== false) {
+            return true;
+        } else {
+            response::error("Failed to update account credentials");
+        }
+
+    }
 
 }

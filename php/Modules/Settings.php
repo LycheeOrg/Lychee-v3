@@ -67,59 +67,35 @@ final class Settings {
 	 */
 	public static function setLogin($oldPassword = '', $username, $password) {
 
-		if ($oldPassword===self::get()['password']||self::get()['password']===crypt($oldPassword, self::get()['password'])) {
+	    $query = Database::prepare(Database::get(),
+            "SELECT * FROM ?",
+            array(LYCHEE_TABLE_USERS)
+        );
+	    $count = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
 
-			// Save username
-			if (self::setUsername($username)===false) Response::error('Updating username failed!');
-
-			// Save password
-			if (self::setPassword($password)===false) Response::error('Updating password failed!');
-
-			return true;
-
-		}
+	    if ($count) {
+            if ($count->num_rows === 0) {
+                // no user account exists, no need to check old password.
+                if (Session::createUser($username, $password)) {
+                    return true;
+                } else {
+                    Response::error("Failed to create new user");
+                }
+            } else {
+                // User accounts exist, then this is an account change.
+                if (isset($_SESSION['username']) && Session::checkCredentials($_SESSION['username'], $oldPassword)) {
+                    if (Session::changeAccount($_SESSION['username'], $username, $password)) {
+                        return true;
+                    } else {
+                        Response::error("Failed to update password");
+                    }
+                } else {
+                    Response::error("Old password incorrect");
+                }
+            }
+        }
 
 		Response::error('Current password entered incorrectly!');
-
-	}
-
-	/**
-	 * Sets a new username.
-	 * @return boolean Returns true when successful.
-	 */
-	private static function setUsername($username) {
-
-		// Check dependencies
-		Validator::required(isset($username), __METHOD__);
-
-		// Hash username
-		$username = getHashedString($username);
-
-		// Execute query
-		// Do not prepare $username because it is hashed and save
-		// Preparing (escaping) the username would destroy the hash
-		if (self::set('username', $username, true)===false) return false;
-		return true;
-
-	}
-
-	/**
-	 * Sets a new username.
-	 * @return boolean Returns true when successful.
-	 */
-	private static function setPassword($password) {
-
-		// Check dependencies
-		Validator::required(isset($password), __METHOD__);
-
-		// Hash password
-		$password = getHashedString($password);
-
-		// Do not prepare $password because it is hashed and save
-		// Preparing (escaping) the password would destroy the hash
-		if (self::set('password', $password, true)===false) return false;
-		return true;
-
 	}
 
 	/**
