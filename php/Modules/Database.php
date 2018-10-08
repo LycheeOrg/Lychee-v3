@@ -18,6 +18,7 @@ final class Database {
 		'030102', // 3.1.2
 		'030108', // 3.1.8
 		'030109', // 3.1.9
+        '030110', // 3.10.0
 	);
 
 	/**
@@ -440,5 +441,16 @@ final class Database {
 		return $result;
 
 	}
+
+    /**
+     * Check if there is an error on the connection provided.
+     * @param $connection mysqli
+     *
+     * @return bool|string error code if error present, else false.
+     */
+	public static function error($connection = null) {
+	    $connection = is_null($connection) ? Database::get() : $connection;
+        return $connection->errno !== 0 ? $connection->error : false;
+    }
 
 }

@@ -164,76 +164,9 @@ final class Session {
 
 	}
 
-    /**
-     * Creates a new user.
-     * @param $username
-     * @param $password
-     *
-     * @return bool
-     */
-	public static function createUser($username, $password) {
-        $q = Database::prepare(
-            Database::get(),
-            "SELECT * FROM ? WHERE username = '?'",
-            array(LYCHEE_TABLE_USERS, $username)
-        );
-
-        $accounts = Database::execute(Database::get(), $q, __METHOD__, __LINE__);
-        if ($accounts && $accounts->num_rows > 0) {
-            Log::error(Database::get(), __METHOD__, __LINE__, "Username (" . $username . ") is already in use.");
-            return false;
-        }
-
-        $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-        $q = Database::prepare(
-            Database::get(),
-            "INSERT INTO ? (username, password) VALUES ('?','?')",
-            array(LYCHEE_TABLE_USERS, $username, $passwordHash)
-        );
-        $result = Database::execute(Database::get(), $q, __METHOD__, __LINE__);
-        return $result !== false;
-    }
 
 
-    public static function changePassword($username, $password) {
-	    $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-	    $query = Database::prepare(
-	        Database::get(),
-            "UPDATE ? SET password = '?' WHERE username = '?'",
-            array(LYCHEE_TABLE_USERS, $passwordHash, $username)
-        );
-	    $result = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
-	    return $result !== false;
-    }
 
-    public static function changeAccount($currentUsername, $newUsername, $newPassword) {
 
-	    if ($currentUsername !== $newUsername) {
-            // Check if the username is already in use or not?
-            $query = Database::prepare(
-                Database::get(),
-                "SELECT * FROM ? WHERE username = '?'",
-                array(LYCHEE_TABLE_USERS, $newUsername)
-            );
-            $result = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
-            if ($result && $result->num_rows > 0) {
-                response::error("Username already in use.");
-            }
-        }
-
-        $newPasswordHash = password_hash($newPassword, PASSWORD_DEFAULT);
-        $q = Database::prepare(
-            Database::get(),
-            "UPDATE ? SET username = '?', password = '?' WHERE username = '?'",
-            array(LYCHEE_TABLE_USERS, $newUsername, $newPasswordHash, $currentUsername)
-        );
-        $result = Database::execute(Database::get(), $q, __METHOD__, __LINE__);
-        if ($result !== false) {
-            return true;
-        } else {
-            response::error("Failed to update account credentials");
-        }
-
-    }
 
 }

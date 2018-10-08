@@ -73,29 +73,25 @@ final class Settings {
         );
 	    $count = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
 
-	    if ($count) {
-            if ($count->num_rows === 0) {
-                // no user account exists, no need to check old password.
-                if (Session::createUser($username, $password)) {
+        if ($count && $count->num_rows === 0) {
+            // No user accounts exists, create the first user.
+            if (User::createUser($username, $password)) {
+                return true;
+            } else {
+                Response::error("Failed to create new user");
+            }
+        } else {
+            // User accounts exist, this must be an account update request.
+            if (isset($_SESSION['username']) && Session::checkCredentials($_SESSION['username'], $oldPassword)) {
+                if (User::changeAccount($_SESSION['username'], $username, $password)) {
                     return true;
                 } else {
-                    Response::error("Failed to create new user");
+                    Response::error("Failed to update password");
                 }
             } else {
-                // User accounts exist, then this is an account change.
-                if (isset($_SESSION['username']) && Session::checkCredentials($_SESSION['username'], $oldPassword)) {
-                    if (Session::changeAccount($_SESSION['username'], $username, $password)) {
-                        return true;
-                    } else {
-                        Response::error("Failed to update password");
-                    }
-                } else {
-                    Response::error("Old password incorrect");
-                }
+                Response::error('Current password entered incorrectly!');
             }
         }
-
-		Response::error('Current password entered incorrectly!');
 	}
 
 	/**

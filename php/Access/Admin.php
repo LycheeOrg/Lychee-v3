@@ -10,6 +10,7 @@ use Lychee\Modules\Response;
 use Lychee\Modules\Session;
 use Lychee\Modules\Settings;
 use Lychee\Modules\Validator;
+use Lychee\Modules\User;
 
 final class Admin extends Access {
 
@@ -48,11 +49,16 @@ final class Admin extends Access {
 			// Search functions
 			case 'search':                  self::searchAction(); break;
 
+			// Users functions
+            case 'Users::get':              self::listUsersAction(); break;
+
+            // User functions
+            case 'User::createMod':        self::createUserAction(); break;
+
 			// Session functions
 			case 'Session::init':           self::initAction(); break;
 			case 'Session::login':          self::loginAction(); break;
 			case 'Session::logout':         self::logoutAction(); break;
-            case 'Session::createUser':     self::createUserAction(); break;
 
 			// Settings functions
 			case 'Settings::setLang':      	self::setLangAction(); break;
@@ -293,7 +299,12 @@ final class Admin extends Access {
 
 	private static function createUserAction() {
 	    Validator::required(isset($_POST['username'], $_POST['password']), __METHOD__);
-        Response::json(Session::createUser($_POST['username'], $_POST['password']));
+        Response::json(User::createUser($_POST['username'], $_POST['password']));
+    }
+
+    private static function listUsersAction() {
+        Validator::required(isset($_POST['username'], $_POST['password']), __METHOD__);
+        Response::json(User::listAllUsers());
     }
 
 	// Settings functions

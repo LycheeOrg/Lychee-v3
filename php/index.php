@@ -10,6 +10,7 @@ namespace Lychee;
 use Lychee\Modules\Config;
 use Lychee\Modules\Response;
 use Lychee\Modules\Settings;
+use Lychee\Modules\User;
 use Lychee\Modules\Validator;
 
 use Lychee\Access\Installation;
