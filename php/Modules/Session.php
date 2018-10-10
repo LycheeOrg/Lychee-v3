@@ -73,17 +73,12 @@ final class Session {
 
 		// Call plugins
 		Plugins::get()->activate(__METHOD__, 0, func_get_args());
-
-		$username_crypt = crypt($username, Settings::get()['username']);
-		$password_crypt = crypt($password, Settings::get()['password']);
-
-		// Check login with crypted hash
-		if (Settings::get()['username']===$username_crypt&&
-			Settings::get()['password']===$password_crypt) {
-				$_SESSION['login']      = true;
-				$_SESSION['identifier'] = Settings::get()['identifier'];
-				Log::notice(Database::get(), __METHOD__, __LINE__, 'User (' . $username . ') has logged in from ' . $_SERVER['REMOTE_ADDR']);
-				return true;
+		if (($user = self::checkCredentials($username, $password)) !== false) {
+			$_SESSION['login']      = true;
+			$_SESSION['identifier'] = Settings::get()['identifier'];
+			$_SESSION['username']   = $user['username'];
+			Log::notice(Database::get(), __METHOD__, __LINE__, 'User (' . $username . ') has logged in from ' . $_SERVER['REMOTE_ADDR']);
+			return true;
 		}
 
 		// No login
@@ -100,21 +95,54 @@ final class Session {
 	}
 
 	/**
+	 * Check if credentials are valid or not.
+	 * @param $username
+	 * @param $password
+	 *
+	 * @return array|bool Returns user array on success, bool on error.
+	 */
+	public static function checkCredentials($username, $password) {
+		//Find user based on username and password.
+		$query = Database::prepare(
+			Database::get(),
+			"SELECT id, username, password FROM ? WHERE username = '?'",
+			array(LYCHEE_TABLE_USERS, $username)
+		);
+
+		$accounts = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
+
+		if ($accounts && $accounts->num_rows === 1) {
+			$account = $accounts->fetch_assoc();
+			if ($account && isset($account['password']) && password_verify($password, $account['password'])) {
+				unset($account['password']);
+				return $account;
+			}
+		} elseif ($accounts->num_rows > 1) {
+			Log::error(Database::get(), __METHOD__, __LINE__, 'There are multiple users with the username (' . $username . ')');
+		}
+
+		return false;
+	}
+
+	/**
 	 * Sets the session values when no there is no username and password in the database.
 	 * @return boolean Returns true when no login was found.
 	 */
 	private function noLogin() {
 
-		// Check if login credentials exist and login if they don't
-		if (Settings::get()['username']===''&&
-			Settings::get()['password']==='') {
-				$_SESSION['login']      = true;
-				$_SESSION['identifier'] = Settings::get()['identifier'];
-				return true;
+		$q = Database::prepare(
+			Database::get(),
+			"SELECT * FROM ?",
+			array(LYCHEE_TABLE_USERS)
+		);
+
+		$accounts = Database::execute(Database::get(), $q, __METHOD__, __LINE__);
+		if ($accounts && $accounts->num_rows === 0) {
+			$_SESSION['login']      = true;
+			$_SESSION['identifier'] = Settings::get()['identifier'];
+			return true;
 		}
-
 		return false;
-
 	}
 
 	/**
@@ -135,5 +163,10 @@ final class Session {
 		return true;
 
 	}
+
+
+
+
+
 
 }

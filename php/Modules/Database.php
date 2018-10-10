@@ -18,6 +18,7 @@ final class Database {
 		'030102', // 3.1.2
 		'030108', // 3.1.8
 		'030109', // 3.1.9
+		'030110', // 3.10.0
 	);
 
 	/**
@@ -153,7 +154,7 @@ final class Database {
 		Validator::required(isset($connection), __METHOD__);
 
 		// Check if tables exist
-		$query  = self::prepare($connection, 'SELECT * FROM ?, ?, ?, ? LIMIT 0', array(LYCHEE_TABLE_PHOTOS, LYCHEE_TABLE_ALBUMS, LYCHEE_TABLE_SETTINGS, LYCHEE_TABLE_LOG));
+		$query  = self::prepare($connection, 'SELECT * FROM ?, ?, ?, ? LIMIT 0', array(LYCHEE_TABLE_PHOTOS, LYCHEE_TABLE_ALBUMS, LYCHEE_TABLE_SETTINGS, LYCHEE_TABLE_LOG, LYCHEE_TABLE_USERS));
 		$result = self::execute($connection, $query, null, null);
 		if ($result!==false) return true;
 
@@ -262,6 +263,29 @@ final class Database {
 
 			// Create table
 			$query  = self::prepare($connection, $query, array(LYCHEE_TABLE_PHOTOS));
+			$result = self::execute($connection, $query, __METHOD__, __LINE__);
+
+			if ($result===false) return false;
+
+		}
+
+		// Check if users table exists
+		$exist  = self::prepare($connection, 'SELECT * FROM ? LIMIT 0', array(LYCHEE_TABLE_USERS));
+		$result = self::execute($connection, $exist, __METHOD__, __LINE__);
+
+		if ($result===false) {
+
+			// Read file
+			$file  = __DIR__ . '/../database/users_table.sql';
+			$query = @file_get_contents($file);
+
+			if ($query===false) {
+				Log::error($connection, __METHOD__, __LINE__, 'Could not load query for lychee_users');
+				return false;
+			}
+
+			// Create table
+			$query  = self::prepare($connection, $query, array(LYCHEE_TABLE_USERS));
 			$result = self::execute($connection, $query, __METHOD__, __LINE__);
 
 			if ($result===false) return false;
@@ -395,7 +419,7 @@ final class Database {
 	}
 
 	/**
-	 * @return object|false Returns the results on success.
+	 * @return \mysqli_result|false Returns the results on success.
 	 */
 	public static function execute($connection, $query, $function, $line) {
 
@@ -416,6 +440,17 @@ final class Database {
 
 		return $result;
 
+	}
+
+	/**
+	 * Check if there is an error on the connection provided.
+	 * @param $connection mysqli
+	 *
+	 * @return bool|string error code if error present, else false.
+	 */
+	public static function error($connection = null) {
+		$connection = is_null($connection) ? Database::get() : $connection;
+		return $connection->errno !== 0 ? $connection->error : false;
 	}
 
 }
