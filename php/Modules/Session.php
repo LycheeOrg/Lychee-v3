@@ -74,16 +74,11 @@ final class Session {
 		// Call plugins
 		Plugins::get()->activate(__METHOD__, 0, func_get_args());
 
-		$username_crypt = crypt($username, Settings::get()['username']);
-		$password_crypt = crypt($password, Settings::get()['password']);
-
-		// Check login with crypted hash
-		if (Settings::get()['username']===$username_crypt&&
-			Settings::get()['password']===$password_crypt) {
-				$_SESSION['login']      = true;
-				$_SESSION['identifier'] = Settings::get()['identifier'];
-				Log::notice(Database::get(), __METHOD__, __LINE__, 'User (' . $username . ') has logged in from ' . $_SERVER['REMOTE_ADDR']);
-				return true;
+		if (password_verify($username, Settings::get()['username']) and password_verify($password, Settings::get()['password'])) {
+			$_SESSION['login']      = true;
+			$_SESSION['identifier'] = Settings::get()['identifier'];
+			Log::notice(Database::get(), __METHOD__, __LINE__, 'User (' . $username . ') has logged in from ' . $_SERVER['REMOTE_ADDR']);
+			return true;
 		}
 
 		// No login
@@ -96,7 +91,6 @@ final class Session {
 		Log::error(Database::get(), __METHOD__, __LINE__, 'User (' . $username . ') has tried to log in from ' . $_SERVER['REMOTE_ADDR']);
 
 		return false;
-
 	}
 
 	/**
