@@ -65,10 +65,9 @@ final class Settings {
 	 * Exits on error.
 	 * @return true Returns true when successful.
 	 */
-	public static function setLogin($oldPassword = '', $username, $password) {
+	public static function setLogin($oldPassword, $username, $password) {
 
-		if ($oldPassword===self::get()['password']||self::get()['password']===crypt($oldPassword, self::get()['password'])) {
-
+		if ((self::get()['password'] === '') or password_verify($oldPassword, self::get()['password'])) {
 			// Save username
 			if (self::setUsername($username)===false) Response::error('Updating username failed!');
 
@@ -76,7 +75,6 @@ final class Settings {
 			if (self::setPassword($password)===false) Response::error('Updating password failed!');
 
 			return true;
-
 		}
 
 		Response::error('Current password entered incorrectly!');
