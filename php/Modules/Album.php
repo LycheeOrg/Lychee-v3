@@ -573,7 +573,7 @@ final class Album {
 		Plugins::get()->activate(__METHOD__, 1, func_get_args());
 
 		// Check if password is correct
-		if ($album->password==='') return true;
+		if ($album->password===NULL || $album->password === '') return true;
 		return password_verify($password, $album->password);
 
 	}
