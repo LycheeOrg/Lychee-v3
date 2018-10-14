@@ -10,7 +10,7 @@ define('LYCHEE_STATUS_LOGGEDIN', 2);
 
 // Define dirs
 define('LYCHEE_DATA', LYCHEE . 'data/');
-define('LYCHEE_SRC', LYCHEE . 'src/');
+define('LYCHEE_SRC', LYCHEE . 'Lychee-front/');
 define('LYCHEE_UPLOADS', LYCHEE . 'uploads/');
 define('LYCHEE_UPLOADS_BIG', LYCHEE_UPLOADS . 'big/');
 define('LYCHEE_UPLOADS_MEDIUM', LYCHEE_UPLOADS . 'medium/');

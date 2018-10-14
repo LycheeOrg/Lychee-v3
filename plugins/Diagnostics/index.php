@@ -11,6 +11,7 @@ namespace Diagnostics;
 use Mysqli;
 use Imagick;
 use Lychee\Modules\Settings;
+use Lychee\Modules\Database;
 
 $lychee = __DIR__ . '/../../';
 
@@ -127,16 +128,23 @@ if ((isset($_SESSION['login'])&&$_SESSION['login']===true)&&
 	else                                                                                 $imagickVersion = $imagickVersion['versionNumber'];
 
 	// Output system information
-	echo('Lychee Version:  ' . $json['version'] . PHP_EOL);
-	echo('DB Version:      ' . $settings['version'] . PHP_EOL);
-	echo('System:          ' . PHP_OS . PHP_EOL);
-	echo('PHP Version:     ' . floatval(phpversion()) . PHP_EOL);
-	echo('MySQL Version:   ' . $database->server_version . PHP_EOL);
-	echo('Imagick:         ' . $imagick . PHP_EOL);
-	echo('Imagick Active:  ' . $settings['imagick'] . PHP_EOL);
-	echo('Imagick Version: ' . $imagickVersion . PHP_EOL);
-	echo('GD Version:      ' . $gdVersion['GD Version'] . PHP_EOL);
-	echo('Plugins:         ' . implode($settings['plugins'], ', ') . PHP_EOL);
+	if($json['version'] == NULL)
+	{
+		echo (LYCHEE_SRC . 'package.json not found. Please do: git submodule init ; git submodule update' . PHP_EOL);
+	}
+	else
+	{
+	echo('Lychee Version (json):  ' . $json['version'] . PHP_EOL);
+	}
+	echo('DB Version:             ' . $settings['version'] . PHP_EOL);
+	echo('System:                 ' . PHP_OS . PHP_EOL);
+	echo('PHP Version:            ' . floatval(phpversion()) . PHP_EOL);
+	echo('MySQL Version:          ' . $database->server_version . PHP_EOL);
+	echo('Imagick:                ' . $imagick . PHP_EOL);
+	echo('Imagick Active:         ' . $settings['imagick'] . PHP_EOL);
+	echo('Imagick Version:        ' . $imagickVersion . PHP_EOL);
+	echo('GD Version:             ' . $gdVersion['GD Version'] . PHP_EOL);
+	echo('Plugins:                ' . implode($settings['plugins'], ', ') . PHP_EOL);
 
 } else {
 
