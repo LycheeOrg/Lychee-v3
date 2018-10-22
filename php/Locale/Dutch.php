@@ -216,7 +216,7 @@ final class Dutch
             'SORT_ALBUM_SELECT_3'		      => 'Omschrijving',
             'SORT_ALBUM_SELECT_4'		      => 'Publiekelijk',
             'SORT_ALBUM_SELECT_5'		      => 'Nieuwste foto datum',
-            'SORT_ALBUM_SELECT_5'		      => 'Oudste foto datum',
+            'SORT_ALBUM_SELECT_6'		      => 'Oudste foto datum',
 
 
             'SORT_PHOTO_BY_1'			      => 'Sorteer albums op',
