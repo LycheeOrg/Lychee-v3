@@ -47,7 +47,10 @@ Lychee uses [Imagick](https://www.imagemagick.org) when installed on your server
 
 ### Docker
 
-Browse the [Docker Hub Registry](https://hub.docker.com/r/kdelfour/lychee-docker/) for various automated Lychee-Docker builds. We recommend using [lychee-docker](https://hub.docker.com/r/kdelfour/lychee-docker/) by [kdelfour](https://github.com/kdelfour).
+Browse the [Docker Hub Registry](https://hub.docker.com/r/) for various automated Lychee-Docker builds.
+Various docker builds include :
+- [LinuxServer.io build](https://hub.docker.com/r/linuxserver/lychee/)
+- [ARMHF based Linuxserver.io build](https://hub.docker.com/r/lsioarmhf/lychee/)
 
 ### Plugins and Extensions
 
