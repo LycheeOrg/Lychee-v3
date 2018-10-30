@@ -38,7 +38,7 @@ if (!empty($fn)) {
 
 	session_name('lychee');
         // Start the session and set the default timezone
-        if (session_id() =='') {
+        if (session_id() == '') {
             session_start();
         }
 	date_default_timezone_set('UTC');
