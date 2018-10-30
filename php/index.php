@@ -36,8 +36,11 @@ else                               $fn = null;
 // Check if a function has been specified
 if (!empty($fn)) {
 
-	// Start the session and set the default timezone
-	session_start();
+	session_name('lychee');
+        // Start the session and set the default timezone
+        if (session_id() =='') {
+            session_start();
+        }
 	date_default_timezone_set('UTC');
 
 	// Validate parameters
