@@ -27,8 +27,8 @@ final class Photo {
 		'.jpeg',
 		'.png',
 		'.gif',
-        '.ogv',
-        '.mp4',
+		'.ogv',
+		'.mp4',
 		'.webm'
 	);
 
@@ -264,7 +264,7 @@ final class Photo {
 
 		if ($result===false) {
 			if ($returnOnError===true) return false;
-			Response::error($result.$photo_name.$id.'Could not save photo in database!');
+			Response::error('Could not save photo in database!');
 		}
 
 		// Update takestamp info of album
