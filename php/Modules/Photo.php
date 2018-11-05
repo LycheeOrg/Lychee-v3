@@ -17,7 +17,7 @@ final class Photo {
 	);
 
 	public static $validVideoTypes = array(
-	    "video/mp4",
+		"video/mp4",
 		"video/ogg",
 		"video/webm"
     );
@@ -217,8 +217,6 @@ final class Photo {
 		}
 
 		// Read infos
-        error_log(implode(',', $file));
-        error_log(implode(',', array_keys($file)));
 		$info = $this->getInfo($path);
 
 		// Use title of file if IPTC title missing
