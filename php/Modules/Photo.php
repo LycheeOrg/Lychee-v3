@@ -16,13 +16,20 @@ final class Photo {
 		IMAGETYPE_PNG
 	);
 
+	public static $validVideoTypes = array(
+	    "video/mp4",
+		"video/ogg",
+		"video/webm"
+    );
+
 	public static $validExtensions = array(
 		'.jpg',
 		'.jpeg',
 		'.png',
 		'.gif',
-        '.avi',
-        '.mp4'
+        '.ogv',
+        '.mp4',
+		'.webm'
 	);
 
 	/**
@@ -133,13 +140,16 @@ final class Photo {
 			Response::error('Photo format not supported!');
 		}
 
+		// Verify video
+        if(!in_array($file['type'], self::$validVideoTypes, true)){
 		// Verify image
-//		$type = @exif_imagetype($file['tmp_name']);
-//		if (!in_array($type, self::$validTypes, true)) {
-//			Log::error(Database::get(), __METHOD__, __LINE__, 'Photo type not supported');
-//			if ($returnOnError===true) return false;
-//			Response::error('Photo type not supported!');
-//		}
+            $type = @exif_imagetype($file['tmp_name']);
+            if (!in_array($type, self::$validTypes, true)) {
+                Log::error(Database::get(), __METHOD__, __LINE__, 'Photo type not supported');
+                if ($returnOnError===true) return false;
+                Response::error('Photo type not supported!'.$file['type']);
+            }
+        }
 
 		// Generate id
 		$id = generateID();
@@ -227,10 +237,12 @@ final class Photo {
 			if ($info['takestamp']!==''&&$info['takestamp']!==0) @touch($path, $info['takestamp']);
 
 			// Create Thumb
-            if ($file['type']!=='video/mp4'&&!$this->createThumb($path, $photo_name, $info['type'], $info['width'], $info['height'])) {
-				Log::error(Database::get(), __METHOD__, __LINE__, 'Could not create thumbnail for photo');
-				if ($returnOnError===true) return false;
-				Response::error($file['type'].'Could not create thumbnail for photo!');
+            if(!in_array($file['type'], self::$validVideoTypes, true)){
+				if (!$this->createThumb($path, $photo_name, $info['type'], $info['width'], $info['height'])){
+					Log::error(Database::get(), __METHOD__, __LINE__, 'Could not create thumbnail for photo');
+					if ($returnOnError===true) return false;
+					Response::error($file['type'].'Could not create thumbnail for photo!');
+				}
 			}
 
 			// Create Medium
@@ -242,14 +254,13 @@ final class Photo {
 
 		}
 
-		if($file['type']!=='video/mp4'){
-		$values = array(LYCHEE_TABLE_PHOTOS, $id, $info['title'], $photo_name, $info['description'], $info['tags'], $info['type'], $info['width'], $info['height'], $info['size'], $info['iso'], $info['aperture'], $info['make'], $info['model'], $info['shutter'], $info['focal'], $info['takestamp'], $path_thumb, $albumID, $public, $star, $checksum, $medium);
-		$query  = Database::prepare(Database::get(), "INSERT INTO ? (id, title, url, description, tags, type, width, height, size, iso, aperture, make, model, shutter, focal, takestamp, thumbUrl, album, public, star, checksum, medium) VALUES ('?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?')", $values);
-		$result = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
-
-        } else {
-            $values = array(LYCHEE_TABLE_PHOTOS, $id, $info['title'], $photo_name, $file['type'], $info['size'], time(),  '../../../../play-image.png');
-            $query  = Database::prepare(Database::get(), "INSERT INTO ? (id, title, url, description, tags, type, width, height, size, iso, aperture, make, model, shutter, focal, takestamp, thumbUrl, album, public, star, checksum, medium) VALUES ('?', '?', '?', '', '', '?', 0, 0, '?', '', '', '', '', '', '', '?', '?', 0, 0, 0, '', 0)", $values);
+		if(!in_array($file['type'], self::$validVideoTypes, true)){
+			$values = array(LYCHEE_TABLE_PHOTOS, $id, $info['title'], $photo_name, $info['description'], $info['tags'], $info['type'], $info['width'], $info['height'], $info['size'], $info['iso'], $info['aperture'], $info['make'], $info['model'], $info['shutter'], $info['focal'], $info['takestamp'], $path_thumb, $albumID, $public, $star, $checksum, $medium);
+			$query  = Database::prepare(Database::get(), "INSERT INTO ? (id, title, url, description, tags, type, width, height, size, iso, aperture, make, model, shutter, focal, takestamp, thumbUrl, album, public, star, checksum, medium) VALUES ('?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?')", $values);
+			$result = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
+		} else {
+            $values = array(LYCHEE_TABLE_PHOTOS, $id, $info['title'], $photo_name, $file['type'], $info['size'], time(),  '../../play-icon.png', $albumID);
+            $query  = Database::prepare(Database::get(), "INSERT INTO ? (id, title, url, description, tags, type, width, height, size, iso, aperture, make, model, shutter, focal, takestamp, thumbUrl, album, public, star, checksum, medium) VALUES ('?', '?', '?', '', '', '?', 0, 0, '?', '', '', '', '', '', '', '?', '?', '?', 0, 0, '', 0)", $values);
             $result = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
         }
 
