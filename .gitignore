@@ -17,3 +17,5 @@ plugins/*
 
 !plugins/Diagnostics/
 !plugins/Log/
+
+php/vendor/*
