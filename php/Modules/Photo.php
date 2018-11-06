@@ -1288,7 +1288,7 @@ final class Photo {
 		$error = false;
 
 		// Get photos
-		$query  = Database::prepare(Database::get(), "SELECT id, url, thumbUrl, checksum, album FROM ? WHERE id IN (?)", array(LYCHEE_TABLE_PHOTOS, $this->photoIDs));
+		$query  = Database::prepare(Database::get(), "SELECT id, url, type, thumbUrl, checksum, album FROM ? WHERE id IN (?)", array(LYCHEE_TABLE_PHOTOS, $this->photoIDs));
 		$photos = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
 		$albums = array();
 
