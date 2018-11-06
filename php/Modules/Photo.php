@@ -257,7 +257,7 @@ final class Photo {
 			$query  = Database::prepare(Database::get(), "INSERT INTO ? (id, title, url, description, tags, type, width, height, size, iso, aperture, make, model, shutter, focal, takestamp, thumbUrl, album, public, star, checksum, medium) VALUES ('?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?')", $values);
 			$result = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
 		} else {
-            $values = array(LYCHEE_TABLE_PHOTOS, $id, $info['title'], $photo_name, $file['type'], $info['size'], time(),  '../../'.$photo_name, $albumID, $public, $star, $checksum, $medium);
+            $values = array(LYCHEE_TABLE_PHOTOS, $id, $info['title'], $photo_name, $file['type'], $info['size'], time(),  '', $albumID, $public, $star, $checksum, $medium);
             $query  = Database::prepare(Database::get(), "INSERT INTO ? (id, title, url, description, tags, type, width, height, size, iso, aperture, make, model, shutter, focal, takestamp, thumbUrl, album, public, star, checksum, medium) VALUES ('?', '?', '?', '', '', '?', 0, 0, '?', '', '', '', '', '', '', '?', '?', '?', '?', '?', '?', '?')", $values);
             $result = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
         }

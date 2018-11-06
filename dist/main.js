@@ -25,9 +25,9 @@ var _templateObject = _taggedTemplateLiteral(["<p>"], ["<p>"]),
     _templateObject4 = _taggedTemplateLiteral(["<div class='divider'><h1>", "</h1></div>"], ["<div class='divider'><h1>", "</h1></div>"]),
     _templateObject5 = _taggedTemplateLiteral(["<div id='", "' class='edit'>", "</div>"], ["<div id='", "' class='edit'>", "</div>"]),
     _templateObject6 = _taggedTemplateLiteral(["<div id='multiselect' style='top: ", "px; left: ", "px;'></div>"], ["<div id='multiselect' style='top: ", "px; left: ", "px;'></div>"]),
-    _templateObject7 = _taggedTemplateLiteral(["\n\t        <div class='album' data-id='", "'>\n\t              ", "\n\t              ", "\n\t              ", "\n\t            <div class='overlay'>\n\t                <h1 title='", "'>", "</h1>\n\t                <a>", "</a>\n\t            </div>\n\t        "], ["\n\t        <div class='album' data-id='", "'>\n\t              ", "\n\t              ", "\n\t              ", "\n\t            <div class='overlay'>\n\t                <h1 title='", "'>", "</h1>\n\t                <a>", "</a>\n\t            </div>\n\t        "]),
+    _templateObject7 = _taggedTemplateLiteral(["\n\t        <div class='album' data-id='", "'>\n<<<<<<< HEAD\n\t              ", "\n\t              ", "\n\t              ", "\n=======\n\t              ", "\n\t              ", "\n\t              ", "\n>>>>>>> 739369b20b244e8839cd918ecc2fb80b57d4ce8b\n\t            <div class='overlay'>\n\t                <h1 title='", "'>", "</h1>\n\t                <a>", "</a>\n\t            </div>\n\t        "], ["\n\t        <div class='album' data-id='", "'>\n<<<<<<< HEAD\n\t              ", "\n\t              ", "\n\t              ", "\n=======\n\t              ", "\n\t              ", "\n\t              ", "\n>>>>>>> 739369b20b244e8839cd918ecc2fb80b57d4ce8b\n\t            <div class='overlay'>\n\t                <h1 title='", "'>", "</h1>\n\t                <a>", "</a>\n\t            </div>\n\t        "]),
     _templateObject8 = _taggedTemplateLiteral(["\n\t\t        <div class='badges'>\n\t\t            <a class='badge ", " icn-star'>", "</a>\n\t\t            <a class='badge ", " ", " icn-share'>", "</a>\n\t\t            <a class='badge ", "'>", "</a>\n\t\t            <a class='badge ", "'>", "</a>\n\t\t            <a class='badge ", "'>", "</a>\n\t\t        </div>\n\t\t        "], ["\n\t\t        <div class='badges'>\n\t\t            <a class='badge ", " icn-star'>", "</a>\n\t\t            <a class='badge ", " ", " icn-share'>", "</a>\n\t\t            <a class='badge ", "'>", "</a>\n\t\t            <a class='badge ", "'>", "</a>\n\t\t            <a class='badge ", "'>", "</a>\n\t\t        </div>\n\t\t        "]),
-    _templateObject9 = _taggedTemplateLiteral(["\n\t        <div class='photo' data-album-id='", "' data-id='", "' test=\"test\">\n\t            ", "\n\t            <!--<img src='", "' srcset='", " 1.5x' width='200' height='200' alt='Photo thumbnail' draggable='false'>-->\n\t            <div class='overlay'>\n\t                <h1 title='", "'>", "</h1>\n\t        "], ["\n\t        <div class='photo' data-album-id='", "' data-id='", "' test=\"test\">\n\t            ", "\n\t            <!--<img src='", "' srcset='", " 1.5x' width='200' height='200' alt='Photo thumbnail' draggable='false'>-->\n\t            <div class='overlay'>\n\t                <h1 title='", "'>", "</h1>\n\t        "]),
+    _templateObject9 = _taggedTemplateLiteral(["\n\t        <div class='photo' data-album-id='", "' data-id='", "' test=\"test\">\n<<<<<<< HEAD\n\t            ", "\n\t            <!--<img src='", "' srcset='", " 1.5x' width='200' height='200' alt='Photo thumbnail' draggable='false'>-->\n=======\n\t            ", "\n\t            <!-- <img src='", "' srcset='", " 1.5x' width='200' height='200' alt='Photo thumbnail' draggable='false'> -->\n>>>>>>> 739369b20b244e8839cd918ecc2fb80b57d4ce8b\n\t            <div class='overlay'>\n\t                <h1 title='", "'>", "</h1>\n\t        "], ["\n\t        <div class='photo' data-album-id='", "' data-id='", "' test=\"test\">\n<<<<<<< HEAD\n\t            ", "\n\t            <!--<img src='", "' srcset='", " 1.5x' width='200' height='200' alt='Photo thumbnail' draggable='false'>-->\n=======\n\t            ", "\n\t            <!-- <img src='", "' srcset='", " 1.5x' width='200' height='200' alt='Photo thumbnail' draggable='false'> -->\n>>>>>>> 739369b20b244e8839cd918ecc2fb80b57d4ce8b\n\t            <div class='overlay'>\n\t                <h1 title='", "'>", "</h1>\n\t        "]),
     _templateObject10 = _taggedTemplateLiteral(["<a><span title='Camera Date'>", "</span>", "</a>"], ["<a><span title='Camera Date'>", "</span>", "</a>"]),
     _templateObject11 = _taggedTemplateLiteral(["<a>", "</a>"], ["<a>", "</a>"]),
     _templateObject12 = _taggedTemplateLiteral(["\n\t\t        <div class='badges'>\n\t\t            <a class='badge ", " icn-star'>", "</a>\n\t\t            <a class='badge ", " icn-share'>", "</a>\n\t\t        </div>\n\t\t        "], ["\n\t\t        <div class='badges'>\n\t\t            <a class='badge ", " icn-star'>", "</a>\n\t\t            <a class='badge ", " icn-share'>", "</a>\n\t\t        </div>\n\t\t        "]),
@@ -990,11 +990,12 @@ build.multiselect = function (top, left) {
 	return lychee.html(_templateObject6, top, left);
 };
 
-build.getThumbnailHtml = function (thumb) {
-	if (thumb.indexOf('mp4') === -1 && thumb.indexOf('ogv') === -1 && thumb.indexOf('webm') === -1) {
-		return "<img src='" + thumb + "' width='200' height='200' alt='Photo thumbnail' data-overlay='false' draggable='false'>";
+build.getThumbnailHtml = function (thumb, retinaThumbUrl) {
+	var thumbU = thumb.toUpperCase();
+	if (thumb !== 'uploads/thumb/' && thumbU.length && thumbU.indexOf('MP4') === -1 && thumbU.indexOf('OGV') === -1 && thumbU.indexOf('WEBM') === -1) {
+		return "<img src='" + thumb + "' srcset='" + retinaThumbUrl + " 1.5x' width='200' height='200' alt='Photo thumbnail' data-overlay='false' draggable='false'>";
 	} else {
-		return "<video width=\"200\" height=\"200\" id='image'  data-overlay='false' preload=\"metadata\">\n\t\t\t\t\t\t\t<source src='uploads/big/" + thumb + "#t=50' type=\"video/mp4\">Your browser does not support the video tag.</video><span></span>";
+		return "<span class=\"video\" width='200' height='200' alt='Video thumbnail' data-overlay='false' class=\"\" draggable='false'></span><span></span>";
 	}
 };
 
@@ -1025,7 +1026,7 @@ build.album = function (data) {
 		}
 	}
 
-	html += lychee.html(_templateObject7, data.id, build.getThumbnailHtml(data.thumbs[2]), build.getThumbnailHtml(data.thumbs[1]), build.getThumbnailHtml(data.thumbs[0]), data.title, data.title, date_stamp);
+	html += lychee.html(_templateObject7, data.id, build.getThumbnailHtml(data.thumbs[2]), build.getThumbnailHtml(data.thumbs[1]), build.getThumbnailHtml(data.thumbs[0]), build.getThumbnailHtml(data.thumbs[2], data.thumbs[2]), build.getThumbnailHtml(data.thumbs[1], data.thumbs[1]), build.getThumbnailHtml(data.thumbs[0], data.thumbs[0]), data.title, data.title, date_stamp);
 
 	if (lychee.publicMode === false) {
 
@@ -1044,7 +1045,7 @@ build.photo = function (data) {
 	var _lychee$retinize2 = lychee.retinize(data.thumbUrl),
 	    retinaThumbUrl = _lychee$retinize2.path;
 
-	html += lychee.html(_templateObject9, data.album, data.id, build.getThumbnailHtml(data.thumbUrl), data.thumbUrl, retinaThumbUrl, data.title, data.title);
+	html += lychee.html(_templateObject9, data.album, data.id, build.getThumbnailHtml(data.thumbUrl), data.thumbUrl, retinaThumbUrl, build.getThumbnailHtml(data.thumbUrl, retinaThumbUrl), data.thumbUrl, retinaThumbUrl, data.title, data.title);
 
 	if (data.cameraDate === '1') html += lychee.html(_templateObject10, build.iconic('camera-slr'), data.sysdate);else html += lychee.html(_templateObject11, data.sysdate);
 
