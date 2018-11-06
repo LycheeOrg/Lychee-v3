@@ -70,7 +70,7 @@ final class French
             'DELETE'						=> 'Supprimer',
             'DELETE_ALL'					=> 'Tout supprimer',
             'DOWNLOAD'						=> 'Télécharger',
-            'UPLOAD_PHOTO'					=> 'Ajouter une photo',
+            'UPLOAD_PHOTO'					=> 'Ajouter une photo ou une vidéo',
             'IMPORT_LINK'					=> 'Importer depuis un lien',
             'IMPORT_DROPBOX'				=> 'Importer depuis Dropbox',
             'IMPORT_SERVER'					=> 'Importer depuis le serveur',
