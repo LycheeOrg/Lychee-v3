@@ -19,7 +19,8 @@ final class Photo {
 	public static $validVideoTypes = array(
 		"video/mp4",
 		"video/ogg",
-		"video/webm"
+		"video/webm",
+		"video/quicktime"
     );
 
 	public static $validExtensions = array(
@@ -29,7 +30,8 @@ final class Photo {
 		'.gif',
 		'.ogv',
 		'.mp4',
-		'.webm'
+		'.webm',
+		'.mov'
 	);
 
 	/**
