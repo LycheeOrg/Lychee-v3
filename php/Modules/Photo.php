@@ -2,9 +2,11 @@
 
 namespace Lychee\Modules;
 
+use Exception;
 use ZipArchive;
 use Imagick;
 use ImagickPixel;
+use FFMpeg;
 
 final class Photo {
 
@@ -243,6 +245,10 @@ final class Photo {
 					if ($returnOnError===true) return false;
 					Response::error($file['type'].'Could not create thumbnail for photo!');
 				}
+			}else if (!$this->createVideoThumb($path, $id)){
+					Log::error(Database::get(), __METHOD__, __LINE__, 'Could not create thumbnail for video');
+					if ($returnOnError===true) return false;
+					Response::error($file['type'].'Could not create thumbnail for video!');
 			}
 
 			// Create Medium
@@ -259,7 +265,7 @@ final class Photo {
 			$query  = Database::prepare(Database::get(), "INSERT INTO ? (id, title, url, description, tags, type, width, height, size, iso, aperture, make, model, shutter, focal, takestamp, thumbUrl, album, public, star, checksum, medium) VALUES ('?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?')", $values);
 			$result = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
 		} else {
-            $values = array(LYCHEE_TABLE_PHOTOS, $id, $info['title'], $photo_name, $file['type'], $info['size'], time(),  '', $albumID, $public, $star, $checksum, $medium);
+            $values = array(LYCHEE_TABLE_PHOTOS, $id, $info['title'], $photo_name, $file['type'], $info['size'], time(),  $path_thumb, $albumID, $public, $star, $checksum, $medium);
             $query  = Database::prepare(Database::get(), "INSERT INTO ? (id, title, url, description, tags, type, width, height, size, iso, aperture, make, model, shutter, focal, takestamp, thumbUrl, album, public, star, checksum, medium) VALUES ('?', '?', '?', '', '', '?', 0, 0, '?', '', '', '', '', '', '', '?', '?', '?', '?', '?', '?', '?')", $values);
             $result = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
         }
@@ -406,6 +412,32 @@ final class Photo {
 
 		return true;
 
+	}
+
+	/**
+	 * @return boolean Returns true when successful.
+	 */
+	private function createVideoThumb($path, $id) {
+		try{
+			$ffprobe = FFMpeg\FFProbe::create();
+			$ffmpeg = FFMpeg\FFMpeg::create();
+			$duration = $ffprobe
+				->format($path) // extracts file informations
+				->get('duration');
+			$dimension = new FFMpeg\Coordinate\Dimension(200, 200);
+			$video = $ffmpeg->open($path);
+			$video->filters()->resize($dimension)->synchronize();
+			$frame = $video->frame(FFMpeg\Coordinate\TimeCode::fromSeconds($duration/2));
+			$frame->save(sys_get_temp_dir() . '/'. md5($id) . '.jpeg');
+			$info = $this->getInfo(sys_get_temp_dir() . '/'. md5($id) . '.jpeg');
+			if (!$this->createThumb(sys_get_temp_dir() . '/'. md5($id) . '.jpeg', md5($id) . '.jpeg', $info['type'], $info['width'], $info['height'])){
+				Log::error(Database::get(), __METHOD__, __LINE__, 'Could not create thumbnail for photo');
+			}
+			return true;
+		}
+		catch (Exception $exception) {
+			return false;
+		}
 	}
 
 	/**
@@ -677,6 +709,7 @@ final class Photo {
 		$photo['public'] = $data['public'];
 		$photo['star']   = $data['star'];
 		$photo['album']  = $data['album'];
+		$photo['type']  = $data['type'];
 
 		// Parse medium
 		if ($data['medium']==='1') $photo['medium'] = LYCHEE_URL_UPLOADS_MEDIUM . $data['url'];
@@ -1320,11 +1353,9 @@ final class Photo {
 				}
 
 				// Delete thumb
-				if(!in_array($photo->type, self::$validVideoTypes, true)) {
-					if (file_exists(LYCHEE_UPLOADS_THUMB . $photo->thumbUrl) && !unlink(LYCHEE_UPLOADS_THUMB . $photo->thumbUrl)) {
-						Log::error(Database::get(), __METHOD__, __LINE__, 'Could not delete photo in uploads/thumb/');
-						$error = true;
-					}
+				if (file_exists(LYCHEE_UPLOADS_THUMB . $photo->thumbUrl) && !unlink(LYCHEE_UPLOADS_THUMB . $photo->thumbUrl)) {
+					Log::error(Database::get(), __METHOD__, __LINE__, 'Could not delete photo in uploads/thumb/');
+					$error = true;
 				}
 
 				// Delete thumb@2x

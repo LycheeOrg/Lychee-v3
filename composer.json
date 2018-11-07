@@ -1,0 +1,5 @@
+{
+    "require": {
+        "php-ffmpeg/php-ffmpeg": "^0.13.0"
+    }
+}

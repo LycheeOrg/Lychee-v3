@@ -19,3 +19,4 @@ plugins/*
 !plugins/Log/
 
 php/vendor/*
+vendor/*
