@@ -790,7 +790,8 @@ albums._createSmartAlbums = function (data) {
 		title: lychee.locale['UNSORTED'],
 		sysdate: data.unsorted.num + ' ' + lychee.locale['NUM_PHOTOS'],
 		unsorted: '1',
-		thumbs: data.unsorted.thumbs
+		thumbs: data.unsorted.thumbs,
+		types: data.unsorted.types
 	};
 
 	data.starred = {
@@ -798,7 +799,8 @@ albums._createSmartAlbums = function (data) {
 		title: lychee.locale['STARED'],
 		sysdate: data.starred.num + ' ' + lychee.locale['NUM_PHOTOS'],
 		star: '1',
-		thumbs: data.starred.thumbs
+		thumbs: data.starred.thumbs,
+		types: data.starred.types
 	};
 
 	data.public = {
@@ -807,7 +809,8 @@ albums._createSmartAlbums = function (data) {
 		sysdate: data.public.num + ' ' + lychee.locale['NUM_PHOTOS'],
 		public: '1',
 		thumbs: data.public.thumbs,
-		hidden: '1'
+		hidden: '1',
+		types: data.public.types
 	};
 
 	data.recent = {
@@ -815,7 +818,8 @@ albums._createSmartAlbums = function (data) {
 		title: lychee.locale['RECENT'],
 		sysdate: data.recent.num + ' ' + lychee.locale['NUM_PHOTOS'],
 		recent: '1',
-		thumbs: data.recent.thumbs
+		thumbs: data.recent.thumbs,
+		types: data.recent.types
 	};
 };
 
@@ -1002,17 +1006,12 @@ build.multiselect = function (top, left) {
 	return lychee.html(_templateObject6, top, left);
 };
 
-build.getThumbnailHtml = function (thumb, retinaThumbUrl) {
-	var thumbU = thumb.toUpperCase();
-	if (thumb !== 'uploads/thumb/' && thumbU.length && thumbU.indexOf('MP4') === -1 && thumbU.indexOf('OGV') === -1 && thumbU.indexOf('WEBM') === -1) {
-		return "<img src='" + thumb + "' srcset='" + retinaThumbUrl + " 1.5x' width='200' height='200' alt='Photo thumbnail' data-overlay='false' draggable='false'>";
-	} else {
-		return "<span class=\"video\" width='200' height='200' alt='Video thumbnail' data-overlay='false' class=\"\" draggable='false'></span><span></span>";
-	}
+build.getThumbnailHtml = function (thumb, retinaThumbUrl, type) {
+	var isVideo = type && type.indexOf('video') > -1;
+	return "<span class=\"thumbimg" + (isVideo ? ' video' : '') + "\"><img src='" + thumb + "' srcset='" + retinaThumbUrl + " 1.5x' width='200' height='200' alt='Photo thumbnail' data-overlay='false' draggable='false'></span>";
 };
 
 build.album = function (data) {
-
 	var html = '';
 	var date_stamp = data.sysdate;
 	var sortingAlbums = [];
@@ -1038,7 +1037,7 @@ build.album = function (data) {
 		}
 	}
 
-	html += lychee.html(_templateObject7, data.id, build.getThumbnailHtml(data.thumbs[2], data.thumbs[2]), build.getThumbnailHtml(data.thumbs[1], data.thumbs[1]), build.getThumbnailHtml(data.thumbs[0], data.thumbs[0]), data.title, data.title, date_stamp);
+	html += lychee.html(_templateObject7, data.id, build.getThumbnailHtml(data.thumbs[2], data.thumbs[2], data.types[2]), build.getThumbnailHtml(data.thumbs[1], data.thumbs[1], data.types[1]), build.getThumbnailHtml(data.thumbs[0], data.thumbs[0], data.types[0]), data.title, data.title, date_stamp);
 
 	if (lychee.publicMode === false) {
 
@@ -1051,13 +1050,13 @@ build.album = function (data) {
 };
 
 build.photo = function (data) {
-
+	console.log(data);
 	var html = '';
 
 	var _lychee$retinize2 = lychee.retinize(data.thumbUrl),
 	    retinaThumbUrl = _lychee$retinize2.path;
 
-	html += lychee.html(_templateObject9, data.album, data.id, build.getThumbnailHtml(data.thumbUrl, retinaThumbUrl), data.thumbUrl, retinaThumbUrl, data.title, data.title);
+	html += lychee.html(_templateObject9, data.album, data.id, build.getThumbnailHtml(data.thumbUrl, retinaThumbUrl, data.type), data.thumbUrl, retinaThumbUrl, data.title, data.title);
 
 	if (data.cameraDate === '1') html += lychee.html(_templateObject10, build.iconic('camera-slr'), data.sysdate);else html += lychee.html(_templateObject11, data.sysdate);
 
