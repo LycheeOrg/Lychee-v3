@@ -149,36 +149,29 @@ final class Album {
 		if ($photos===false) return false;
 
 		$return['photos'] = array();
-		$return['content'] = array();
 		$photo_counter = 0;
 		while ($photo = $photos->fetch_assoc()) {
 
 			// Turn data from the database into a front-end friendly format
 			$photo = Photo::prepareData($photo);
 
-			$pointer = array();
-
 			// Set previous and next photoID for navigation purposes
-			$pointer['previousPhoto'] = $previousPhotoID;
-			$pointer['nextPhoto']     = '';
-			$pointer['medium'] = $photo['medium'];
-			$pointer['url'] = $photo['url'];
+			$photo['previousPhoto'] = $previousPhotoID;
+			$photo['nextPhoto']     = '';
 
 			// Set current photoID as nextPhoto of previous photo
-			if ($previousPhotoID!=='') $return['content'][$previousPhotoID]['nextPhoto'] = $photo['id'];
+			if ($previousPhotoID!=='') $return['photos'][$photo_counter - 1]['nextPhoto'] = $photo['id'];
 			$previousPhotoID = $photo['id'];
 
 			// Add to return
-			$return['content'][$photo['id']] = $pointer;
 			$return['photos'][$photo_counter] = $photo;
-
 			$photo_counter ++;
 		}
 
 		if ($photos->num_rows===0) {
 
 			// Album empty
-			$return['content'] = false;
+			$return['photos'] = false;
 			$return['photos'] = false;
 
 		} else {
@@ -190,8 +183,8 @@ final class Album {
 			$firstElementId = $firstElement['id'];
 
 			if ($lastElementId!==$firstElementId) {
-				$return['content'][$lastElementId]['nextPhoto']      = $firstElementId;
-				$return['content'][$firstElementId]['previousPhoto'] = $lastElementId;
+				$return['photos'][$photo_counter - 1]['nextPhoto']      = $firstElementId;
+				$return['photos'][0]['previousPhoto'] = $lastElementId;
 			}
 
 		}

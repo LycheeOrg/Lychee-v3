@@ -216,6 +216,48 @@ album.getID = function () {
 	if (isID(id) === true) return id;else return false;
 };
 
+album.getByID = function (photoID) {
+
+	// Function returns the JSON of a photo
+
+	if (photoID == null || !album.json || !album.json.photos) {
+		lychee.error('Error: Album json not found !');
+		return undefined;
+	}
+
+	var i = 0;
+	while (i < album.json.photos.length) {
+		if (parseInt(album.json.photos[i].id) === parseInt(photoID)) {
+			return album.json.photos[i];
+		}
+		i++;
+	}
+
+	lychee.error('Error: photo ' + photoID + ' not found !');
+	return undefined;
+};
+
+album.deleteByID = function (photoID) {
+
+	if (photoID == null || !album.json || !album.json.photos) {
+		lychee.error('Error: Album json not found !');
+		return false;
+	}
+
+	var deleted = false;
+
+	$.each(album.json.photos, function (i) {
+
+		if (parseInt(album.json.photos[i].id) === parseInt(photoID)) {
+			album.json.photos.splice(i, 1);
+			deleted = true;
+			return false;
+		}
+	});
+
+	return deleted;
+};
+
 album.load = function (albumID) {
 	var refresh = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
 
@@ -1050,7 +1092,7 @@ build.album = function (data) {
 };
 
 build.photo = function (data) {
-	console.log(data);
+	// console.log(data);
 	var html = '';
 
 	var _lychee$retinize2 = lychee.retinize(data.thumbUrl),
@@ -1362,12 +1404,12 @@ contextMenu.photoTitle = function (albumID, photoID, e) {
 
 	var data = album.json;
 
-	if (data.content !== false && data.num > 1) {
+	if (data.photos !== false && data.num > 1) {
 
 		items.push({});
 
 		// Generate list of albums
-		$.each(data.content, function (index) {
+		$.each(data.photos, function (index) {
 			var _this3 = this;
 
 			if (this.title === '') this.title = lychee.locale['UNTITLED'];
@@ -1668,7 +1710,7 @@ header.setMode = function (mode) {
 			header.dom('.header__toolbar--album').addClass('header__toolbar--visible');
 
 			// Hide download button when album empty
-			if (album.json.content === false) $('#button_archive').hide();else $('#button_archive').show();
+			if (album.json.photos === false) $('#button_archive').hide();else $('#button_archive').show();
 
 			// Hide download button when not logged in and album not downloadable
 			if (lychee.publicMode === true && album.json.downloadable === '0') $('#button_archive').hide();
@@ -2773,7 +2815,10 @@ lychee.html = function (literalSections) {
 	return result;
 };
 
-lychee.error = function (errorThrown, params, data) {
+lychee.error = function (errorThrown) {
+	var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+	var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
+
 
 	console.error({
 		description: errorThrown,
@@ -3093,15 +3138,15 @@ photo.getID = function () {
 photo.load = function (photoID, albumID) {
 
 	var checkContent = function checkContent() {
-		if (album.json != null && album.json.content) photo.load(photoID, albumID);else setTimeout(checkContent, 100);
+		if (album.json != null && album.json.photos) photo.load(photoID, albumID);else setTimeout(checkContent, 100);
 	};
 
 	var checkPasswd = function checkPasswd() {
 		if (password.value !== '') photo.load(photoID, albumID);else setTimeout(checkPasswd, 200);
 	};
 
-	// we need to check the album.json.content because otherwise the script is too fast and this raise an error.
-	if (album.json == null || album.json.content == null) {
+	// we need to check the album.json.photos because otherwise the script is too fast and this raise an error.
+	if (album.json == null || album.json.photos == null) {
 		checkContent();
 		return false;
 	}
@@ -3140,12 +3185,11 @@ photo.load = function (photoID, albumID) {
 
 // Preload the next photo for better response time
 photo.preloadNext = function (photoID) {
+	if (album.json && album.json.photos && album.getByID(photoID) && album.getByID(photoID).nextPhoto !== '') {
 
-	if (album.json && album.json.content && album.json.content[photoID] && album.json.content[photoID].nextPhoto !== '') {
-
-		var nextPhoto = album.json.content[photoID].nextPhoto;
-		var url = album.json.content[nextPhoto].url;
-		var medium = album.json.content[nextPhoto].medium;
+		var nextPhoto = album.getByID(photoID).nextPhoto;
+		var url = album.getByID(nextPhoto).url;
+		var medium = album.getByID(nextPhoto).medium;
 		var href = medium != null && medium !== '' ? medium : url;
 
 		$('head [data-prefetch]').remove();
@@ -3160,7 +3204,7 @@ photo.parse = function () {
 
 photo.previous = function (animate) {
 
-	if (photo.getID() !== false && album.json && album.json.content[photo.getID()] && album.json.content[photo.getID()].previousPhoto !== '') {
+	if (photo.getID() !== false && album.json && album.getByID(photo.getID()) && album.getByID(photo.getID()).previousPhoto !== '') {
 
 		var delay = 0;
 
@@ -3178,14 +3222,14 @@ photo.previous = function (animate) {
 
 		setTimeout(function () {
 			if (photo.getID() === false) return false;
-			lychee.goto(album.getID() + '/' + album.json.content[photo.getID()].previousPhoto);
+			lychee.goto(album.getID() + '/' + album.getByID(photo.getID()).previousPhoto);
 		}, delay);
 	}
 };
 
 photo.next = function (animate) {
 
-	if (photo.getID() !== false && album.json && album.json.content[photo.getID()] && album.json.content[photo.getID()].nextPhoto !== '') {
+	if (photo.getID() !== false && album.json && album.getByID(photo.getID()) && album.getByID(photo.getID()).nextPhoto !== '') {
 
 		var delay = 0;
 
@@ -3203,7 +3247,7 @@ photo.next = function (animate) {
 
 		setTimeout(function () {
 			if (photo.getID() === false) return false;
-			lychee.goto(album.getID() + '/' + album.json.content[photo.getID()].nextPhoto);
+			lychee.goto(album.getID() + '/' + album.getByID(photo.getID()).nextPhoto);
 		}, delay);
 	}
 };
@@ -3238,7 +3282,7 @@ photo.delete = function (photoIDs) {
 	if (photoIDs.length === 1) {
 
 		// Get title if only one photo is selected
-		if (visible.photo()) photoTitle = photo.json.title;else photoTitle = album.json.content[photoIDs].title;
+		if (visible.photo()) photoTitle = photo.json.title;else photoTitle = album.getByID(photoIDs).title;
 
 		// Fallback for photos without a title
 		if (photoTitle === '') photoTitle = lychee.locale['UNTITLED'];
@@ -3254,16 +3298,17 @@ photo.delete = function (photoIDs) {
 		photoIDs.forEach(function (id, index, array) {
 
 			// Change reference for the next and previous photo
-			if (album.json.content[id].nextPhoto !== '' || album.json.content[id].previousPhoto !== '') {
+			if (album.getByID(id).nextPhoto !== '' || album.getByID(id).previousPhoto !== '') {
 
-				nextPhoto = album.json.content[id].nextPhoto;
-				previousPhoto = album.json.content[id].previousPhoto;
+				nextPhoto = album.getByID(id).nextPhoto;
+				previousPhoto = album.getByID(id).previousPhoto;
 
-				album.json.content[previousPhoto].nextPhoto = nextPhoto;
-				album.json.content[nextPhoto].previousPhoto = previousPhoto;
+				album.getByID(previousPhoto).nextPhoto = nextPhoto;
+				album.getByID(nextPhoto).previousPhoto = previousPhoto;
 			}
 
-			delete album.json.content[id];
+			album.deleteByID(id);
+			// delete album.json.photos[id];
 			view.album.content.delete(id);
 		});
 
@@ -3324,7 +3369,7 @@ photo.setTitle = function (photoIDs) {
 	if (photoIDs.length === 1) {
 
 		// Get old title if only one photo is selected
-		if (photo.json) oldTitle = photo.json.title;else if (album.json) oldTitle = album.json.content[photoIDs].title;
+		if (photo.json) oldTitle = photo.json.title;else if (album.json) oldTitle = album.json.photos[photoIDs].title;
 	}
 
 	var action = function action(data) {
@@ -3339,7 +3384,7 @@ photo.setTitle = function (photoIDs) {
 		}
 
 		photoIDs.forEach(function (id, index, array) {
-			album.json.content[id].title = newTitle;
+			album.getByID(id).title = newTitle;
 			view.album.content.title(id);
 		});
 
@@ -3384,16 +3429,17 @@ photo.setAlbum = function (photoIDs, albumID) {
 	photoIDs.forEach(function (id, index, array) {
 
 		// Change reference for the next and previous photo
-		if (album.json.content[id].nextPhoto !== '' || album.json.content[id].previousPhoto !== '') {
+		if (album.getByID(id).nextPhoto !== '' || album.getByID(id).previousPhoto !== '') {
 
-			nextPhoto = album.json.content[id].nextPhoto;
-			previousPhoto = album.json.content[id].previousPhoto;
+			nextPhoto = album.getByID(id).nextPhoto;
+			previousPhoto = album.getByID(id).previousPhoto;
 
-			album.json.content[previousPhoto].nextPhoto = nextPhoto;
-			album.json.content[nextPhoto].previousPhoto = previousPhoto;
+			album.getByID(previousPhoto).nextPhoto = nextPhoto;
+			album.getByID(nextPhoto).previousPhoto = previousPhoto;
 		}
 
-		delete album.json.content[id];
+		album.deleteByID(id);
+		//		delete album.json.photos[id];
 		view.album.content.delete(id);
 	});
 
@@ -3424,7 +3470,7 @@ photo.setStar = function (photoIDs) {
 	}
 
 	photoIDs.forEach(function (id, index, array) {
-		album.json.content[id].star = album.json.content[id].star === '0' ? '1' : '0';
+		album.getByID(id).star = album.getByID(id).star === '0' ? '1' : '0';
 		view.album.content.star(id);
 	});
 
@@ -3474,7 +3520,7 @@ photo.setPublic = function (photoID, e) {
 		if (photo.json.public === '1') contextMenu.sharePhoto(photoID, e);
 	}
 
-	album.json.content[photoID].public = album.json.content[photoID].public === '0' ? '1' : '0';
+	album.getByID(photoID).public = album.getByID(photoID).public === '0' ? '1' : '0';
 	view.album.content.public(photoID);
 
 	albums.refresh();
@@ -3535,12 +3581,12 @@ photo.editTags = function (photoIDs) {
 	if (photoIDs instanceof Array === false) photoIDs = [photoIDs];
 
 	// Get tags
-	if (visible.photo()) oldTags = photo.json.tags;else if (visible.album() && photoIDs.length === 1) oldTags = album.json.content[photoIDs].tags;else if (visible.search() && photoIDs.length === 1) oldTags = album.json.content[photoIDs].tags;else if (visible.album() && photoIDs.length > 1) {
+	if (visible.photo()) oldTags = photo.json.tags;else if (visible.album() && photoIDs.length === 1) oldTags = album.getByID(photoIDs).tags;else if (visible.search() && photoIDs.length === 1) oldTags = album.getByID(photoIDs).tags;else if (visible.album() && photoIDs.length > 1) {
 		var same = true;
 		photoIDs.forEach(function (id, index, array) {
-			same = album.json.content[id].tags === album.json.content[photoIDs[0]].tags && same === true;
+			same = album.getByID(id).tags === album.getByID(photoIDs[0]).tags && same === true;
 		});
-		if (same === true) oldTags = album.json.content[photoIDs[0]].tags;
+		if (same === true) oldTags = album.getByID(photoIDs[0]).tags;
 	}
 
 	// Improve tags
@@ -3586,7 +3632,7 @@ photo.setTags = function (photoIDs, tags) {
 	}
 
 	photoIDs.forEach(function (id, index, array) {
-		album.json.content[id].tags = tags;
+		album.getByID(id).tags = tags;
 	});
 
 	var params = {
@@ -3699,8 +3745,8 @@ search.find = function (term) {
 
 				// Build photos
 				if (data && data.photos) {
-					album.json = { content: data.photos };
-					$.each(album.json.content, function () {
+					album.json = { photos: data.photos };
+					$.each(album.json.photos, function () {
 						photosData += build.photo(this);
 					});
 				}
@@ -5157,7 +5203,7 @@ view.album = {
 
 			var photosData = '';
 
-			if (album.json.content && album.json.content !== false) {
+			if (album.json.photos && album.json.photos !== false) {
 
 				// Build photos
 				$.each(album.json.photos, function () {
@@ -5177,7 +5223,7 @@ view.album = {
 
 		title: function title(photoID) {
 
-			var title = album.json.content[photoID].title;
+			var title = album.getByID(photoID).title;
 
 			title = lychee.escapeHTML(title);
 
@@ -5188,14 +5234,14 @@ view.album = {
 
 			var $badge = $('.photo[data-id="' + photoID + '"] .icn-star');
 
-			if (album.json.content[photoID].star === '1') $badge.addClass('badge--star');else $badge.removeClass('badge--star');
+			if (album.getByID(photoID).star === '1') $badge.addClass('badge--star');else $badge.removeClass('badge--star');
 		},
 
 		public: function _public(photoID) {
 
 			var $badge = $('.photo[data-id="' + photoID + '"] .icn-share');
 
-			if (album.json.content[photoID].public === '1') $badge.addClass('badge--visible');else $badge.removeClass('badge--visible');
+			if (album.getByID(photoID).public === '1') $badge.addClass('badge--visible');else $badge.removeClass('badge--visible');
 		},
 
 		delete: function _delete(photoID) {
@@ -5404,16 +5450,16 @@ view.photo = {
 		var $nextArrow = lychee.imageview.find('a#next');
 		var $previousArrow = lychee.imageview.find('a#previous');
 		var photoID = photo.getID();
-		var hasNext = album.json && album.json.content && album.json.content[photoID] && album.json.content[photoID].nextPhoto != null && album.json.content[photoID].nextPhoto !== '';
-		var hasPrevious = album.json && album.json.content && album.json.content[photoID] && album.json.content[photoID].previousPhoto != null && album.json.content[photoID].previousPhoto !== '';
+		var hasNext = album.json && album.json.photos && album.getByID(photoID) && album.getByID(photoID).nextPhoto != null && album.getByID(photoID).nextPhoto !== '';
+		var hasPrevious = album.json && album.json.photos && album.getByID(photoID) && album.getByID(photoID).previousPhoto != null && album.getByID(photoID).previousPhoto !== '';
 
 		if (hasNext === false || lychee.viewMode === true) {
 
 			$nextArrow.hide();
 		} else {
 
-			var nextPhotoID = album.json.content[photoID].nextPhoto;
-			var nextPhoto = album.json.content[nextPhotoID];
+			var nextPhotoID = album.getByID(photoID).nextPhoto;
+			var nextPhoto = album.getByID(nextPhotoID);
 
 			$nextArrow.css('background-image', lychee.html(_templateObject25, nextPhoto.thumbUrl));
 		}
@@ -5423,8 +5469,8 @@ view.photo = {
 			$previousArrow.hide();
 		} else {
 
-			var previousPhotoID = album.json.content[photoID].previousPhoto;
-			var previousPhoto = album.json.content[previousPhotoID];
+			var previousPhotoID = album.getByID(photoID).previousPhoto;
+			var previousPhoto = album.getByID(previousPhotoID);
 
 			$previousArrow.css('background-image', lychee.html(_templateObject25, previousPhoto.thumbUrl));
 		}
