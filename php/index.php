@@ -18,12 +18,11 @@ use Lychee\Access\Guest;
 
 require(__DIR__ . '/define.php');
 require(__DIR__ . '/autoload.php');
-if (!file_exists(__DIR__ . '/../vendor/autoload.php' ))
+if (file_exists(__DIR__ . '/../vendor/autoload.php' ))
 {
-    die('"Error: please install dependencies with composer: `composer update`"');
-    exit;
+    include(__DIR__ . '/../vendor/autoload.php');
+    define('VIDEO_THUMB');
 }
-require(__DIR__ . '/../vendor/autoload.php');
 
 require(__DIR__ . '/helpers/fastImageCopyResampled.php');
 require(__DIR__ . '/helpers/generateID.php');

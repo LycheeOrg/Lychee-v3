@@ -243,21 +243,33 @@ final class Photo {
 				if (!$this->createThumb($path, $photo_name, $info['type'], $info['width'], $info['height'])){
 					Log::error(Database::get(), __METHOD__, __LINE__, 'Could not create thumbnail for photo');
 					if ($returnOnError===true) return false;
-					Response::error($file['type'].'Could not create thumbnail for photo!');
+					Response::error($file['type'].' Could not create thumbnail for photo!');
 				}
-			}else if (!$this->createVideoThumb($path, $id)){
-					Log::error(Database::get(), __METHOD__, __LINE__, 'Could not create thumbnail for video');
-					if ($returnOnError===true) return false;
-					Response::error($file['type'].'Could not create thumbnail for video!');
+
+				// Set thumb url
+				$path_thumb = md5($id) . '.jpeg';
+			}
+			elseif(!defined('VIDEO_THUMB'))
+			{
+				Log::notice(Database::get(), __METHOD__, __LINE__, 'Could not create thumbnail for video because FFMPEG is not available.');
+				// Set thumb url
+				$path_thumb = '';
+			}
+			else
+			{
+				if (!$this->createVideoThumb($path, $id)){
+						Log::error(Database::get(), __METHOD__, __LINE__, 'Could not create thumbnail for video');
+						if ($returnOnError===true) return false;
+						Response::error($file['type'].' Could not create thumbnail for video!');
+				}
+
+				// Set thumb url
+				$path_thumb = md5($id) . '.jpeg';
 			}
 
 			// Create Medium
 			if ($this->createMedium($path, $photo_name, $info['width'], $info['height'])) $medium = 1;
 			else $medium = 0;
-
-			// Set thumb url
-			$path_thumb = md5($id) . '.jpeg';
-
 		}
 
 		if(!in_array($file['type'], self::$validVideoTypes, true)){
@@ -431,7 +443,7 @@ final class Photo {
 			$frame->save(sys_get_temp_dir() . '/'. md5($id) . '.jpeg');
 			$info = $this->getInfo(sys_get_temp_dir() . '/'. md5($id) . '.jpeg');
 			if (!$this->createThumb(sys_get_temp_dir() . '/'. md5($id) . '.jpeg', md5($id) . '.jpeg', $info['type'], $info['width'], $info['height'])){
-				Log::error(Database::get(), __METHOD__, __LINE__, 'Could not create thumbnail for photo');
+				Log::error(Database::get(), __METHOD__, __LINE__, 'Could not create thumbnail for video');
 			}
 			return true;
 		}

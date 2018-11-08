@@ -1050,6 +1050,9 @@ build.multiselect = function (top, left) {
 
 build.getThumbnailHtml = function (thumb, retinaThumbUrl, type) {
 	var isVideo = type && type.indexOf('video') > -1;
+	if (thumb == 'uploads/thumb/' && isVideo) {
+		return "<span class=\"thumbimg video\"><img src='play-icon.png' width='200' height='200' alt='Photo thumbnail' data-overlay='false' draggable='false'></span>";
+	}
 	return "<span class=\"thumbimg" + (isVideo ? ' video' : '') + "\"><img src='" + thumb + "' srcset='" + retinaThumbUrl + " 1.5x' width='200' height='200' alt='Photo thumbnail' data-overlay='false' draggable='false'></span>";
 };
 
