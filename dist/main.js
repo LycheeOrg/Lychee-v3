@@ -1051,7 +1051,7 @@ build.multiselect = function (top, left) {
 build.getThumbnailHtml = function (thumb, retinaThumbUrl, type) {
 	var isVideo = type && type.indexOf('video') > -1;
 	if (thumb == 'uploads/thumb/' && isVideo) {
-		return "<span class=\"thumbimg video\"><img src='play-icon.png' width='200' height='200' alt='Photo thumbnail' data-overlay='false' draggable='false'></span>";
+		return "<span class=\"thumbimg\"><img src='play-icon.png' width='200' height='200' alt='Photo thumbnail' data-overlay='false' draggable='false'></span>";
 	}
 	return "<span class=\"thumbimg" + (isVideo ? ' video' : '') + "\"><img src='" + thumb + "' srcset='" + retinaThumbUrl + " 1.5x' width='200' height='200' alt='Photo thumbnail' data-overlay='false' draggable='false'></span>";
 };
@@ -3995,7 +3995,6 @@ settings.getValues = function (form_name) {
 		// Store name and value of input
 		values[name] = $(this).val();
 	});
-	console.log(values);
 	return Object.keys(values).length === 0 ? null : values;
 };
 
@@ -4108,8 +4107,6 @@ sharing.add = function () {
 		if (params.UserIDs !== '') params.UserIDs += ',';
 		params.UserIDs += this.value;
 	});
-
-	console.log(params);
 
 	api.post('Sharing::Add', params, function (data) {
 		if (data !== true) {
