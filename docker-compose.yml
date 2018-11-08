@@ -1,0 +1,28 @@
+version: '3.3'
+
+services:
+   db:
+     image: mariadb:latest
+     volumes:
+       - db_data:/var/lib/mysql
+     restart: always
+     environment:
+       MYSQL_ROOT_PASSWORD: password
+
+   lychee:
+     depends_on:
+       - db
+     volumes:
+       - config:/config
+       - pictures:/pictures
+     image: linuxserver/lychee:latest
+     ports:
+       - "8000:80"
+     restart: always
+     environment:
+       PGID: 1000
+       PUID: 1000
+volumes:
+  db_data:
+  config:
+  pictures:
