@@ -47,5 +47,15 @@ dist: clean
 	@touch Lychee-v$(VERSION)/uploads/import/index.html
 	@zip -r Lychee-v$(VERSION).zip Lychee-v$(VERSION)
 
+
+contrib_add:
+	@echo "npx all-contributors-cli add <user> <bug|code|design|doc|question|tool|test|translation>"
+
+contrib_generate:
+	npx all-contributors-cli generate
+
+contrib_check:
+	npx all-contributors-cli check
+
 clean:
 	@rm -r Lychee-v*
