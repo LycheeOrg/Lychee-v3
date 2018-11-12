@@ -49,7 +49,7 @@ dist: clean
 
 
 contrib_add:
-	npx all-contributors-cli add
+	@echo "npx all-contributors-cli add <user> <bug|code|design|doc|question|tool|test|translation>"
 
 contrib_generate:
 	npx all-contributors-cli generate
