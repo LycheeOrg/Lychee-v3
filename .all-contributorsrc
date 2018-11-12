@@ -32,6 +32,17 @@
         "code",
         "doc"
       ]
+    },
+    {
+      "login": "LudovicRousseau",
+      "name": "Ludovic Rousseau",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/398496?v=4",
+      "profile": "http://ludovicrousseau.blogspot.com/",
+      "contributions": [
+        "code",
+        "bug",
+        "doc"
+      ]
     }
   ]
 }
