@@ -1,6 +1,3 @@
-src/node_modules/
-src/bower_components/
-
 data/config.php
 
 uploads/big/*
@@ -18,5 +15,6 @@ plugins/*
 !plugins/Diagnostics/
 !plugins/Log/
 
-php/vendor/*
 vendor/*
+
+Lychee-v*
