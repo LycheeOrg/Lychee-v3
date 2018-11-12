@@ -383,6 +383,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "leplatrem",
+      "name": "Mathieu Leplatre",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/546692?v=4",
+      "profile": "http://mathieu-leplatre.info",
+      "contributions": [
+        "code"
+      ]
     }
   ]
 }
