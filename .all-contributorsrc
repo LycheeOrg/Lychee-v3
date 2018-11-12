@@ -30,7 +30,9 @@
       "profile": "http://electerious.com",
       "contributions": [
         "code",
-        "doc"
+        "doc",
+        "bug",
+        "design"
       ]
     },
     {
