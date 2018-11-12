@@ -230,6 +230,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "cdauth",
+      "name": "Candid Dauth",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/1801792?v=4",
+      "profile": "https://github.com/cdauth",
+      "contributions": [
+        "code"
+      ]
     }
   ]
 }
