@@ -73,6 +73,15 @@
       "contributions": [
         "translation"
       ]
+    },
+    {
+      "login": "PeterTheOne",
+      "name": "Peter Grassberger",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/666289?v=4",
+      "profile": "http://petergrassberger.com",
+      "contributions": [
+        "platform"
+      ]
     }
   ]
 }
