@@ -194,6 +194,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "qligier",
+      "name": "Quentin Ligier",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/3299399?v=4",
+      "profile": "http://www.qligier.ch",
+      "contributions": [
+        "code"
+      ]
     }
   ]
 }
