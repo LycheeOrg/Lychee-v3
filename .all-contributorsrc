@@ -329,6 +329,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "Bramas",
+      "name": "Quentin Bramas",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/835068?v=4",
+      "profile": "http://bramas.fr",
+      "contributions": [
+        "code"
+      ]
     }
   ]
 }
