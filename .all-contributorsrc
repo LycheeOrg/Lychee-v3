@@ -146,6 +146,15 @@
       "contributions": [
         "platform"
       ]
+    },
+    {
+      "login": "captn3m0",
+      "name": "Nemo",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/584253?v=4",
+      "profile": "https://captnemo.in",
+      "contributions": [
+        "code"
+      ]
     }
   ]
 }
