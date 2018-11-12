@@ -81,6 +81,6 @@ Take a look at the [FAQ](https://github.com/LycheeOrg/Lychee/wiki/FAQ) if you ha
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore -->
-| [<img src="https://avatars3.githubusercontent.com/u/627094?v=4" width="48px;"/><br /><sub><b>Benoît Viguier</b></sub>](https://github.com/ildyria)<br />[💻](https://github.com/LycheeOrg/Lychee/commits?author=ildyria "Code") |
+| [<img src="https://avatars3.githubusercontent.com/u/627094?v=4" width="48px;"/><br /><sub><b>Benoît Viguier</b></sub>](https://github.com/ildyria)<br />[💻](https://github.com/LycheeOrg/Lychee/commits?author=ildyria "Code") [🐛](https://github.com/LycheeOrg/Lychee/issues?q=author%3Aildyria "Bug reports") [🎨](#design-ildyria "Design") [📖](https://github.com/LycheeOrg/Lychee/commits?author=ildyria "Documentation") [🌍](#translation-ildyria "Translation") |
 | :---: |
 <!-- ALL-CONTRIBUTORS-LIST:END -->

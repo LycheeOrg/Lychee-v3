@@ -16,7 +16,11 @@
       "avatar_url": "https://avatars3.githubusercontent.com/u/627094?v=4",
       "profile": "https://github.com/ildyria",
       "contributions": [
-        "code"
+        "code",
+        "bug",
+        "design",
+        "doc",
+        "translation"
       ]
     }
   ]
