@@ -137,6 +137,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "jobevers",
+      "name": "Job Evers‐Meltzer",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/2380127?v=4",
+      "profile": "https://github.com/jobevers",
+      "contributions": [
+        "platform"
+      ]
     }
   ]
 }
