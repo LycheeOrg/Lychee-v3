@@ -45,6 +45,15 @@
         "bug",
         "doc"
       ]
+    },
+    {
+      "login": "clementlamoureux",
+      "name": "Clément Lamoureux",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/2447419?v=4",
+      "profile": "http://www.clementlamoureux.fr",
+      "contributions": [
+        "code"
+      ]
     }
   ]
 }
