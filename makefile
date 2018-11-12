@@ -27,7 +27,7 @@ dist: clean
 	@cp -r Lychee-front/README.md Lychee-v$(VERSION)/Lychee-front
 	@cp -r php Lychee-v$(VERSION)
 	@cp -r plugins Lychee-v$(VERSION)
-	@cp -r vendor Lychee-v$(VERSION)
+	@cp -r vendor Lychee-v$(VERSION) 2> /dev/null || true
 	@cp -r .htaccess Lychee-v$(VERSION)
 	@cp -r .user.ini Lychee-v$(VERSION)
 	@cp -r CODE_OF_CONDUCT.md Lychee-v$(VERSION)
