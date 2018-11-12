@@ -58,4 +58,4 @@ contrib_check:
 	npx all-contributors-cli check
 
 clean:
-	@rm -r Lychee-v*
+	@rm -r Lychee-v* 2> /dev/null || true
