@@ -128,6 +128,15 @@
         "bug",
         "code"
       ]
+    },
+    {
+      "login": "elias-fauser",
+      "name": "Elias",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/6170129?v=4",
+      "profile": "https://github.com/elias-fauser",
+      "contributions": [
+        "code"
+      ]
     }
   ]
 }
