@@ -374,6 +374,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "birdwing",
+      "name": "Aron Brown",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/6484397?v=4",
+      "profile": "http://www.birdwingfx.com",
+      "contributions": [
+        "code"
+      ]
     }
   ]
 }
