@@ -1,0 +1,23 @@
+{
+  "projectName": "Lychee",
+  "projectOwner": "LycheeOrg",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 48,
+  "commit": true,
+  "contributorsPerLine": 6,
+  "contributors": [
+    {
+      "login": "ildyria",
+      "name": "Benoît Viguier",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/627094?v=4",
+      "profile": "https://github.com/ildyria",
+      "contributions": [
+        "code"
+      ]
+    }
+  ]
+}
