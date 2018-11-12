@@ -109,6 +109,15 @@
       "contributions": [
         "translation"
       ]
+    },
+    {
+      "login": "benabbottnz",
+      "name": "Ben Abbott",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/2616473?v=4",
+      "profile": "https://github.com/benabbottnz",
+      "contributions": [
+        "doc"
+      ]
     }
   ]
 }
