@@ -25,5 +25,8 @@ Options -Indexes
 #Header add Access-Control-Allow-Methods "PUT, GET, POST, DELETE, OPTIONS"
 
 <IfModule mod_headers.c>
-	Header set Content-Security-Policy "default-src 'none'; style-src 'self'; script-src 'self'; connect-src 'self' https://lycheeorg.github.io; img-src 'self'; prefetch-src 'self'; block-all-mixed-content; form-action 'none'; base-uri 'none'; frame-ancestors 'none';"
+	# Here we set CSP for Lychee. The first option is fairly forgiving. The second is stricter, but *should* still work.
+	# Additionally, you may wish to set up a report-uri.
+	Header set Content-Security-Policy "default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self' https://lycheeorg.github.io; form-action 'none'; base-uri 'none'; frame-ancestors 'none'; upgrade-insecure-requests; block-all-mixed-content;"
+	# Header set Content-Security-Policy "default-src 'none'; style-src 'self'; script-src 'self'; connect-src 'self' https://lycheeorg.github.io; img-src 'self'; media-src 'self'; prefetch-src 'self'; form-action 'none'; base-uri 'none'; frame-ancestors 'none'; upgrade-insecure-requests; block-all-mixed-content;"
 </IfModule>
