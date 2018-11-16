@@ -12,6 +12,7 @@ final class Swedish
     static public function get_locale()
     {
         $locale	= array(
+            
             'USERNAME'		=> 'användarnamn',
             'PASSWORD'		=> 'lösenord',
             'ENTER'			=> 'Stig in',
@@ -53,11 +54,11 @@ final class Swedish
             'DELETE_ALBUMS_CONFIRMATION_1'	=> 'Är du säker på att du vill radera alla',
             'DELETE_ALBUMS_CONFIRMATION_2'	=> 'valda album och alla fotografier de innehåller? Raderingen går inte att ångra!',
 
-            'DELETE_UNSORTED_CONFIRM' 		=> 'Är du säker på att du vill radera alla fotografier från \'Osorterade\'?<br>Det här går inte att ångra!',
+            'DELETE_UNSORTED_CONFIRM' 		=> 'Är du säker på att du vill radera alla fotografier från \'Osorterat\'?<br>Det här går inte att ångra!',
             'CLEAR_UNSORTED'				=> 'Rensa osorterade',
             'KEEP_UNSORTED'					=> 'Behåll osorterade',
 
-            'EDIT_SHARING'					=> 'Redigera delning',
+            'EDIT_SHARING'					=> 'Redrigera delning',
             'MAKE_PRIVATE'					=> 'Gör privat',
 
             'CLOSE_ALBUM'					=> 'Stäng albumet',
@@ -79,9 +80,9 @@ final class Swedish
 
             'TITLE_NEW_ALBUM'			=> 'Skriv en titel för det nya albumet:',
             'UNTITLED'					=> 'Saknar titel',
-            'UNSORTED'					=> 'Osorterade',
+            'UNSORTED'					=> 'Osorterat',
             'STARED'					=> 'Stjärnmärkta',
-            'RECENT'					=> 'Nytillkomna',
+            'RECENT'					=> 'Nyligen',
             'PUBLIC'					=> 'Publika',
             'NUM_PHOTOS'				=> 'Fotografier',
 
@@ -136,12 +137,12 @@ final class Swedish
             'PHOTO_SET_TITLE'			=> 'Spara titeln',
             'PHOTO_UPLOADED'			=> 'Uppladdat',
             'PHOTO_DESCRIPTION'			=> 'Beskrivning',
-            'PHOTO_NEW_DESCRIPTION'		=> 'Skriv en ny beskrivning för fotografiet:',
+            'PHOTO_NEW_DESCRIPTION'		=> 'Skriv en ny beskrivning för detta fotografi:',
             'PHOTO_SET_DESCRIPTION'		=> 'Spara beskrivningen',
             'PHOTO_IMAGE'				=> 'Fotografi',
             'PHOTO_SIZE'				=> 'Storlek',
-            'PHOTO_FORMAT'				=> 'Format',
-            'PHOTO_RESOLUTION'			=> 'Upplösning',
+            'PHOTO_FORMAT'				=> 'Filformat',
+            'PHOTO_RESOLUTION'			=> 'Mått',
             'PHOTO_TAGS'				=> 'Kategori',
             'PHOTO_NOTAGS'				=> 'Inga kategorier',
             'PHOTO_NEW_TAGS'			=> 'Skriv in din kategori för det här fotografier. Du kan ange flera kategori genom att separera dem med ett kommatecken:',
@@ -149,12 +150,12 @@ final class Swedish
             'PHOTO_NEW_TAGS_2'			=> 'Befintliga kategorier kommer att raderas. Du kan lägga till nya kategorier genom att separera dem med kommatecken:',
             'PHOTO_SET_TAGS'			=> 'Spara kategori',
             'PHOTO_CAMERA'				=> 'Kamera',
-            'PHOTO_CAPTURED'			=> 'Captured',
-            'PHOTO_MAKE'				=> 'Make',
+            'PHOTO_CAPTURED'			=> 'Digitaliserad',
+            'PHOTO_MAKE'				=> 'Tillverkare',
             'PHOTO_TYPE'				=> 'Typ/Modell',
             'PHOTO_SHUTTER'				=> 'Slutartid',
-            'PHOTO_APERTURE'			=> 'Bländare',
-            'PHOTO_FOCAL'				=> 'Fokallängd',
+            'PHOTO_APERTURE'			=> 'Bländartal',
+            'PHOTO_FOCAL'				=> 'Brännvidd',
             'PHOTO_ISO'					=> 'ISO',
             'PHOTO_SHARING'				=> 'Delning',
             'PHOTO_SHR_PLUBLIC'			=> 'Publik',
@@ -237,7 +238,7 @@ final class Swedish
             'SORT_CHANGE'				=> 'Spara ändringar av sorteringsföljden',
 
             'DROPBOX_TITLE'				=> 'Spara nyckeln för Dropbox',
-            'DROPBOX_TEXT'				=> "För att kunna importera fotografier från ditt Dropboxkonto behöver du en godkänd applikationsnyckel från <a href='https://www.dropbox.com/developers/apps/create'>Dropbox</a>. Skapa en personlig nyckel och ange den sedan här nedan:",
+            'DROPBOX_TEXT'				=> "För att kunna importera fotografier från ditt Dropboxkonto behöver du en godkänd applikationsnyckel från <a href='https://www.dropbox.com/developers/apps/create'>Dropbox</a>.\n Skapa en personlig nyckel och ange den sedan här nedan:",
 
             'LANG_TEXT'		       		=> 'Ändra språket i Lychee till:',
             'LANG_TITLE'	       		=> 'Spara ändringen av språket',
