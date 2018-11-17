@@ -11,16 +11,16 @@
   "contributorsPerLine": 6,
   "contributors": [
     {
-    "login": "electerious",
-    "name": "Tobias Reich",
-    "avatar_url": "https://avatars1.githubusercontent.com/u/499088?v=4",
-    "profile": "http://electerious.com",
-    "contributions": [
-      "code",
-      "doc",
-      "bug",
-      "design"
-    ]
+      "login": "electerious",
+      "name": "Tobias Reich",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/499088?v=4",
+      "profile": "http://electerious.com",
+      "contributions": [
+        "code",
+        "doc",
+        "bug",
+        "design"
+      ]
     },
     {
       "login": "ildyria",
@@ -409,6 +409,15 @@
       "profile": "https://github.com/Cronos87",
       "contributions": [
         "code"
+      ]
+    },
+    {
+      "login": "expiredemulsion",
+      "name": "petter",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/2619582?v=4",
+      "profile": "https://github.com/expiredemulsion",
+      "contributions": [
+        "translation"
       ]
     }
   ]
