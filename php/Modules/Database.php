@@ -9,17 +9,6 @@ final class Database {
 	private $connection = null;
 	private static $instance = null;
 
-	private static $versions = array(
-		'020700', // 2.7.0
-		'030000', // 3.0.0
-		'030001', // 3.0.1
-		'030003', // 3.0.3
-		'030100', // 3.1.0
-		'030102', // 3.1.2
-		'030108', // 3.1.8
-		'030109', // 3.1.9
-	);
-
 	/**
 	 * @return object Returns a new or cached connection.
 	 */
@@ -291,16 +280,17 @@ final class Database {
 		$current = $result->fetch_object()->value;
 
 		// For each update
-		foreach (self::$versions as $version) {
-
-			// Only update when newer version available
-			if ($version<=$current) continue;
-
-			// Load update
-			include(__DIR__ . '/../database/update_' . $version . '.php');
-
+		$list_versions =  scandir(__DIR__ . '/../database');
+        for($i = 0; $i < count($list_versions) ; $i++)
+        {
+            if( $list_versions[$i] != '.' && $list_versions[$i] != '..' && substr($list_versions[$i],-4) != '.sql')
+			{
+				// Only update when newer version available
+				if (substr($list_versions[$i],0,-4) <= $current) continue;
+				// Load update
+				include(__DIR__ . '/../database/'.$list_versions[$i]);
+			}
 		}
-
 		return true;
 
 	}
