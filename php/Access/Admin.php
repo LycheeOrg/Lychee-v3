@@ -54,6 +54,7 @@ final class Admin extends Access {
 			case 'Session::logout':         self::logoutAction(); break;
 
 			// Settings functions
+			case 'Settings::setLayout':     self::setLayoutAction(); break;
 			case 'Settings::setLang':      	self::setLangAction(); break;
 			case 'Settings::setLogin':      self::setLoginAction(); break;
 			case 'Settings::setSorting':    self::setSortingAction(); break;
@@ -301,12 +302,18 @@ final class Admin extends Access {
 
 	}
 
-	// WIP
 	private static function setLangAction() {
 
 		Validator::required(isset($_POST['lang']), __METHOD__);
 
 		Response::json(Settings::setLang($_POST['lang']));
+	}
+
+	private static function setLayoutAction() {
+
+		Validator::required(isset($_POST['justified_layout']), __METHOD__);
+
+		Response::json(Settings::setLayout($_POST['justified_layout']));
 	}
 
 	private static function setSortingAction() {

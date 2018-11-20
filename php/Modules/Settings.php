@@ -22,6 +22,7 @@ final class Settings {
 		// Add each to return
 		while ($setting = $settings->fetch_object()) $return[$setting->key] = $setting->value;
 
+		$return['imagick'] = (extension_loaded('imagick') && $return['imagick'] == '1') ? '1' : '0';
 		// Convert plugins to array
 		$return['plugins'] = explode(';', $return['plugins']);
 
@@ -149,6 +150,12 @@ final class Settings {
 		Log::error(Database::get(), __METHOD__, __LINE__, 'Could not update settings. Unknown lang.');
 		return false;
 	}
+
+	public static function setLayout($layout) {
+		if (self::set('justified_layout', ($layout == '1') ? '1' : '0', true)===false) return false;
+		return true;
+	}
+
 
 	/**
 	 * Sets a new sorting for the photos.

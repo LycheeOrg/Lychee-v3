@@ -721,7 +721,9 @@ final class Photo {
 		$photo['public'] = $data['public'];
 		$photo['star']   = $data['star'];
 		$photo['album']  = $data['album'];
-		$photo['type']  = $data['type'];
+		$photo['type']   = $data['type'];
+		$photo['width']  = $data['width'];
+		$photo['height'] = $data['height'];
 
 		// Parse medium
 		if ($data['medium']==='1') $photo['medium'] = LYCHEE_URL_UPLOADS_MEDIUM . $data['url'];
