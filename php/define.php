@@ -14,6 +14,7 @@ define('LYCHEE_SRC', LYCHEE . 'Lychee-front/');
 define('LYCHEE_UPLOADS', LYCHEE . 'uploads/');
 define('LYCHEE_UPLOADS_BIG', LYCHEE_UPLOADS . 'big/');
 define('LYCHEE_UPLOADS_MEDIUM', LYCHEE_UPLOADS . 'medium/');
+define('LYCHEE_UPLOADS_MEDIUM', LYCHEE_UPLOADS . 'small/');
 define('LYCHEE_UPLOADS_THUMB', LYCHEE_UPLOADS . 'thumb/');
 define('LYCHEE_UPLOADS_IMPORT', LYCHEE_UPLOADS . 'import/');
 define('LYCHEE_PLUGINS', LYCHEE . 'plugins/');
@@ -24,6 +25,7 @@ define('LYCHEE_CONFIG_FILE', LYCHEE_DATA . 'config.php');
 // Define urls
 define('LYCHEE_URL_UPLOADS_BIG', 'uploads/big/');
 define('LYCHEE_URL_UPLOADS_MEDIUM', 'uploads/medium/');
+define('LYCHEE_URL_UPLOADS_SMALL', 'uploads/small/');
 define('LYCHEE_URL_UPLOADS_THUMB', 'uploads/thumb/');
 
 function defineTablePrefix($dbTablePrefix) {

@@ -47,6 +47,7 @@ if (!extension_loaded('zip'))      $error .= ('Error: PHP zip extension not acti
 
 // Permissions
 if (hasPermissions(LYCHEE_UPLOADS_BIG)===false)    $error .= ('Error: \'uploads/big\' is missing or has insufficient read/write privileges' . PHP_EOL);
+if (hasPermissions(LYCHEE_UPLOADS_SMALL)===false)  $error .= ('Error: \'uploads/small\' is missing or has insufficient read/write privileges' . PHP_EOL);
 if (hasPermissions(LYCHEE_UPLOADS_MEDIUM)===false) $error .= ('Error: \'uploads/medium\' is missing or has insufficient read/write privileges' . PHP_EOL);
 if (hasPermissions(LYCHEE_UPLOADS_THUMB)===false)  $error .= ('Error: \'uploads/thumb\' is missing or has insufficient read/write privileges' . PHP_EOL);
 if (hasPermissions(LYCHEE_UPLOADS_IMPORT)===false) $error .= ('Error: \'uploads/import\' is missing or has insufficient read/write privileges' . PHP_EOL);
