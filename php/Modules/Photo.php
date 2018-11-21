@@ -788,7 +788,7 @@ final class Photo {
 		if ($data['medium']==='1') $photo['medium'] = LYCHEE_URL_UPLOADS_MEDIUM . $data['url'];
 		else                       $photo['medium'] = '';
 
-		// Parse medium
+		// Parse small
 		if ($data['small']==='1') $photo['small'] = LYCHEE_URL_UPLOADS_SMALL . $data['url'];
 		else                       $photo['small'] = '';
 
@@ -851,10 +851,6 @@ final class Photo {
 		// Parse medium
 		if ($photo['medium']==='1') $photo['medium'] = LYCHEE_URL_UPLOADS_MEDIUM . $photo['url'];
 		else                        $photo['medium'] = '';
-		// Parse small
-		if ($photo['small']==='1') $photo['small'] = LYCHEE_URL_UPLOADS_MEDIUM . $photo['url'];
-		else                        $photo['small'] = '';
-
 
 		// Parse paths
 		$photo['url']      = LYCHEE_URL_UPLOADS_BIG . $photo['url'];
