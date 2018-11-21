@@ -30,7 +30,10 @@ final class German
 
 
             'SMART_ALBUMS'		=> 'Intelligente Alben',
-            'ALBUMS'			=> 'Alben',
+			'SHARED_ALBUMS'	    => 'Freigegebene Alben',         
+			'ALBUMS'			=> 'Alben',
+			'PHOTOS'			=> 'Bilder',
+
 
             'RENAME'			=> 'Umbenennen',
             'RENAME_ALL'		=> 'Alle umbenennen',
@@ -128,6 +131,13 @@ final class German
             'ALBUMS_MERGE'				=> 'Are you sure you want to merge all selected albums into the album',
             'MERGE_ALBUM'				=> 'Alben zusammenführen',
             'DONT_MERGE'				=> "Nicht zusammenführen",
+			'ALBUM_MOVE_1'				=> 'Sind Sie sicher dass sie das Album',
+			'ALBUM_MOVE_2'				=> 'in folgendes Album verschieben möchten',
+			'ALBUMS_MOVE'				=> 'Sind Sie sicher dass sie die ausgewählten Alben in folgendes Album verschieben wollen',
+			'MOVE_ALBUMS'               => "Alben verschieben",
+			'NOT_MOVE_ALBUMS'           => "Nicht verschieben",
+			'ROOT' 						=> "Root",
+
 
             'PHOTO_ABOUT'				=> 'Über',
             'PHOTO_BASICS'				=> 'Grundlegende Informationen',
@@ -181,7 +191,16 @@ final class German
             'ERROR_CONFIG_FILE'			=> "Kann diese Konfiguration nicht speichern. Zugriff verweigert auf <b>'data/'</b>. Bitte setzen Sie die Schreibrechte auf <b>'data/'</b> and <b>'uploads/'</b>. Lesen Sie die README Datei für mehr Informationen.",
             'ERROR_UNKNOWN'				=> 'Etwas Unerwartetes ist passiert. Bitte probieren Sie es erneut und überprüfen Sie die Installation und ihren Server. Lesen Sie die README Datei für mehr Informationen.',
             'ERROR_LOGIN'				=> 'Unable to save login. Please try again with another username and password!',
-            'RETRY'						=> 'Nochmal versuchen',
+			'SUCCESS'					=> 'OK',			        
+		    'RETRY'						=> 'Nochmal versuchen',
+
+			'SETTINGS_SUCCESS_LOGIN'	=> 'Benutzerdaten aktualisiert.',
+			'SETTINGS_SUCCESS_SORT'		=> 'Sortierreihenfolge aktualisiert.',
+			'SETTINGS_SUCCESS_DROPBOX'	=> 'Dropbox Schlüssel aktualisiert.',
+			'SETTINGS_SUCCESS_LANG'		=> 'Sprache aktualisiert',
+			'SETTINGS_SUCCESS_LAYOUT' 	=> 'Layout aktualisiert',
+
+			
 
             'DB_INFO_TITLE'				=> 'Geben Sie die Informationen zu Ihrer Datenbankverbindung an:',
             'DB_INFO_HOST'				=> 'Name des Datenbankservers (optional)',
@@ -198,7 +217,8 @@ final class German
             'LOGIN_CREATE'				=> 'Benutzer anlegen',
 
             'PASSWORD_TITLE'			=> 'Geben Sie ihr bestehendes Kennwort ein:',
-            'PASSWORD_CURRENT'			=> 'Bestehendes Kennwort',
+			'USERNAME_CURRENT'			=> 'Bestehender Benutzername',			            		
+			'PASSWORD_CURRENT'			=> 'Bestehendes Kennwort',
             'PASSWORD_TEXT'				=> 'Ihr Benutzername und Passwort werden wie folgt geändert:',
             'PASSWORD_CHANGE'			=> 'Benutzer Ändern',
 
@@ -237,6 +257,11 @@ final class German
 
             'DROPBOX_TITLE'				=> 'Dropbox Schlüssel festlegen',
             'DROPBOX_TEXT'				=> "Um Ihre Fotos von Dropbox zu importieren, brauchen Sie einen gültigen App-Key von <a href='https://www.dropbox.com/developers/apps/create'>der Dropbox Webseite</a>. Erstellen Sie einen persönlichen Schlüssel und geben Sie ihn darunter ein:",
+
+			'LANG_TEXT'					=> 'Sprache für Lychee =>',
+			'LANG_TITLE'				=> 'Sprache festlegen',
+
+			'LAYOUT_TEXT' 				=> 'Ausgerichtetes Layout benutzen=>',
 
             'VIEW_NO_RESULT'			=> 'Keine Ergebnisse',
             'VIEW_NO_PUBLIC_ALBUMS'		=> 'Keine öffentlichen Alben',
