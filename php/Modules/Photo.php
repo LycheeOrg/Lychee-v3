@@ -146,7 +146,13 @@ final class Photo {
 
 		// Verify video
         if(!in_array($file['type'], self::$validVideoTypes, true)){
-		// Verify image
+			if (!function_exists("exif_imagetype")) {
+		      Log::error(Database::get(), __METHOD__, __LINE__, 'EXIF library not loaded. Make sure exif is enabled in php.ini');
+		      if ($returnOnError===true) return false;
+					Response::error('EXIF library not loaded on the server!');
+		    }
+			
+			// Verify image
             $type = @exif_imagetype($file['tmp_name']);
             if (!in_array($type, self::$validTypes, true)) {
                 Log::error(Database::get(), __METHOD__, __LINE__, 'Photo type not supported');
