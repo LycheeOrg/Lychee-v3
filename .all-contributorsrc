@@ -446,6 +446,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "hermzz",
+      "name": "Hermann Käser",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/129883?v=4",
+      "profile": "http://volt.io",
+      "contributions": [
+        "bug"
+      ]
     }
   ]
 }
