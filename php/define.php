@@ -14,7 +14,7 @@ define('LYCHEE_SRC', LYCHEE . 'Lychee-front/');
 define('LYCHEE_UPLOADS', LYCHEE . 'uploads/');
 define('LYCHEE_UPLOADS_BIG', LYCHEE_UPLOADS . 'big/');
 define('LYCHEE_UPLOADS_MEDIUM', LYCHEE_UPLOADS . 'medium/');
-define('LYCHEE_UPLOADS_MEDIUM', LYCHEE_UPLOADS . 'small/');
+define('LYCHEE_UPLOADS_SMALL', LYCHEE_UPLOADS . 'small/');
 define('LYCHEE_UPLOADS_THUMB', LYCHEE_UPLOADS . 'thumb/');
 define('LYCHEE_UPLOADS_IMPORT', LYCHEE_UPLOADS . 'import/');
 define('LYCHEE_PLUGINS', LYCHEE . 'plugins/');
