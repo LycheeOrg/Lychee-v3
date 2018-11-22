@@ -783,7 +783,7 @@ final class Photo {
 		$photo['type']   = $data['type'];
 		$photo['width']  = $data['width'];
 		$photo['height'] = $data['height'];
-		$photo['lens']   = $data['lens'];
+		$photo['lens']   = isset($data['lens']) ? $data['lens'] : '';
 
 		// Parse medium
 		if ($data['medium']==='1') $photo['medium'] = LYCHEE_URL_UPLOADS_MEDIUM . $data['url'];
