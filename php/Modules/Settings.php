@@ -156,6 +156,11 @@ final class Settings {
 		return true;
 	}
 
+	public static function setImageOverlay($imageOverlay) {
+		if (self::set('image_overlay', ($imageOverlay == '1') ? '1' : '0', true)===false) return false;
+		return true;
+	}
+
 
 	/**
 	 * Sets a new sorting for the photos.
