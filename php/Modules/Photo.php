@@ -192,6 +192,7 @@ final class Photo {
 				$path       = $exists['path'];
 				$path_thumb = $exists['path_thumb'];
 				$medium     = ($exists['medium']==='1' ? 1 : 0);
+				$small      = ($exists['small']==='1' ? 1 : 0);
 				$exists     = true;
 			}
 
@@ -276,15 +277,19 @@ final class Photo {
 			// Create Medium
 			if ($this->createMedium($path, $photo_name, $info['type'], $info['width'], $info['height'])) $medium = 1;
 			else $medium = 0;
+			// Create Small
+			if ($this->createMedium($path, $photo_name, $info['type'], $info['width'], $info['height'], 0, 360, 'SMALL')) $small = 1;
+			else $small = 0;
 		}
 
 		if(!in_array($file['type'], self::$validVideoTypes, true)){
-			$values = array(LYCHEE_TABLE_PHOTOS, $id, $info['title'], $photo_name, $info['description'], $info['tags'], $info['type'], $info['width'], $info['height'], $info['size'], $info['iso'], $info['aperture'], $info['make'], $info['model'], $info['shutter'], $info['focal'], $info['takestamp'], $path_thumb, $albumID, $public, $star, $checksum, $medium);
-			$query  = Database::prepare(Database::get(), "INSERT INTO ? (id, title, url, description, tags, type, width, height, size, iso, aperture, make, model, shutter, focal, takestamp, thumbUrl, album, public, star, checksum, medium) VALUES ('?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?')", $values);
+			$values = array(LYCHEE_TABLE_PHOTOS, $id, $info['title'], $photo_name, $info['description'], $info['tags'], $info['type'], $info['width'], $info['height'], $info['size'], $info['iso'],
+			$info['aperture'], $info['make'], $info['model'], $info['shutter'], $info['focal'], $info['takestamp'], $path_thumb, $albumID, $public, $star, $checksum, $medium, $small);
+			$query  = Database::prepare(Database::get(), "INSERT INTO ? (id, title, url, description, tags, type, width, height, size, iso, aperture, make, model, shutter, focal, takestamp, thumbUrl, album, public, star, checksum, medium, small) VALUES ('?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?')", $values);
 			$result = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
 		} else {
-            $values = array(LYCHEE_TABLE_PHOTOS, $id, $info['title'], $photo_name, $file['type'], $info['size'], time(),  $path_thumb, $albumID, $public, $star, $checksum, $medium);
-            $query  = Database::prepare(Database::get(), "INSERT INTO ? (id, title, url, description, tags, type, width, height, size, iso, aperture, make, model, shutter, focal, takestamp, thumbUrl, album, public, star, checksum, medium) VALUES ('?', '?', '?', '', '', '?', 0, 0, '?', '', '', '', '', '', '', '?', '?', '?', '?', '?', '?', '?')", $values);
+            $values = array(LYCHEE_TABLE_PHOTOS, $id, $info['title'], $photo_name, $file['type'], $info['size'], time(),  $path_thumb, $albumID, $public, $star, $checksum, $medium, $small);
+            $query  = Database::prepare(Database::get(), "INSERT INTO ? (id, title, url, description, tags, type, width, height, size, iso, aperture, make, model, shutter, focal, takestamp, thumbUrl, album, public, star, checksum, medium, small) VALUES ('?', '?', '?', '', '', '?', 0, 0, '?', '', '', '', '', '', '', '?', '?', '?', '?', '?', '?', '?', '?')", $values);
             $result = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
         }
 
@@ -311,8 +316,8 @@ final class Photo {
 	private function exists($checksum, $photoID = null) {
 
 		// Exclude $photoID from select when $photoID is set
-		if (isset($photoID)) $query = Database::prepare(Database::get(), "SELECT id, url, thumbUrl, medium FROM ? WHERE checksum = '?' AND id <> '?' LIMIT 1", array(LYCHEE_TABLE_PHOTOS, $checksum, $photoID));
-		else                 $query = Database::prepare(Database::get(), "SELECT id, url, thumbUrl, medium FROM ? WHERE checksum = '?' LIMIT 1", array(LYCHEE_TABLE_PHOTOS, $checksum));
+		if (isset($photoID)) $query = Database::prepare(Database::get(), "SELECT id, url, thumbUrl, medium, small FROM ? WHERE checksum = '?' AND id <> '?' LIMIT 1", array(LYCHEE_TABLE_PHOTOS, $checksum, $photoID));
+		else                 $query = Database::prepare(Database::get(), "SELECT id, url, thumbUrl, medium, small FROM ? WHERE checksum = '?' LIMIT 1", array(LYCHEE_TABLE_PHOTOS, $checksum));
 
 		$result = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
 
@@ -326,7 +331,8 @@ final class Photo {
 				'photo_name' => $result->url,
 				'path'       => LYCHEE_UPLOADS_BIG . $result->url,
 				'path_thumb' => $result->thumbUrl,
-				'medium'     => $result->medium
+				'medium'     => $result->medium,
+				'small'	     => $result->small
 			);
 
 			return $return;
@@ -461,9 +467,14 @@ final class Photo {
 	/**
 	 * Creates a smaller version of a photo when its size is bigger than a preset size.
 	 * Photo must be big enough and Imagick must be installed and activated.
+	 *
+	 * Size of the medium-photo
+	 * When changing these values,
+	 * also change the size detection in the front-end
+	 *
 	 * @return boolean Returns true when successful.
 	 */
-	private function createMedium($url, $filename, $type, $width, $height) {
+	private function createMedium($url, $filename, $type, $width, $height, $newWidth  = 1920, $newHeight = 1080, $kind = 'MEDIUM') {
 
 		// Excepts the following:
 		// (string) $url = Path to the photo-file
@@ -480,17 +491,19 @@ final class Photo {
 		// Set to true when creation of medium-photo failed
 		$error = false;
 
-		// Size of the medium-photo
-		// When changing these values,
-		// also change the size detection in the front-end
-		$newWidth  = 1920;
-		$newHeight = 1080;
 
 		// Check permissions
-		if (hasPermissions(LYCHEE_UPLOADS_MEDIUM)===false) {
+		if ($kind == 'MEDIUM' && hasPermissions(LYCHEE_UPLOADS_MEDIUM)===false) {
 
 			// Permissions are missing
 			Log::notice(Database::get(), __METHOD__, __LINE__, 'Skipped creation of medium-photo, because uploads/medium/ is missing or not readable and writable.');
+			return false;
+
+		}
+		if ($kind == 'SMALL' && hasPermissions(LYCHEE_UPLOADS_SMALL)===false) {
+
+			// Permissions are missing
+			Log::notice(Database::get(), __METHOD__, __LINE__, 'Skipped creation of small-photo, because uploads/small/ is missing or not readable and writable.');
 			return false;
 
 		}
@@ -502,7 +515,15 @@ final class Photo {
 		    return false;
 	    }
 
-		$newUrl = LYCHEE_UPLOADS_MEDIUM . $filename;
+		$newUrl = '';
+		if($kind == 'SMALL')
+		{
+			$newUrl = LYCHEE_UPLOADS_SMALL . $filename;
+		}
+		else
+		{
+			$newUrl = LYCHEE_UPLOADS_MEDIUM . $filename;
+		}
 
 		// Is Imagick installed and activated?
 		if (extension_loaded('imagick')&&Settings::get()['imagick']==='1') {
@@ -512,14 +533,14 @@ final class Photo {
 			$medium->readImage($url);
 
 			// Adjust image
-			$medium->scaleImage($newWidth, $newHeight, true);
+			$medium->scaleImage($newWidth, $newHeight, ($newWidth != 0));
 			$medium->stripImage();
 			$medium->setImageCompressionQuality($quality);
 
 			// Save image
 			try { $medium->writeImage($newUrl); }
 			catch (ImagickException $err) {
-				Log::notice(Database::get(), __METHOD__, __LINE__, 'Could not save medium-photo (' . $err->getMessage() . ')');
+				Log::notice(Database::get(), __METHOD__, __LINE__, 'Could not save '.$kind.'-photo (' . $err->getMessage() . ')');
 				$error = true;
 			}
 
@@ -533,8 +554,15 @@ final class Photo {
 			Log::notice(Database::get(), __METHOD__, __LINE__, 'Picture is big enough for resize, try with GD!');
 			// failed with imagick, try with GD
 
-	        // Create image
-	        $newHeight = $newWidth/($width/$height);
+			// Create image
+	        if($newWidth == 0)
+	        {
+		        $newWidth = $newHeight*($width/$height);
+	        }
+	        else
+	        {
+		        $newHeight = $newWidth/($width/$height);
+	        }
 	        $medium   = imagecreatetruecolor($newWidth, $newHeight);
 	        // Create new image
 	        switch($type) {
@@ -759,6 +787,10 @@ final class Photo {
 		// Parse medium
 		if ($data['medium']==='1') $photo['medium'] = LYCHEE_URL_UPLOADS_MEDIUM . $data['url'];
 		else                       $photo['medium'] = '';
+
+		// Parse small
+		if ($data['small']==='1') $photo['small'] = LYCHEE_URL_UPLOADS_SMALL . $data['url'];
+		else                       $photo['small'] = '';
 
 		// Parse paths
 		$photo['thumbUrl'] = LYCHEE_URL_UPLOADS_THUMB . $data['thumbUrl'];
@@ -1340,7 +1372,7 @@ final class Photo {
 
 			// Duplicate entry
 			$values = array(LYCHEE_TABLE_PHOTOS, $id, LYCHEE_TABLE_PHOTOS, $photo->id);
-			$query  = Database::prepare(Database::get(), "INSERT INTO ? (id, title, url, description, tags, type, width, height, size, iso, aperture, make, model, shutter, focal, takestamp, thumbUrl, album, public, star, checksum) SELECT '?' AS id, title, url, description, tags, type, width, height, size, iso, aperture, make, model, shutter, focal, takestamp, thumbUrl, album, public, star, checksum FROM ? WHERE id = '?'", $values);
+			$query  = Database::prepare(Database::get(), "INSERT INTO ? (id, title, url, description, tags, type, width, height, size, iso, aperture, make, model, shutter, focal, takestamp, thumbUrl, album, public, star, checksum, medium, small) SELECT '?' AS id, title, url, description, tags, type, width, height, size, iso, aperture, make, model, shutter, focal, takestamp, thumbUrl, album, public, star, checksum, medium, small FROM ? WHERE id = '?'", $values);
 			$result = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
 
 			if ($result===false) $error = true;
