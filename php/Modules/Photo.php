@@ -945,6 +945,7 @@ final class Photo {
 		$return['latitude']    = '';
 		$return['longitude']   = '';
 		$return['altitude']    = '';
+		$return['license']		 = '';
 
 		// Size
 		$size = filesize($url)/1024;
@@ -1139,6 +1140,30 @@ final class Photo {
 
 		// Set description
 		$query  = Database::prepare(Database::get(), "UPDATE ? SET description = '?' WHERE id IN ('?')", array(LYCHEE_TABLE_PHOTOS, $description, $this->photoIDs));
+		$result = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
+
+		// Call plugins
+		Plugins::get()->activate(__METHOD__, 1, func_get_args());
+
+		if ($result===false) return false;
+		return true;
+
+	}
+
+	/**
+	 * Sets the license of a photo.
+	 * @return boolean Returns true when successful.
+	 */
+	public function setLicense($license) {
+
+		// Check dependencies
+		Validator::required(isset($this->photoIDs), __METHOD__);
+
+		// Call plugins
+		Plugins::get()->activate(__METHOD__, 0, func_get_args());
+
+		// Set description
+		$query  = Database::prepare(Database::get(), "UPDATE ? SET license = '?' WHERE id IN ('?')", array(LYCHEE_TABLE_PHOTOS, $license, $this->photoIDs));
 		$result = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
 
 		// Call plugins
