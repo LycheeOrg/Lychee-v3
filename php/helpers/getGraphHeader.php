@@ -33,21 +33,22 @@ function getGraphHeader($photoID) {
 	$row->title       = htmlentities($row->title);
 	$row->description = htmlentities($row->description);
 
-	$return = '<!-- General Meta Data -->';
-	$return .= '<meta name="title" content="' . $row->title . '">';
-	$return .= '<meta name="description" content="' . $row->description . ' - via Lychee">';
-	$return .= '<link rel="image_src" type="image/jpeg" href="' . $picture . '">';
+	$return = '<!-- General Meta Data -->'. "\n";
+	$return .= "\t\t". '<meta name="title" content="' . $row->title . '">'. "\n";
+	$return .= "\t\t". '<meta name="description" content="' . $row->description . ' - via Lychee">'. "\n";
+	$return .= "\t\t". '<link rel="image_src" type="image/jpeg" href="' . $picture . '">'. "\n";
 
-	$return .= '<!-- Twitter Meta Data -->';
-	$return .= '<meta name="twitter:card" content="photo">';
-	$return .= '<meta name="twitter:title" content="' . $row->title . '">';
-	$return .= '<meta name="twitter:image:src" content="' . $picture . '">';
+	$return .= "\t\t". '<!-- Twitter Meta Data -->'. "\n";
+	$return .= "\t\t". '<meta name="twitter:card" content="summary_large_image">'. "\n";
+	$return .= "\t\t". '<meta name="twitter:title" content="' . $row->title . '">'. "\n";
+	$return .= "\t\t". '<meta name="twitter:description" content="' . $row->description . '">'. "\n";
+	$return .= "\t\t". '<meta name="twitter:image" content="' . $picture . '">'. "\n";
 
-	$return .= '<!-- Facebook Meta Data -->';
-	$return .= '<meta property="og:title" content="' . $row->title . '">';
-	$return .= '<meta property="og:description" content="' . $row->description . ' - via Lychee">';
-	$return .= '<meta property="og:image" content="' . $picture . '">';
-	$return .= '<meta property="og:url" content="' . $url . '">';
+	$return .= "\t\t". '<!-- Facebook Meta Data -->'. "\n";
+	$return .= "\t\t". '<meta property="og:title" content="' . $row->title . '">'. "\n";
+	$return .= "\t\t". '<meta property="og:description" content="' . $row->description . ' - via Lychee">'. "\n";
+	$return .= "\t\t". '<meta property="og:image" content="' . $picture . '">'. "\n";
+	$return .= "\t\t". '<meta property="og:url" content="' . $url . '">'. "\n";
 
 	return $return;
 
