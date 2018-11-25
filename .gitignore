@@ -19,4 +19,6 @@ plugins/*
 
 vendor/*
 
+npm-debug.log
+
 Lychee-v*
