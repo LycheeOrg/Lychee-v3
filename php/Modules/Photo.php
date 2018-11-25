@@ -774,15 +774,21 @@ final class Photo {
 		$photo = null;
 
 		// Set unchanged attributes
-		$photo['id']     = $data['id'];
-		$photo['title']  = $data['title'];
-		$photo['tags']   = $data['tags'];
-		$photo['public'] = $data['public'];
-		$photo['star']   = $data['star'];
-		$photo['album']  = $data['album'];
-		$photo['type']   = $data['type'];
-		$photo['width']  = $data['width'];
-		$photo['height'] = $data['height'];
+		$photo['id']     	= $data['id'];
+		$photo['title']  	= $data['title'];
+		$photo['tags']   	= $data['tags'];
+		$photo['public'] 	= $data['public'];
+		$photo['star']   	= $data['star'];
+		$photo['album']  	= $data['album'];
+		$photo['type']   	= $data['type'];
+		$photo['width']  	= $data['width'];
+		$photo['height'] 	= $data['height'];
+		$photo['shutter'] 	= $data['shutter'];
+		$photo['make'] 		= $data['make'];
+		$photo['model']		= $data['model'];
+		$photo['iso'] 		= $data['iso'];
+		$photo['aperture'] 	= $data['aperture'];
+		$photo['focal'] 	= $data['focal'];
 		$photo['lens']   = isset($data['lens']) ? $data['lens'] : '';
 
 		// Parse medium
@@ -798,17 +804,19 @@ final class Photo {
 		$photo['url']      = LYCHEE_URL_UPLOADS_BIG . $data['url'];
 
 		// Use takestamp as sysdate when possible
-		if (isset($data['takestamp'])&&$data['takestamp']!=='0') {
+		if (isset($data['takestamp']) && $data['takestamp'] > 0) {
 
 			// Use takestamp
 			$photo['cameraDate'] = '1';
-			$photo['sysdate']    = strftime('%d %B %Y', $data['takestamp']);
+			$photo['sysdate']    = strftime('%d %B %Y', substr($data['id'], 0, -4));
+			$photo['takedate']    = strftime('%d %B %Y', $data['takestamp']);
 
 		} else {
 
 			// Use sysstamp from the id
 			$photo['cameraDate'] = '0';
 			$photo['sysdate']    = strftime('%d %B %Y', substr($data['id'], 0, -4));
+			$photo['takedate']   = '';
 
 		}
 
@@ -845,17 +853,20 @@ final class Photo {
 			return false;
 		}
 
+		$photo = Photo::prepareData($photo);
+
 		// Parse photo
-		$photo['sysdate'] = strftime('%d %b. %Y', substr($photo['id'], 0, -4));
-		if (strlen($photo['takestamp'])>1) $photo['takedate'] = strftime('%d %b. %Y', $photo['takestamp']);
+		// $photo['sysdate'] = strftime('%d %b. %Y', substr($photo['id'], 0, -4));
+		// if (strlen($photo['takestamp'])>1) $photo['takedate'] = strftime('%d %b. %Y', $photo['takestamp']);
+		// if ($photo['takestamp']>1) $photo['takedate'] = strftime('%d %b. %Y', $photo['takestamp']);
 
 		// Parse medium
-		if ($photo['medium']==='1') $photo['medium'] = LYCHEE_URL_UPLOADS_MEDIUM . $photo['url'];
-		else                        $photo['medium'] = '';
+		// if ($photo['medium']==='1') $photo['medium'] = LYCHEE_URL_UPLOADS_MEDIUM . $photo['url'];
+		// else                        $photo['medium'] = '';
 
 		// Parse paths
-		$photo['url']      = LYCHEE_URL_UPLOADS_BIG . $photo['url'];
-		$photo['thumbUrl'] = LYCHEE_URL_UPLOADS_THUMB . $photo['thumbUrl'];
+		// $photo['url']      = LYCHEE_URL_UPLOADS_BIG . $photo['url'];
+		// $photo['thumbUrl'] = LYCHEE_URL_UPLOADS_THUMB . $photo['thumbUrl'];
 
 		if ($albumID!='false') {
 
