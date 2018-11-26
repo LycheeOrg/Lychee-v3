@@ -924,8 +924,6 @@ final class Photo {
 		$iptcArray = array();
 		$info      = getimagesize($url, $iptcArray);
 
-		console.log($return);
-		
 		// General information
 		$return['type']        = $info['mime'];
 		$return['width']       = $info[0];
