@@ -16,7 +16,7 @@ if ($result===false) {
 	$query  = Database::prepare($connection, "ALTER TABLE `?` ADD `license` varchar(20) NOT NULL DEFAULT ''", array(LYCHEE_TABLE_PHOTOS));
 	$result = Database::execute($connection, $query, 'update_030205', __LINE__);
 
-	if ($result===false) Response::error('Could not add licnese-field to database!');
+	if ($result===false) Response::error('Could not add license-field to database!');
 
 }
 

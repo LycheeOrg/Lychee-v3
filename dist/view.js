@@ -712,7 +712,6 @@ sidebar.createStructure.photo = function (data) {
 	var exifHash = data.takedate + data.make + data.model + data.shutter + data.aperture + data.focal + data.iso;
 	var structure = {};
 	var _public = '';
-	var _license = '';
 
 	// Enable editable when user logged in
 	if (lychee.publicMode === false && lychee.upload) editable = true;
@@ -783,7 +782,7 @@ sidebar.createStructure.photo = function (data) {
 	structure.license = {
 		title: lychee.locale['PHOTO_LICENSE'],
 		type: sidebar.types.DEFAULT,
-		rows: [{ title: lychee.locale['PHOTO_SET_LICENSE'], kind: 'license', value: _license, editable: editable }]
+		rows: [{ title: lychee.locale['PHOTO_SET_LICENSE'], kind: 'license', value: photo.json.license, editable: editable }]
 	};
 
 	// Construct all parts of the structure
@@ -1265,7 +1264,9 @@ lychee.locale = {
 	'MOVE': 'Move',
 	'MOVE_ALL': 'Move All',
 	'DUPLICATE': 'Duplicate',
+	'COPY_TO': 'Copy to...',
 	'DUPLICATE_ALL': 'Duplicate All',
+	'COPY_ALL_TO': 'Copy All to...',
 	'DELETE': 'Delete',
 	'DELETE_ALL': 'Delete All',
 	'DOWNLOAD': 'Download',
@@ -1344,7 +1345,9 @@ lychee.locale = {
 	'PHOTO_SET_DESCRIPTION': 'Set Description',
 	'PHOTO_NEW_LICENSE': 'Add a License',
 	'PHOTO_SET_LICENSE': 'Set License',
-	'PHOTO_LICENSE': 'Resue',
+	'PHOTO_LICENSE': 'Reuse',
+	'PHOTO_LICENSE_HELP': 'Need help choosing?',
+	'PHOTO_LICENSE_NONE': 'None',
 	'PHOTO_IMAGE': 'Image',
 	'PHOTO_SIZE': 'Size',
 	'PHOTO_FORMAT': 'Format',
