@@ -777,6 +777,7 @@ final class Photo {
 		$photo['id']     		= $data['id'];
 		$photo['title']  		= $data['title'];
 		$photo['description']  	= $data['description'];
+		$photo['license']		= $data['license'];
 		$photo['tags']   		= $data['tags'];
 		$photo['public'] 		= $data['public'];
 		$photo['star']   		= $data['star'];
@@ -1161,6 +1162,25 @@ final class Photo {
 
 		// Call plugins
 		Plugins::get()->activate(__METHOD__, 0, func_get_args());
+
+		// Validate the license submitted
+		$licenses = [ '', 'CC0', 'CC-BY', 'CC-BY-ND', 'CC-BY-SA', 'CC-BY-ND', 'CC-BY-NC-ND', 'CC-BY-SA'];
+
+		$found = false;
+		$i = 0;
+
+		while(!$found && $i < count($licenses))
+		{
+			if ($licenses[$i] == $license) $found = true;
+			$i++;
+		}
+
+		if(!$found)
+		{
+			// Log the error
+			Log::error(Database::get(), __METHOD__, __LINE__, 'Could not find specified license');
+			return false;
+		}
 
 		// Set description
 		$query  = Database::prepare(Database::get(), "UPDATE ? SET license = '?' WHERE id IN ('?')", array(LYCHEE_TABLE_PHOTOS, $license, $this->photoIDs));
