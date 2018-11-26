@@ -284,8 +284,8 @@ final class Photo {
 
 		if(!in_array($file['type'], self::$validVideoTypes, true)){
 			$values = array(LYCHEE_TABLE_PHOTOS, $id, $info['title'], $photo_name, $info['description'], $info['tags'], $info['type'], $info['width'], $info['height'], $info['size'], $info['iso'],
-			$info['aperture'], $info['make'], $info['model'], $info['lens'], $info['shutter'], $info['focal'], $info['takestamp'], $path_thumb, $albumID, $public, $star, $checksum, $medium, $small);
-			$query  = Database::prepare(Database::get(), "INSERT INTO ? (id, title, url, description, tags, type, width, height, size, iso, aperture, make, model, lens, shutter, focal, takestamp, thumbUrl, album, public, star, checksum, medium, small) VALUES ('?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?')", $values);
+			$info['aperture'], $info['make'], $info['model'], $info['lens'], $info['shutter'], $info['focal'], $info['takestamp'], $path_thumb, $albumID, $public, $star, $checksum, $medium, $small, $info['license']);
+			$query  = Database::prepare(Database::get(), "INSERT INTO ? (id, title, url, description, tags, type, width, height, size, iso, aperture, make, model, lens, shutter, focal, takestamp, thumbUrl, album, public, star, checksum, medium, small, license) VALUES ('?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?')", $values);
 			$result = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
 		} else {
             $values = array(LYCHEE_TABLE_PHOTOS, $id, $info['title'], $photo_name, $file['type'], $info['size'], time(),  $path_thumb, $albumID, $public, $star, $checksum, $medium, $small);
@@ -777,6 +777,7 @@ final class Photo {
 		$photo['id']     		= $data['id'];
 		$photo['title']  		= $data['title'];
 		$photo['description']  	= $data['description'];
+		$photo['license']		= $data['license'];
 		$photo['tags']   		= $data['tags'];
 		$photo['public'] 		= $data['public'];
 		$photo['star']   		= $data['star'];
@@ -945,6 +946,7 @@ final class Photo {
 		$return['latitude']    = '';
 		$return['longitude']   = '';
 		$return['altitude']    = '';
+		$return['license']		 = '';
 
 		// Size
 		$size = filesize($url)/1024;
@@ -1139,6 +1141,49 @@ final class Photo {
 
 		// Set description
 		$query  = Database::prepare(Database::get(), "UPDATE ? SET description = '?' WHERE id IN ('?')", array(LYCHEE_TABLE_PHOTOS, $description, $this->photoIDs));
+		$result = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
+
+		// Call plugins
+		Plugins::get()->activate(__METHOD__, 1, func_get_args());
+
+		if ($result===false) return false;
+		return true;
+
+	}
+
+	/**
+	 * Sets the license of a photo.
+	 * @return boolean Returns true when successful.
+	 */
+	public function setLicense($license) {
+
+		// Check dependencies
+		Validator::required(isset($this->photoIDs), __METHOD__);
+
+		// Call plugins
+		Plugins::get()->activate(__METHOD__, 0, func_get_args());
+
+		// Validate the license submitted
+		$licenses = [ '', 'CC0', 'CC-BY', 'CC-BY-ND', 'CC-BY-SA', 'CC-BY-ND', 'CC-BY-NC-ND', 'CC-BY-SA'];
+
+		$found = false;
+		$i = 0;
+
+		while(!$found && $i < count($licenses))
+		{
+			if ($licenses[$i] == $license) $found = true;
+			$i++;
+		}
+
+		if(!$found)
+		{
+			// Log the error
+			Log::error(Database::get(), __METHOD__, __LINE__, 'Could not find specified license');
+			return false;
+		}
+
+		// Set description
+		$query  = Database::prepare(Database::get(), "UPDATE ? SET license = '?' WHERE id IN ('?')", array(LYCHEE_TABLE_PHOTOS, $license, $this->photoIDs));
 		$result = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
 
 		// Call plugins
@@ -1387,7 +1432,7 @@ final class Photo {
 
 			// Duplicate entry
 			$values = array(LYCHEE_TABLE_PHOTOS, $id, LYCHEE_TABLE_PHOTOS, $photo->id);
-			$query  = Database::prepare(Database::get(), "INSERT INTO ? (id, title, url, description, tags, type, width, height, size, iso, aperture, make, model, lens, shutter, focal, takestamp, thumbUrl, album, public, star, checksum, medium, small) SELECT '?' AS id, title, url, description, tags, type, width, height, size, iso, aperture, make, model, lens, shutter, focal, takestamp, thumbUrl, album, public, star, checksum, medium, small FROM ? WHERE id = '?'", $values);
+			$query  = Database::prepare(Database::get(), "INSERT INTO ? (id, title, url, description, tags, type, width, height, size, iso, aperture, make, model, lens, shutter, focal, takestamp, thumbUrl, album, public, star, checksum, medium, small, license) SELECT '?' AS id, title, url, description, tags, type, width, height, size, iso, aperture, make, model, lens, shutter, focal, takestamp, thumbUrl, album, public, star, checksum, medium, small, license FROM ? WHERE id = '?'", $values);
 			$result = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
 
 			if ($result===false) $error = true;

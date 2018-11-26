@@ -653,6 +653,10 @@ sidebar.bind = function () {
 		photo.deleteTag(photo.getID(), $(this).data('index'));
 	});
 
+	sidebar.dom('#edit_license').off(eventName).on(eventName, function () {
+		photo.setLicense(photo.getID());
+	});
+
 	return true;
 };
 
@@ -708,6 +712,7 @@ sidebar.createStructure.photo = function (data) {
 	var exifHash = data.takedate + data.make + data.model + data.shutter + data.aperture + data.focal + data.iso;
 	var structure = {};
 	var _public = '';
+	var _license = '';
 
 	// Enable editable when user logged in
 	if (lychee.publicMode === false && lychee.upload) editable = true;
@@ -775,8 +780,14 @@ sidebar.createStructure.photo = function (data) {
 		rows: [{ title: lychee.locale['PHOTO_SHR_PLUBLIC'], kind: 'public', value: _public }]
 	};
 
+	structure.license = {
+		title: lychee.locale['PHOTO_LICENSE'],
+		type: sidebar.types.DEFAULT,
+		rows: [{ title: lychee.locale['PHOTO_SET_LICENSE'], kind: 'license', value: _license, editable: editable }]
+	};
+
 	// Construct all parts of the structure
-	structure = [structure.basics, structure.image, structure.tags, structure.exif, structure.sharing];
+	structure = [structure.basics, structure.image, structure.tags, structure.exif, structure.sharing, structure.license];
 
 	return structure;
 };
@@ -1331,6 +1342,9 @@ lychee.locale = {
 	'PHOTO_DESCRIPTION': 'Description',
 	'PHOTO_NEW_DESCRIPTION': 'Enter a new description for this photo:',
 	'PHOTO_SET_DESCRIPTION': 'Set Description',
+	'PHOTO_NEW_LICENSE': 'Add a License',
+	'PHOTO_SET_LICENSE': 'Set License',
+	'PHOTO_LICENSE': 'Resue',
 	'PHOTO_IMAGE': 'Image',
 	'PHOTO_SIZE': 'Size',
 	'PHOTO_FORMAT': 'Format',
