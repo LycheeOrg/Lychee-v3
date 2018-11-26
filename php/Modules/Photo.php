@@ -284,8 +284,8 @@ final class Photo {
 
 		if(!in_array($file['type'], self::$validVideoTypes, true)){
 			$values = array(LYCHEE_TABLE_PHOTOS, $id, $info['title'], $photo_name, $info['description'], $info['tags'], $info['type'], $info['width'], $info['height'], $info['size'], $info['iso'],
-			$info['aperture'], $info['make'], $info['model'], $info['lens'], $info['shutter'], $info['focal'], $info['takestamp'], $path_thumb, $albumID, $public, $star, $checksum, $medium, $small);
-			$query  = Database::prepare(Database::get(), "INSERT INTO ? (id, title, url, description, tags, type, width, height, size, iso, aperture, make, model, lens, shutter, focal, takestamp, thumbUrl, album, public, star, checksum, medium, small) VALUES ('?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?')", $values);
+			$info['aperture'], $info['make'], $info['model'], $info['lens'], $info['shutter'], $info['focal'], $info['takestamp'], $path_thumb, $albumID, $public, $star, $checksum, $medium, $small, $info['license']);
+			$query  = Database::prepare(Database::get(), "INSERT INTO ? (id, title, url, description, tags, type, width, height, size, iso, aperture, make, model, lens, shutter, focal, takestamp, thumbUrl, album, public, star, checksum, medium, small, license) VALUES ('?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?')", $values);
 			$result = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
 		} else {
             $values = array(LYCHEE_TABLE_PHOTOS, $id, $info['title'], $photo_name, $file['type'], $info['size'], time(),  $path_thumb, $albumID, $public, $star, $checksum, $medium, $small);
@@ -925,6 +925,8 @@ final class Photo {
 		$iptcArray = array();
 		$info      = getimagesize($url, $iptcArray);
 
+		console.log($return);
+		
 		// General information
 		$return['type']        = $info['mime'];
 		$return['width']       = $info[0];
@@ -1412,7 +1414,7 @@ final class Photo {
 
 			// Duplicate entry
 			$values = array(LYCHEE_TABLE_PHOTOS, $id, LYCHEE_TABLE_PHOTOS, $photo->id);
-			$query  = Database::prepare(Database::get(), "INSERT INTO ? (id, title, url, description, tags, type, width, height, size, iso, aperture, make, model, lens, shutter, focal, takestamp, thumbUrl, album, public, star, checksum, medium, small) SELECT '?' AS id, title, url, description, tags, type, width, height, size, iso, aperture, make, model, lens, shutter, focal, takestamp, thumbUrl, album, public, star, checksum, medium, small FROM ? WHERE id = '?'", $values);
+			$query  = Database::prepare(Database::get(), "INSERT INTO ? (id, title, url, description, tags, type, width, height, size, iso, aperture, make, model, lens, shutter, focal, takestamp, thumbUrl, album, public, star, checksum, medium, small, license) SELECT '?' AS id, title, url, description, tags, type, width, height, size, iso, aperture, make, model, lens, shutter, focal, takestamp, thumbUrl, album, public, star, checksum, medium, small, license FROM ? WHERE id = '?'", $values);
 			$result = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
 
 			if ($result===false) $error = true;
