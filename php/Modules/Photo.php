@@ -774,22 +774,23 @@ final class Photo {
 		$photo = null;
 
 		// Set unchanged attributes
-		$photo['id']     	= $data['id'];
-		$photo['title']  	= $data['title'];
-		$photo['tags']   	= $data['tags'];
-		$photo['public'] 	= $data['public'];
-		$photo['star']   	= $data['star'];
-		$photo['album']  	= $data['album'];
-		$photo['type']   	= $data['type'];
-		$photo['width']  	= $data['width'];
-		$photo['height'] 	= $data['height'];
-		$photo['shutter'] 	= $data['shutter'];
-		$photo['make'] 		= $data['make'];
-		$photo['model']		= $data['model'];
-		$photo['iso'] 		= $data['iso'];
-		$photo['aperture'] 	= $data['aperture'];
-		$photo['focal'] 	= $data['focal'];
-		$photo['lens']   = isset($data['lens']) ? $data['lens'] : '';
+		$photo['id']     		= $data['id'];
+		$photo['title']  		= $data['title'];
+		$photo['description']  	= $data['description'];
+		$photo['tags']   		= $data['tags'];
+		$photo['public'] 		= $data['public'];
+		$photo['star']   		= $data['star'];
+		$photo['album']  		= $data['album'];
+		$photo['type']   		= $data['type'];
+		$photo['width']  		= $data['width'];
+		$photo['height'] 		= $data['height'];
+		$photo['shutter'] 		= $data['shutter'];
+		$photo['make'] 			= $data['make'];
+		$photo['model']			= $data['model'];
+		$photo['iso'] 			= $data['iso'];
+		$photo['aperture'] 		= $data['aperture'];
+		$photo['focal'] 		= $data['focal'];
+		$photo['lens']   		= isset($data['lens']) ? $data['lens'] : ''; // isset should not be needed
 
 		// Parse medium
 		if ($data['medium']==='1') $photo['medium'] = LYCHEE_URL_UPLOADS_MEDIUM . $data['url'];
