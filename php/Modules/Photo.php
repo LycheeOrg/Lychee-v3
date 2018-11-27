@@ -1164,7 +1164,7 @@ final class Photo {
 		Plugins::get()->activate(__METHOD__, 0, func_get_args());
 
 		// Validate the license submitted
-		$licenses = [ '', 'CC0', 'CC-BY', 'CC-BY-ND', 'CC-BY-SA', 'CC-BY-ND', 'CC-BY-NC-ND', 'CC-BY-SA'];
+		$licenses = [ 'none', 'CC0', 'CC-BY', 'CC-BY-ND', 'CC-BY-SA', 'CC-BY-ND', 'CC-BY-NC-ND', 'CC-BY-SA'];
 
 		$found = false;
 		$i = 0;
@@ -1174,7 +1174,6 @@ final class Photo {
 			if ($licenses[$i] == $license) $found = true;
 			$i++;
 		}
-
 		if(!$found)
 		{
 			// Log the error
@@ -1182,6 +1181,7 @@ final class Photo {
 			return false;
 		}
 
+		$license = ($license == 'none' ? '' : $license);
 		// Set description
 		$query  = Database::prepare(Database::get(), "UPDATE ? SET license = '?' WHERE id IN ('?')", array(LYCHEE_TABLE_PHOTOS, $license, $this->photoIDs));
 		$result = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
