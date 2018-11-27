@@ -4273,6 +4273,8 @@ search = {
 
 search.find = function (term) {
 
+	if (term.trim() === '') return false;
+
 	clearTimeout($(window).data('timeout'));
 
 	$(window).data('timeout', setTimeout(function () {
@@ -4302,11 +4304,17 @@ search.find = function (term) {
 					});
 				}
 
+				var albums_divider = lychee.locale['ALBUMS'];
+				var photos_divider = lychee.locale['PHOTOS'];
+
+				if (albumsData !== '') albums_divider += ' (' + data.albums.length + ')';
+				if (photosData !== '') photos_divider += ' (' + data.photos.length + ')';
+
 				// 1. No albums and photos
 				// 2. Only photos
 				// 3. Only albums
 				// 4. Albums and photos
-				if (albumsData === '' && photosData === '') html = 'error';else if (albumsData === '') html = build.divider(lychee.locale['PHOTOS']) + photosData;else if (photosData === '') html = build.divider(lychee.locale['ALBUMS']) + albumsData;else html = build.divider(lychee.locale['ALBUMS']) + albumsData + build.divider(lychee.locale['PHOTOS']) + photosData;
+				if (albumsData === '' && photosData === '') html = 'error';else if (albumsData === '') html = build.divider(photos_divider) + photosData;else if (photosData === '') html = build.divider(albums_divider) + albumsData;else html = build.divider(albums_divider) + albumsData + build.divider(photos_divider) + photosData;
 
 				// Only refresh view when search results are different
 				if (search.hash !== data.hash) {
