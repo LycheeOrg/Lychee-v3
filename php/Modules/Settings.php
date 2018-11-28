@@ -262,7 +262,7 @@ final class Settings {
 	 * @return boolean Boolean for successful default setting
 	 */
 	public static function setDefaultLicense($license) {
-		$licenses = ['none', 'CC0', 'CC-BY', 'CC-BY-ND', 'CC-BY-SA', 'CC-BY-NC', 'CC-BY-NC-ND', 'CC-BY-NC-SA' ];
+		$licenses = ['none', 'reserved', 'CC0', 'CC-BY', 'CC-BY-ND', 'CC-BY-SA', 'CC-BY-NC', 'CC-BY-NC-ND', 'CC-BY-NC-SA' ];
 
 		$found = false;
 		$i = 0;
