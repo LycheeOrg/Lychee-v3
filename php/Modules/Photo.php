@@ -1184,7 +1184,6 @@ final class Photo {
 			return false;
 		}
 
-		$license = ($license == 'none' ? '' : $license);
 		// Set description
 		$query  = Database::prepare(Database::get(), "UPDATE ? SET license = '?' WHERE id IN ('?')", array(LYCHEE_TABLE_PHOTOS, $license, $this->photoIDs));
 		$result = Database::execute(Database::get(), $query, __METHOD__, __LINE__);

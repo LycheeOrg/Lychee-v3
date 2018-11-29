@@ -22,5 +22,9 @@ if ($result->num_rows===0) {
 
 }
 
+$query = Database::prepare($connection, "ALTER TABLE `?` ALTER `license` SET DEFAULT 'none'", array(LYCHEE_TABLE_PHOTOS));
+	$result = Database::execute($connection, $query, 'update_030206', __LINE__);
+	if ($result===false) Response::error('Could not change default license value.');
+
 // Set version
 if (Database::setVersion($connection, 'update_030206')===false) Response::error('Could not update version of database!');
