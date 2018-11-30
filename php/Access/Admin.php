@@ -58,6 +58,7 @@ final class Admin extends Access {
 			case 'Settings::setImageOverlay':     self::setImageOverlay(); break;
 			case 'Settings::setLayout':     self::setLayoutAction(); break;
 			case 'Settings::setLang':      	self::setLangAction(); break;
+			case 'Settings::setDefaultLicense':	  self::setDefaultLicenseAction(); break;
 			case 'Settings::setLogin':      self::setLoginAction(); break;
 			case 'Settings::setSorting':    self::setSortingAction(); break;
 			case 'Settings::setDropboxKey': self::setDropboxKeyAction(); break;
@@ -318,6 +319,13 @@ final class Admin extends Access {
 		Validator::required(isset($_POST['lang']), __METHOD__);
 
 		Response::json(Settings::setLang($_POST['lang']));
+	}
+
+	private static function setDefaultLicenseAction() {
+
+		Validator::required(isset($_POST['license']), __METHOD__);
+
+		Response::json(Settings::setDefaultLicense($_POST['license']));
 	}
 
 	private static function setLayoutAction() {

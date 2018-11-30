@@ -258,4 +258,29 @@ final class Settings {
 		return (bool)(extension_loaded('imagick') && self::get()['imagick'] === '1');
 	}
 
+	/**
+	 * @return boolean Boolean for successful default setting
+	 */
+	public static function setDefaultLicense($license) {
+		$licenses = ['none', 'reserved', 'CC0', 'CC-BY', 'CC-BY-ND', 'CC-BY-SA', 'CC-BY-NC', 'CC-BY-NC-ND', 'CC-BY-NC-SA' ];
+
+		$found = false;
+		$i = 0;
+
+		while(!$found && $i < count($licenses)) {
+			if ($licenses[$i] === $license) $found = true;
+			$i++;
+		}
+
+		if(!$found) {
+			Log::error(Database::get(), __METHOD__, __LINE__, 'Cound not find the submitted license');
+		}
+		else {
+			if (self::set('default_license', $license, true)===false) return false;
+			return true;
+		}
+		Log::error(Database::get(), __METHOD__, __LINE__, 'Could not update settings. Unknown license.');
+		return false;
+	}
+
 }
