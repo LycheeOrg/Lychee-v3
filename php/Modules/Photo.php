@@ -365,8 +365,11 @@ final class Photo {
 		$newUrl    = LYCHEE_UPLOADS_THUMB . $photoName[0] . '.jpeg';
 		$newUrl2x  = LYCHEE_UPLOADS_THUMB . $photoName[0] . '@2x.jpeg';
 
+		$error = false;
 		// Create thumbnails with Imagick
 		if(Settings::hasImagick()) {
+
+			try {
 
 			// Read image
 			$thumb = new Imagick();
@@ -391,8 +394,17 @@ final class Photo {
 			$thumb2x->writeImage($newUrl2x);
 			$thumb2x->clear();
 			$thumb2x->destroy();
+			}
+			catch (ImagickException $exception) {
+				Logs::error(__METHOD__,__LINE__,$exception->getMessage());
+				$error = true;
+	        }
+		}
+		else {
+			$error = true;
+		}
 
-		} else {
+		if($error) {
 
 			// Create image
 			$thumb   = imagecreatetruecolor($newWidth, $newHeight);
@@ -529,26 +541,32 @@ final class Photo {
 		}
 
 		// Is Imagick installed and activated?
-		if (extension_loaded('imagick')&&Settings::get()['imagick']==='1') {
+		if (Settings::hasImagick()) {
 
-			// Read image
-			$medium = new Imagick();
-			$medium->readImage($url);
+			try {
+				// Read image
+				$medium = new Imagick();
+				$medium->readImage($url);
 
-			// Adjust image
-			$medium->scaleImage($newWidth, $newHeight, ($newWidth != 0));
-			$medium->stripImage();
-			$medium->setImageCompressionQuality($quality);
+				// Adjust image
+				$medium->scaleImage($newWidth, $newHeight, ($newWidth != 0));
+				$medium->stripImage();
+				$medium->setImageCompressionQuality($quality);
 
-			// Save image
-			try { $medium->writeImage($newUrl); }
-			catch (ImagickException $err) {
-				Log::notice(Database::get(), __METHOD__, __LINE__, 'Could not save '.$kind.'-photo (' . $err->getMessage() . ')');
-				$error = true;
+				// Save image
+				try { $medium->writeImage($newUrl); }
+				catch (ImagickException $err) {
+					Log::notice(Database::get(), __METHOD__, __LINE__, 'Could not save '.$kind.'-photo (' . $err->getMessage() . ')');
+					$error = true;
+				}
+
+				$medium->clear();
+				$medium->destroy();
 			}
-
-			$medium->clear();
-			$medium->destroy();
+			catch (ImagickException $exception) {
+				Log::error(Database::get(), __METHOD__,__LINE__,$exception->getMessage());
+				$error = true;
+	        }
 
 		}
 
