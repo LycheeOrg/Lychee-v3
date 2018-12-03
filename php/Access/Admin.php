@@ -10,6 +10,7 @@ use Lychee\Modules\Response;
 use Lychee\Modules\Session;
 use Lychee\Modules\Settings;
 use Lychee\Modules\Validator;
+use Lychee\Run\Small;
 
 final class Admin extends Access {
 
@@ -68,6 +69,7 @@ final class Admin extends Access {
 			case 'Album::getArchive':       self::getAlbumArchiveAction(); break;
 			case 'Photo::getArchive':       self::getPhotoArchiveAction(); break;
 
+			case 'Photo::genSmall':			self::genSmall(); break;
 		}
 
 		self::fnNotFound();
@@ -382,4 +384,12 @@ final class Admin extends Access {
 
 	}
 
+	private static function genSmall() {
+
+		$nb = isset($_GET['nb']) ? $_GET['nb'] : 5;
+		$from = isset($_GET['from']) ? $_GET['from'] : 0;
+		$timeout = isset($_GET['timeout']) ? $_GET['timeout'] : 1000;
+		Small::run($nb, $from, $timeout);
+
+	}
 }

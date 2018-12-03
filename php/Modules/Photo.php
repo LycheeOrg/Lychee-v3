@@ -275,10 +275,10 @@ final class Photo {
 			}
 
 			// Create Medium
-			if ($this->createMedium($path, $photo_name, $info['type'], $info['width'], $info['height'])) $medium = 1;
+			if (Photo::createMedium($path, $photo_name, $info['type'], $info['width'], $info['height'])) $medium = 1;
 			else $medium = 0;
 			// Create Small
-			if ($this->createMedium($path, $photo_name, $info['type'], $info['width'], $info['height'], 0, 360, 'SMALL')) $small = 1;
+			if (Photo::createMedium($path, $photo_name, $info['type'], $info['width'], $info['height'], 0, 360, 'SMALL')) $small = 1;
 			else $small = 0;
 		}
 
@@ -385,13 +385,23 @@ final class Photo {
 
 			// Create 1st version
 			$thumb->cropThumbnailImage($newWidth, $newHeight);
-			$thumb->writeImage($newUrl);
+			// Save image
+			try { $thumb->writeImage($newUrl); }
+			catch (ImagickException $err) {
+				Log::notice(Database::get(), __METHOD__, __LINE__, 'Could not save '.$url.' (' . $err->getMessage() . ')');
+				$error = true;
+			}
 			$thumb->clear();
 			$thumb->destroy();
 
 			// Create 2nd version
 			$thumb2x->cropThumbnailImage($newWidth*2, $newHeight*2);
-			$thumb2x->writeImage($newUrl2x);
+			// Save image
+			try { $thumb2x->writeImage($newUrl2x); }
+			catch (ImagickException $err) {
+				Log::notice(Database::get(), __METHOD__, __LINE__, 'Could not save '.$url.' (' . $err->getMessage() . ')');
+				$error = true;
+			}
 			$thumb2x->clear();
 			$thumb2x->destroy();
 			}
@@ -489,7 +499,7 @@ final class Photo {
 	 *
 	 * @return boolean Returns true when successful.
 	 */
-	private function createMedium($url, $filename, $type, $width, $height, $newWidth  = 1920, $newHeight = 1080, $kind = 'MEDIUM') {
+	public static function createMedium($url, $filename, $type, $width, $height, $newWidth  = 1920, $newHeight = 1080, $kind = 'MEDIUM') {
 
 		// Excepts the following:
 		// (string) $url = Path to the photo-file
@@ -797,8 +807,8 @@ final class Photo {
 		// Set unchanged attributes
 		$photo['id']     		= $data['id'];
 		$photo['title']  		= $data['title'];
-		$photo['description']  	= $data['description'];
-		$photo['license']		= $data['license'];
+		$photo['description']  	= isset($data['description']) ? $data['description'] : '';
+		$photo['license']		= isset($data['license']) ? $data['license'] : '';
 		$photo['tags']   		= $data['tags'];
 		$photo['public'] 		= $data['public'];
 		$photo['star']   		= $data['star'];
@@ -806,12 +816,12 @@ final class Photo {
 		$photo['type']   		= $data['type'];
 		$photo['width']  		= $data['width'];
 		$photo['height'] 		= $data['height'];
-		$photo['shutter'] 		= $data['shutter'];
-		$photo['make'] 			= $data['make'];
-		$photo['model']			= $data['model'];
-		$photo['iso'] 			= $data['iso'];
-		$photo['aperture'] 		= $data['aperture'];
-		$photo['focal'] 		= $data['focal'];
+		$photo['shutter'] 		= isset($data['shutter']) ? $data['shutter'] : '';
+		$photo['make'] 			= isset($data['make']) ? $data['make'] : '';
+		$photo['model']			= isset($data['model']) ? $data['model'] : '';
+		$photo['iso'] 			= isset($data['iso']) ? $data['iso'] : '';
+		$photo['aperture'] 		= isset($data['aperture']) ? $data['aperture'] : '';
+		$photo['focal'] 		= isset($data['focal']) ? $data['focal'] : '';
 		$photo['lens']   		= isset($data['lens']) ? $data['lens'] : ''; // isset should not be needed
 
 		// Parse medium

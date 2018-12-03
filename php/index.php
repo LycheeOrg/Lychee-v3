@@ -16,6 +16,9 @@ use Lychee\Access\Installation;
 use Lychee\Access\Admin;
 use Lychee\Access\Guest;
 
+// error_reporting(E_ALL);
+// ini_set('display_errors', 'On');
+
 require(__DIR__ . '/define.php');
 require(__DIR__ . '/autoload.php');
 if (file_exists(__DIR__ . '/../vendor/autoload.php' ))
