@@ -286,7 +286,7 @@ final class Photo {
 		if ($albumID === '0') {
 			$license = Settings::get()['default_license'];
 		} else if ($albumID !== 0) {
-			Log::notice(Database::get(), __METHOD__, __LINE__, 'The album ID  ' .$albumID. '');
+
 			// Get album
 			$query  = Database::prepare(Database::get(), "SELECT public, license FROM ? WHERE id = '?' LIMIT 1", array(LYCHEE_TABLE_ALBUMS, $albumID));
 			$albums = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
@@ -296,11 +296,10 @@ final class Photo {
 			// Get album object
 			$album = $albums->fetch_assoc();
 
-			Log::notice(Database::get(), __METHOD__, __LINE__, 'The album license  ' .$album['license']. '');
+			// Apply the album license
+			// All new albums take the Settings default, so this is not an empty string
 			$license = $album["license"];
 		}
-
-		Log::notice(Database::get(), __METHOD__, __LINE__, 'The current license is ' .$license. '');
 
 		if(!in_array($file['type'], self::$validVideoTypes, true)){
 			$values = array(LYCHEE_TABLE_PHOTOS, $id, $info['title'], $photo_name, $info['description'], $info['tags'], $info['type'], $info['width'], $info['height'], $info['size'], $info['iso'],
