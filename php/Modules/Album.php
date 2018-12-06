@@ -35,10 +35,9 @@ final class Album {
 		$max_takestamp = 0;
 		$public   = 0;
 		$visible  = 1;
-		$license = Settings::get()['default_license'];
 
 		// Database
-		$query  = Database::prepare(Database::get(), "INSERT INTO ? (id, title, sysstamp, min_takestamp, max_takestamp, public, visible, license) VALUES ('?', '?', '?', '?', '?', '?', '?', '?')", array(LYCHEE_TABLE_ALBUMS, $id, $title, $sysstamp, $min_takestamp, $max_takestamp, $public, $visible, $license));
+		$query  = Database::prepare(Database::get(), "INSERT INTO ? (id, title, sysstamp, min_takestamp, max_takestamp, public, visible, license) VALUES ('?', '?', '?', '?', '?', '?', '?', '?')", array(LYCHEE_TABLE_ALBUMS, $id, $title, $sysstamp, $min_takestamp, $max_takestamp, $public, $visible, 'none'));
 		$result = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
 
 		// Call plugins

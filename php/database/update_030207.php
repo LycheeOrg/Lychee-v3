@@ -20,5 +20,10 @@ if ($result===false) {
 
 }
 
+$query = Database::prepare($connection, "UPDATE ? SET `license` = 'none' WHERE 1", array(LYCHEE_TABLE_PHOTOS));
+$result = Database::execute($connection, $query, 'update_030207', __LINE__);
+
+if ($result===false) Response::error('Could not reset photo licenses!');
+
 // Set version
 if (Database::setVersion($connection, 'update_030207')===false) Response::error('Could not update version of database!');

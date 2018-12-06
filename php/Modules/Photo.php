@@ -54,7 +54,7 @@ final class Photo {
 	 * Use $returnOnError if you want to handle errors by your own.
 	 * @return string|false ID of the added photo.
 	 */
-	public function add(array $files, $albumID, $returnOnError = false) {
+	public function add(array $files, $albumID = 0, $returnOnError = false) {
 
 		// Check permissions
 		if (hasPermissions(LYCHEE_UPLOADS)===false||
@@ -282,32 +282,13 @@ final class Photo {
 			else $small = 0;
 		}
 
-		// Check if the photo is going to an album, set the default based on the album, not Settings
-		if ($albumID === '0') {
-			$license = Settings::get()['default_license'];
-		} else if ($albumID !== 0) {
-
-			// Get album
-			$query  = Database::prepare(Database::get(), "SELECT public, license FROM ? WHERE id = '?' LIMIT 1", array(LYCHEE_TABLE_ALBUMS, $albumID));
-			$albums = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
-
-			if ($albums===false) return false;
-
-			// Get album object
-			$album = $albums->fetch_assoc();
-
-			// Apply the album license
-			// All new albums take the Settings default, so this is not an empty string
-			$license = $album["license"];
-		}
-
 		if(!in_array($file['type'], self::$validVideoTypes, true)){
 			$values = array(LYCHEE_TABLE_PHOTOS, $id, $info['title'], $photo_name, $info['description'], $info['tags'], $info['type'], $info['width'], $info['height'], $info['size'], $info['iso'],
-			$info['aperture'], $info['make'], $info['model'], $info['lens'], $info['shutter'], $info['focal'], $info['takestamp'], $path_thumb, $albumID, $public, $star, $checksum, $medium, $small, $license);
+			$info['aperture'], $info['make'], $info['model'], $info['lens'], $info['shutter'], $info['focal'], $info['takestamp'], $path_thumb, $albumID, $public, $star, $checksum, $medium, $small, 'none');
 			$query  = Database::prepare(Database::get(), "INSERT INTO ? (id, title, url, description, tags, type, width, height, size, iso, aperture, make, model, lens, shutter, focal, takestamp, thumbUrl, album, public, star, checksum, medium, small, license) VALUES ('?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?')", $values);
 			$result = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
 		} else {
-            $values = array(LYCHEE_TABLE_PHOTOS, $id, $info['title'], $photo_name, $file['type'], $info['size'], time(),  $path_thumb, $albumID, $public, $star, $checksum, $medium, $small, $license);
+            $values = array(LYCHEE_TABLE_PHOTOS, $id, $info['title'], $photo_name, $file['type'], $info['size'], time(),  $path_thumb, $albumID, $public, $star, $checksum, $medium, $small, 'none');
             $query  = Database::prepare(Database::get(), "INSERT INTO ? (id, title, url, description, tags, type, width, height, size, iso, aperture, make, model, lens, shutter, focal, takestamp, thumbUrl, album, public, star, checksum, medium, small, license) VALUES ('?', '?', '?', '', '', '?', 0, 0, '?', '', '', '', '', '', '', '', '?', '?', '?', '?', '?', '?', '?', '?', '?')", $values);
             $result = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
         }
