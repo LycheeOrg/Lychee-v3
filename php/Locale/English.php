@@ -128,6 +128,12 @@ final class English
             'ALBUMS_MERGE'				=> 'Are you sure you want to merge all selected albums into the album',
             'MERGE_ALBUM'				=> 'Merge Albums',
             'DONT_MERGE'				=> "Don't Merge",
+            'ALBUM_REUSE'				=> "Reuse",
+    		'ALBUM_LICENSE'				=> 'License',
+    		'ALBUM_SET_LICENSE'			=> 'Set License',
+    		'ALBUM_LICENSE_HELP'		=> 'Need help choosing?',
+    		'ALBUM_LICENSE_NONE'		=> 'None',
+    		'ALBUM_RESERVED'			=> 'All Rights Reserved',
 
             'PHOTO_ABOUT'				=> 'About',
             'PHOTO_BASICS'				=> 'Basics',
