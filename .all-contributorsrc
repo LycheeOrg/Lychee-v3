@@ -493,6 +493,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "tomszilagyi",
+      "name": "Tom Szilagyi",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/5454768?v=4",
+      "profile": "https://tomszilagyi.github.io",
+      "contributions": [
+        "bug"
+      ]
     }
   ]
 }
