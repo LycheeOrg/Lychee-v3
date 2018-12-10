@@ -1121,7 +1121,7 @@ final class Photo {
 
 		// Check the file actually exists
 		if (!file_exists(LYCHEE_UPLOADS_BIG . $photo->url)) {
-			Log::error(Database::get(), __METHOD__, __LINE__, 'Original photo missing!');
+			Log::error(Database::get(), __METHOD__, __LINE__, 'Original photo missing: ' .LYCHEE_UPLOADS_BIG .$photo->url);
 			return false;
 		}
 

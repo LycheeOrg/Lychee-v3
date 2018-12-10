@@ -291,7 +291,10 @@ final class Album {
 			if (!isset($photo->title)||$photo->title==='') $photo->title = 'Untitled';
 
 			// Check if readable
-			if (!@is_readable($photo->url)) continue;
+			if (!@is_readable($photo->url)) {
+				Log::error(Database::get(), __METHOD__, __LINE__, 'Original photo missing: ' .$photo->url);
+				continue;
+			}
 
 			// Get extension of image
 			$extension = getExtension($photo->url, false);
