@@ -1119,6 +1119,12 @@ final class Photo {
 		// Escape title
 		$photo->title = str_replace($badChars, '', $photo->title);
 
+		// Check the file actually exists
+		if (!file_exists(LYCHEE_UPLOADS_BIG . $photo->url)) {
+			Log::error(Database::get(), __METHOD__, __LINE__, 'Original photo missing!');
+			return false;
+		}
+
 		// Set headers
 		header("Content-Type: application/octet-stream");
 		header("Content-Disposition: attachment; filename=\"" . $photo->title . $extension . "\"");
