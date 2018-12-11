@@ -790,12 +790,12 @@ final class Photo {
 	}
 
 	/**
-	 * Rurns photo-attributes into a front-end friendly format. Note that some attributes remain unchanged.
+	 * Returns photo-attributes into a front-end friendly format. Note that some attributes remain unchanged.
 	 * @return array Returns photo-attributes in a normalized structure.
 	 */
 	public static function prepareData(array $data) {
 
-		// Excepts the following:
+		// Expects the following:
 		// (array) $data = ['id', 'title', 'tags', 'public', 'star', 'album', 'thumbUrl', 'takestamp', 'url', 'medium']
 
 		// Init
