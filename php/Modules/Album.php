@@ -71,18 +71,14 @@ final class Album {
 		if (isset($data['description']))  $album['description'] = $data['description'];
 		if (isset($data['visible']))      $album['visible'] = $data['visible'];
 		if (isset($data['downloadable'])) $album['downloadable'] = $data['downloadable'];
+		$album['license'] = Settings::get()['default_license'];
+
 		if (isset($data['license']))
 		{
-			if($data['license'] == '' || $data['license'] == 'none')
+			if($data['license'] != '' && $data['license'] != 'none')
 			{
-				$album['license'] = Settings::get()['default_license'];
-			}
-			else {
 				$album['license'] = $data['license'];
 			}
-		}
-		else {
-			$album['license'] = Settings::get()['default_license'];
 		}
 
 		// Parse date
