@@ -92,7 +92,8 @@
       "avatar_url": "https://avatars2.githubusercontent.com/u/3388604?v=4",
       "profile": "https://twitter.com/herald_yu",
       "contributions": [
-        "translation"
+        "translation",
+        "bug"
       ]
     },
     {
@@ -418,7 +419,8 @@
       "avatar_url": "https://avatars3.githubusercontent.com/u/2619582?v=4",
       "profile": "https://github.com/expiredemulsion",
       "contributions": [
-        "translation"
+        "translation",
+        "bug"
       ]
     },
     {
@@ -454,7 +456,8 @@
       "avatar_url": "https://avatars2.githubusercontent.com/u/129883?v=4",
       "profile": "http://volt.io",
       "contributions": [
-        "bug"
+        "bug",
+        "code"
       ]
     },
     {
@@ -490,7 +493,80 @@
       "avatar_url": "https://avatars3.githubusercontent.com/u/3878010?v=4",
       "profile": "https://github.com/bennettscience",
       "contributions": [
-        "code"
+        "code",
+        "bug"
+      ]
+    },
+    {
+      "login": "tomszilagyi",
+      "name": "Tom Szilagyi",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/5454768?v=4",
+      "profile": "https://tomszilagyi.github.io",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "cryptomilk",
+      "name": "Andreas Schneider",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/545480?v=4",
+      "profile": "https://cryptomilk.org/",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "fatherb",
+      "name": "fatherb",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/4437677?v=4",
+      "profile": "https://github.com/fatherb",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "lbonnefond",
+      "name": "Luc Bonnefond",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/24911821?v=4",
+      "profile": "https://github.com/lbonnefond",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "chrobs",
+      "name": "Sebastian Chrobak",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/159185?v=4",
+      "profile": "https://github.com/chrobs",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "haivala",
+      "name": "Harri Häivälä",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/3918267?v=4",
+      "profile": "https://github.com/haivala",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "lord-carlos",
+      "name": "Carl",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/155855?v=4",
+      "profile": "https://github.com/lord-carlos",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "yuukieve",
+      "name": "結城イヴ",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/25443872?v=4",
+      "profile": "https://github.com/yuukieve",
+      "contributions": [
+        "bug"
       ]
     }
   ]

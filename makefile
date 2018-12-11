@@ -10,8 +10,9 @@ dist: clean
 	@mkdir Lychee-v$(VERSION)/docs
 	@mkdir Lychee-v$(VERSION)/Lychee-front
 	@mkdir Lychee-v$(VERSION)/uploads
-	@mkdir Lychee-v$(VERSION)/uploads/big
+	@mkdir Lychee-v$(VERSION)/uploads/small
 	@mkdir Lychee-v$(VERSION)/uploads/medium
+	@mkdir Lychee-v$(VERSION)/uploads/big
 	@mkdir Lychee-v$(VERSION)/uploads/thumb
 	@mkdir Lychee-v$(VERSION)/uploads/import
 	@cp -r data/.gitignore Lychee-v$(VERSION)/data
@@ -42,6 +43,7 @@ dist: clean
 	@cp -r version.md Lychee-v$(VERSION)
 	@cp -r view.php Lychee-v$(VERSION)
 	@touch Lychee-v$(VERSION)/uploads/big/index.html
+	@touch Lychee-v$(VERSION)/uploads/small/index.html
 	@touch Lychee-v$(VERSION)/uploads/medium/index.html
 	@touch Lychee-v$(VERSION)/uploads/thumb/index.html
 	@touch Lychee-v$(VERSION)/uploads/import/index.html
