@@ -282,16 +282,13 @@ final class Photo {
 			else $small = 0;
 		}
 
-		// Get the default license from Settings
-		$default_license = Settings::get()['default_license'];
-
 		if(!in_array($file['type'], self::$validVideoTypes, true)){
 			$values = array(LYCHEE_TABLE_PHOTOS, $id, $info['title'], $photo_name, $info['description'], $info['tags'], $info['type'], $info['width'], $info['height'], $info['size'], $info['iso'],
-			$info['aperture'], $info['make'], $info['model'], $info['lens'], $info['shutter'], $info['focal'], $info['takestamp'], $path_thumb, $albumID, $public, $star, $checksum, $medium, $small, $default_license);
+			$info['aperture'], $info['make'], $info['model'], $info['lens'], $info['shutter'], $info['focal'], $info['takestamp'], $path_thumb, $albumID, $public, $star, $checksum, $medium, $small, 'none');
 			$query  = Database::prepare(Database::get(), "INSERT INTO ? (id, title, url, description, tags, type, width, height, size, iso, aperture, make, model, lens, shutter, focal, takestamp, thumbUrl, album, public, star, checksum, medium, small, license) VALUES ('?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?')", $values);
 			$result = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
 		} else {
-            $values = array(LYCHEE_TABLE_PHOTOS, $id, $info['title'], $photo_name, $file['type'], $info['size'], time(),  $path_thumb, $albumID, $public, $star, $checksum, $medium, $small, $default_license);
+            $values = array(LYCHEE_TABLE_PHOTOS, $id, $info['title'], $photo_name, $file['type'], $info['size'], time(),  $path_thumb, $albumID, $public, $star, $checksum, $medium, $small, 'none');
             $query  = Database::prepare(Database::get(), "INSERT INTO ? (id, title, url, description, tags, type, width, height, size, iso, aperture, make, model, lens, shutter, focal, takestamp, thumbUrl, album, public, star, checksum, medium, small, license) VALUES ('?', '?', '?', '', '', '?', 0, 0, '?', '', '', '', '', '', '', '', '?', '?', '?', '?', '?', '?', '?', '?', '?')", $values);
             $result = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
         }
@@ -793,12 +790,12 @@ final class Photo {
 	}
 
 	/**
-	 * Rurns photo-attributes into a front-end friendly format. Note that some attributes remain unchanged.
+	 * Returns photo-attributes into a front-end friendly format. Note that some attributes remain unchanged.
 	 * @return array Returns photo-attributes in a normalized structure.
 	 */
 	public static function prepareData(array $data) {
 
-		// Excepts the following:
+		// Expects the following:
 		// (array) $data = ['id', 'title', 'tags', 'public', 'star', 'album', 'thumbUrl', 'takestamp', 'url', 'medium']
 
 		// Init
@@ -808,7 +805,6 @@ final class Photo {
 		$photo['id']     		= $data['id'];
 		$photo['title']  		= $data['title'];
 		$photo['description']  	= isset($data['description']) ? $data['description'] : '';
-		$photo['license']		= isset($data['license']) ? $data['license'] : '';
 		$photo['tags']   		= $data['tags'];
 		$photo['public'] 		= $data['public'];
 		$photo['star']   		= $data['star'];
@@ -823,6 +819,29 @@ final class Photo {
 		$photo['aperture'] 		= isset($data['aperture']) ? $data['aperture'] : '';
 		$photo['focal'] 		= isset($data['focal']) ? $data['focal'] : '';
 		$photo['lens']   		= isset($data['lens']) ? $data['lens'] : ''; // isset should not be needed
+
+		$photo['license'] = Settings::get()['default_license'];
+		if (isset($data['license']))
+		{
+			if($data['license'] != '' && $data['license'] != 'none')
+			{
+				$photo['license'] = $data['license'];
+			}
+			else if($data['album'] != '0')
+			{
+				$query  = Database::prepare(Database::get(), "SELECT license FROM ? WHERE id = '?' LIMIT 1", array(LYCHEE_TABLE_ALBUMS, $data['album']));
+				$albums = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
+
+				if ($albums===false) return false;
+
+				// Get photo object
+				$album = $albums->fetch_assoc();
+				if($album['license'] != '' && $album['license'] != 'none')
+				{
+					$photo['license'] = $album['license'];
+				}
+			}
+		}
 
 		// Parse medium
 		if ($data['medium']==='1') $photo['medium'] = LYCHEE_URL_UPLOADS_MEDIUM . $data['url'];

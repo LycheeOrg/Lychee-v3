@@ -69,6 +69,26 @@
       ]
     },
     {
+      "login": "bennettscience",
+      "name": "Brian",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/3878010?v=4",
+      "profile": "https://github.com/bennettscience",
+      "contributions": [
+        "code",
+        "bug"
+      ]
+    },
+    {
+      "login": "hermzz",
+      "name": "Hermann Käser",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/129883?v=4",
+      "profile": "http://volt.io",
+      "contributions": [
+        "bug",
+        "code"
+      ]
+    },
+    {
       "login": "deatheguard",
       "name": "Alicia",
       "avatar_url": "https://avatars1.githubusercontent.com/u/43773363?v=4",
@@ -451,16 +471,6 @@
       ]
     },
     {
-      "login": "hermzz",
-      "name": "Hermann Käser",
-      "avatar_url": "https://avatars2.githubusercontent.com/u/129883?v=4",
-      "profile": "http://volt.io",
-      "contributions": [
-        "bug",
-        "code"
-      ]
-    },
-    {
       "login": "humantex",
       "name": "humantex",
       "avatar_url": "https://avatars0.githubusercontent.com/u/16087649?v=4",
@@ -484,16 +494,6 @@
       "avatar_url": "https://avatars2.githubusercontent.com/u/33700226?v=4",
       "profile": "https://github.com/colinmcglothlin",
       "contributions": [
-        "bug"
-      ]
-    },
-    {
-      "login": "bennettscience",
-      "name": "Brian",
-      "avatar_url": "https://avatars3.githubusercontent.com/u/3878010?v=4",
-      "profile": "https://github.com/bennettscience",
-      "contributions": [
-        "code",
         "bug"
       ]
     },
