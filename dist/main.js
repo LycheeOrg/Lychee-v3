@@ -2438,7 +2438,7 @@ lychee = {
 	versionCode: '030207',
 
 	updatePath: '//LycheeOrg.github.io/update.json',
-	updateURL: 'https://github.com/LycheeOrg/Lychee',
+	updateURL: 'https://github.com/LycheeOrg/Lychee/releases',
 	website: 'https://LycheeOrg.github.io',
 
 	publicMode: false,
