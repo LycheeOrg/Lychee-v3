@@ -805,7 +805,6 @@ final class Photo {
 		$photo['id']     		= $data['id'];
 		$photo['title']  		= $data['title'];
 		$photo['description']  	= isset($data['description']) ? $data['description'] : '';
-		$photo['license']		= isset($data['license']) ? $data['license'] : '';
 		$photo['tags']   		= $data['tags'];
 		$photo['public'] 		= $data['public'];
 		$photo['star']   		= $data['star'];
@@ -820,6 +819,29 @@ final class Photo {
 		$photo['aperture'] 		= isset($data['aperture']) ? $data['aperture'] : '';
 		$photo['focal'] 		= isset($data['focal']) ? $data['focal'] : '';
 		$photo['lens']   		= isset($data['lens']) ? $data['lens'] : ''; // isset should not be needed
+
+		$photo['license'] = Settings::get()['default_license'];
+		if (isset($data['license']))
+		{
+			if($data['license'] != '' && $data['license'] != 'none')
+			{
+				$photo['license'] = $data['license'];
+			}
+			else if($data['album'] != '0')
+			{
+				$query  = Database::prepare(Database::get(), "SELECT license FROM ? WHERE id = '?' LIMIT 1", array(LYCHEE_TABLE_ALBUMS, $data['album']));
+				$albums = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
+
+				if ($albums===false) return false;
+
+				// Get photo object
+				$album = $albums->fetch_assoc();
+				if($album['license'] != '' && $album['license'] != 'none')
+				{
+					$photo['license'] = $album['license'];
+				}
+			}
+		}
 
 		// Parse medium
 		if ($data['medium']==='1') $photo['medium'] = LYCHEE_URL_UPLOADS_MEDIUM . $data['url'];
