@@ -820,6 +820,9 @@ final class Photo {
 		$photo['focal'] 		= isset($data['focal']) ? $data['focal'] : '';
 		$photo['lens']   		= isset($data['lens']) ? $data['lens'] : ''; // isset should not be needed
 
+		if(substr($photo['shutter'], -4) == '/1 s'){
+			$photo['shutter'] = substr($photo['shutter'], 0, -4). ' s';
+		}
 		$photo['license'] = Settings::get()['default_license'];
 		if (isset($data['license']))
 		{
