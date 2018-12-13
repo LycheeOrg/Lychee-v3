@@ -19,6 +19,9 @@ final class English
 			'SIGN_IN'		=> 'Sign In',
 			'CLOSE'			=> 'Close',
 
+			'SETTINGS'			=> 'Settings',
+			'USERS'				=> 'Users',
+			'SHARING'			=> 'Sharing',
 			'CHANGE_LOGIN'		=> 'Change Login',
 			'CHANGE_SORTING'	=> 'Change Sorting',
 			'SET_DROPBOX'		=> 'Set Dropbox',
@@ -28,9 +31,12 @@ final class English
 			'SIGN_OUT'			=> 'Sign Out',
 			'UPDATE_AVAILABLE'	=> 'Update available!',
 			'DEFAULT_LICENSE'	=> 'Default license for new uploads:',
+			'SET_LICENSE'		=> 'Set License',
 
 			'SMART_ALBUMS'		=> 'Smart albums',
+			'SHARED_ALBUMS'		=> 'Shared albums',
 			'ALBUMS'			=> 'Albums',
+			'PHOTOS'			=> 'Pictures',
 
 			'RENAME'			=> 'Rename',
 			'RENAME_ALL'		=> 'Rename All',
@@ -68,6 +74,8 @@ final class English
 			'MOVE_ALL'						=> 'Move All',
 			'DUPLICATE'						=> 'Duplicate',
 			'DUPLICATE_ALL'					=> 'Duplicate All',
+			'COPY_TO'						=> 'Copy to...',
+			'COPY_ALL_TO'					=> 'Copy All to...',
 			'DELETE'						=> 'Delete',
 			'DELETE_ALL'					=> 'Delete All',
 			'DOWNLOAD'						=> 'Download',
@@ -128,6 +136,12 @@ final class English
 			'ALBUMS_MERGE'				=> 'Are you sure you want to merge all selected albums into the album',
 			'MERGE_ALBUM'				=> 'Merge Albums',
 			'DONT_MERGE'				=> "Don't Merge",
+			'ALBUM_MOVE_1'				=> 'Are you sure you want to move the album',
+			'ALBUM_MOVE_2'				=> 'into the album',
+			'ALBUMS_MOVE'				=> 'Are you sure you want to move all selected albums into the album',
+			'MOVE_ALBUMS'				=> "Move Albums",
+			'NOT_MOVE_ALBUMS'			=> "Don't Move",
+			'ROOT'						=> "Root",
 			'ALBUM_REUSE'				=> "Reuse",
 			'ALBUM_LICENSE'				=> 'License',
 			'ALBUM_SET_LICENSE'			=> 'Set License',
@@ -193,7 +207,16 @@ final class English
 			'ERROR_CONFIG_FILE'			=> "Unable to save this configuration. Permission denied in <b>'data/'</b>. Please set the read, write and execute rights for others in <b>'data/'</b> and <b>'uploads/'</b>. Take a look at the readme for more information.",
 			'ERROR_UNKNOWN'				=> 'Something unexpected happened. Please try again and check your installation and server. Take a look at the readme for more information.',
 			'ERROR_LOGIN'				=> 'Unable to save login. Please try again with another username and password!',
+			'SUCCESS'					=> 'OK',
 			'RETRY'						=> 'Retry',
+
+			'SETTINGS_SUCCESS_LOGIN'		=> 'Login Info updated.',
+			'SETTINGS_SUCCESS_SORT'			=> 'Sorting order updated.',
+			'SETTINGS_SUCCESS_DROPBOX'		=> 'Dropbox Key updated.',
+			'SETTINGS_SUCCESS_LANG'			=> 'Language updated',
+			'SETTINGS_SUCCESS_LAYOUT'		=> 'Layout updated',
+			'SETTINGS_SUCCESS_IMAGE_OVERLAY'=> 'EXIF Overlay setting updated',
+			'SETTINGS_SUCCESS_LICENSE'		=> 'Default license updated',
 
 			'DB_INFO_TITLE'				=> 'Enter your database connection details below:',
 			'DB_INFO_HOST'				=> 'Database Host (optional)',
@@ -210,6 +233,7 @@ final class English
 			'LOGIN_CREATE'				=> 'Create Login',
 
 			'PASSWORD_TITLE'			=> 'Enter your current password:',
+			'USERNAME_CURRENT'			=> 'Current Username',
 			'PASSWORD_CURRENT'			=> 'Current Password',
 			'PASSWORD_TEXT'				=> 'Your username and password will be changed to the following:',
 			'PASSWORD_CHANGE'			=> 'Change Login',
@@ -230,7 +254,6 @@ final class English
 			'SORT_ALBUM_SELECT_5'		=> 'Latest Take Date',
 			'SORT_ALBUM_SELECT_6'		=> 'Oldest Take Date',
 
-
 			'SORT_PHOTO_BY_1'			=> 'Sort photos by',
 			'SORT_PHOTO_BY_2'			=> 'in an',
 			'SORT_PHOTO_BY_3'			=> 'order.',
@@ -249,6 +272,12 @@ final class English
 
 			'DROPBOX_TITLE'				=> 'Set Dropbox Key',
 			'DROPBOX_TEXT'				=> "In order to import photos from your Dropbox, you need a valid drop-ins app key from <a href='https://www.dropbox.com/developers/apps/create'>their website</a>. Generate yourself a personal key and enter it below:",
+
+			'LANG_TEXT'					=> 'Change Lychee language for:',
+			'LANG_TITLE'				=> 'Change Language',
+
+			'LAYOUT_TEXT'				=> 'Use justified layout:',
+			'IMAGE_OVERLAY_TEXT'		=> 'Display EXIF data overlay by default:',
 
 			'VIEW_NO_RESULT'			=> 'No results',
 			'VIEW_NO_PUBLIC_ALBUMS'		=> 'No public albums',
