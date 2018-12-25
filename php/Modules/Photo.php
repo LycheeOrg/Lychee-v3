@@ -820,9 +820,17 @@ final class Photo {
 		$photo['focal'] 		= isset($data['focal']) ? $data['focal'] : '';
 		$photo['lens']   		= isset($data['lens']) ? $data['lens'] : ''; // isset should not be needed
 
-		if(substr($photo['shutter'], -4) == '/1 s'){
-			$photo['shutter'] = substr($photo['shutter'], 0, -4). ' s';
-		}
+		if($photo['shutter'] != '' && substr($photo['shutter'], 0,2) != '1/'){
+
+	    	// this should fix it... hopefully.
+		    preg_match('/(\d?)\/(\d?) s/', $photo['shutter'], $matches);
+			// var_dump($matches);
+		    $photo['shutter'] = intval($matches[1]) / intval($matches[2]) . ' s';
+
+	    }
+		// if(substr($photo['shutter'], -4) == '/1 s'){
+		// 	$photo['shutter'] = substr($photo['shutter'], 0, -4). ' s';
+		// }
 		$photo['license'] = Settings::get()['default_license'];
 		if (isset($data['license']))
 		{
