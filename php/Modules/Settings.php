@@ -35,6 +35,44 @@ final class Settings {
 	}
 
 	/**
+	 * @return array Returns the settings of Lychee.
+	 */
+	public static function getAll() {
+
+		// Execute query
+		$query    = Database::prepare(Database::get(), "SELECT * FROM ?", array(LYCHEE_TABLE_SETTINGS));
+		$settings = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
+
+		// Add each to return
+		$return = array();
+		// while ($setting = $settings->fetch_object()) $return[$setting->key] = $setting->value;
+		while($setting = $settings->fetch_array())
+		{
+		$return[] = $setting;
+		}
+
+		return $return;
+
+	}
+
+
+	public static function saveAll() {
+
+		$no_error = true;
+		foreach ($_POST as $key => $value) {
+			if($key != 'function')
+			{
+				$no_error &= self::set($key,$value);
+			}
+		}
+
+		return $no_error;
+
+	}
+
+
+
+	/**
 	 * @return boolean Returns true when successful.
 	 */
 	private static function set($key, $value, $row = false) {
@@ -60,6 +98,14 @@ final class Settings {
 		return true;
 
 	}
+
+
+	public function setCSS($css)
+	{
+		file_put_contents(__DIR__ . '/../../dist/user.css',$css);
+		return true;
+	}
+
 
 	/**
 	 * Sets the username and password when current password is correct.

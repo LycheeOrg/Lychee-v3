@@ -275,10 +275,10 @@ final class Photo {
 			}
 
 			// Create Medium
-			if (Photo::createMedium($path, $photo_name, $info['type'], $info['width'], $info['height'])) $medium = 1;
+			if (Photo::createMedium($path, $photo_name, $info['type'], $info['width'], $info['height'], Settings::get()['medium_max_width'], Settings::get()['medium_max_height'])) $medium = 1;
 			else $medium = 0;
 			// Create Small
-			if (Photo::createMedium($path, $photo_name, $info['type'], $info['width'], $info['height'], 0, 360, 'SMALL')) $small = 1;
+			if (Photo::createMedium($path, $photo_name, $info['type'], $info['width'], $info['height'], Settings::get()['small_max_width'], Settings::get()['small_max_height'], 'SMALL')) $small = 1;
 			else $small = 0;
 		}
 

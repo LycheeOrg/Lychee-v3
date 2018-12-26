@@ -64,6 +64,9 @@ final class Admin extends Access {
 			case 'Settings::setLogin':      self::setLoginAction(); break;
 			case 'Settings::setSorting':    self::setSortingAction(); break;
 			case 'Settings::setDropboxKey': self::setDropboxKeyAction(); break;
+			case 'Settings::setCSS': 		self::setCSS(); break;
+			case 'Settings::getAll': 		self::getAll(); break;
+			case 'Settings::saveAll': 		self::saveAll(); break;
 			case 'phpinfo':					phpinfo(); exit;
 
 			// $_GET functions
@@ -400,4 +403,24 @@ final class Admin extends Access {
 		Small::run($nb, $from, $timeout);
 
 	}
+
+	private static function setCSS() {
+
+		echo (Settings::setCSS($_POST['css']) ? 'true' : 'false');
+		exit();
+	}
+
+	private static function getAll() {
+
+		return Response::json(Settings::getAll());
+
+	}
+
+	private static function saveAll() {
+
+		echo (Settings::saveAll() ? 'true' : 'false');
+		exit();
+
+	}
+
 }

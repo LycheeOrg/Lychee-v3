@@ -6,6 +6,8 @@ uploads/medium/*
 uploads/small/*
 uploads/thumb/*
 
+dist/user.css
+
 !uploads/big/index.html
 !uploads/import/index.html
 !uploads/medium/index.html
