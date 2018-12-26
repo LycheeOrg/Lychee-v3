@@ -594,6 +594,15 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "HorlogeSkynet",
+      "name": "Samuel FORESTIER",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/5331869?v=4",
+      "profile": "http://git.forestier.app/HorlogeSkynet",
+      "contributions": [
+        "doc"
+      ]
     }
   ]
 }
