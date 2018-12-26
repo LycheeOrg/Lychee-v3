@@ -48,7 +48,7 @@ if ($result->num_rows===0) {
 if ($result===false) Response::error('Could not add small_max_height!');
 
 // and create the files :)
-chmod(__DIR__ . '/../../dist/', 775);
+chmod(__DIR__ . '/../../dist/', 0775);
 touch(__DIR__ . '/../../dist/user.css');
 
 // Set version
