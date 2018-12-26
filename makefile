@@ -37,7 +37,6 @@ dist: clean
 	@cp -r favicon.ico Lychee-v$(VERSION)
 	@cp -r index.html Lychee-v$(VERSION)
 	@cp -r LICENSE Lychee-v$(VERSION)
-	@cp -r play-icon.png Lychee-v$(VERSION)
 	@cp -r README.md Lychee-v$(VERSION)
 	@cp -r robots.txt Lychee-v$(VERSION)
 	@cp -r version.md Lychee-v$(VERSION)
