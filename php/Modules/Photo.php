@@ -823,10 +823,6 @@ final class Photo {
 
 		if($photo['shutter'] != '' && substr($photo['shutter'], 0,2) != '1/'){
 
-			function gcd($a,$b) {
-				return ($a % $b) ? gcd($b,$a % $b) : $b;
-			}
-
 			// this should fix it... hopefully.
 			preg_match('/(\d+)\/(\d+) s/', $photo['shutter'], $matches);
 			$a = intval($matches[1]);
