@@ -577,7 +577,7 @@ final class Photo {
 
 		}
 
-		if($error)
+		if($error || !Settings::hasImagick())
 		{
 			Log::notice(Database::get(), __METHOD__, __LINE__, 'Picture is big enough for resize, try with GD!');
 			// failed with imagick, try with GD
