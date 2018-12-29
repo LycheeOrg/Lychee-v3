@@ -840,6 +840,10 @@ final class Photo {
 			}
 
 		}
+		if ($photo['shutter'] == '1/1 s')
+	    {
+		    $photo['shutter'] = '1 s';
+	    }
 
 		$photo['license'] = Settings::get()['default_license'];
 		if (isset($data['license']))
