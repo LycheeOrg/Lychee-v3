@@ -1097,7 +1097,17 @@ final class Photo {
 			}
 
 			// Takestamp
-			if (!empty($exif['DateTimeOriginal'])) $return['takestamp'] = strtotime($exif['DateTimeOriginal']);
+			if (!empty($exif['DateTimeOriginal']))
+            {
+                if ($exif['DateTimeOriginal'] == '0000:00:00 00:00:00')
+	            {
+		            $return['takestamp'] = 0;
+	            }
+	            else
+	            {
+		            $return['takestamp'] = date("Y-m-d H:i:s", strtotime($exif['DateTimeOriginal']));
+	            }
+            }
 
 			if (!empty($exif['LensInfo'])) $return['lens'] = trim($exif['LensInfo']);
 
