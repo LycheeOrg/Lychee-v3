@@ -11,7 +11,7 @@ Lychee is a free photo-management tool, which runs on your server or web-space. 
 
 ## Installation
 
-To run Lychee, everything you need is a web-server with PHP 5.5 or later and a MySQL-Database. Follow the instructions to install Lychee on your server. [Installation &#187;](https://github.com/LycheeOrg/Lychee/wiki/Installation)
+To run Lychee, everything you need is a web-server with PHP 7.1 or later and a MySQL-Database. Follow the instructions to install Lychee on your server. [Installation &#187;](https://github.com/LycheeOrg/Lychee/wiki/Installation)
 
 ## How to use
 

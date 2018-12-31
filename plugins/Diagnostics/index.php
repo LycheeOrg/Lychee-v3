@@ -34,7 +34,7 @@ echo('Diagnostics' . PHP_EOL);
 echo('-----------' . PHP_EOL);
 
 // PHP Version
-if (floatval(phpversion())<5.5)    $error .= ('Error: Upgrade to PHP 5.5 or higher' . PHP_EOL);
+if (floatval(phpversion())<7.1)    $error .= ('Error: Upgrade to PHP 7.1 or higher' . PHP_EOL);
 
 // Extensions
 if (!extension_loaded('session'))  $error .= ('Error: PHP session extension not activated' . PHP_EOL);

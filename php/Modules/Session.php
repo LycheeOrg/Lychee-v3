@@ -77,7 +77,7 @@ final class Session {
 		if (password_verify($username, Settings::get()['username']) and password_verify($password, Settings::get()['password'])) {
 			$_SESSION['login']      = true;
 			$_SESSION['identifier'] = Settings::get()['identifier'];
-			Log::notice(Database::get(), __METHOD__, __LINE__, 'User (' . $username . ') has logged in from ' . (isset($_SERVER['HTTP_X_REAL_IP']) ? $_SERVER['HTTP_X_REAL_IP'] : $_SERVER['REMOTE_ADDR']));
+			Log::notice(Database::get(), __METHOD__, __LINE__, 'User (' . $username . ') has logged in from ' . ($_SERVER['HTTP_X_REAL_IP'] ?? $_SERVER['REMOTE_ADDR']));
 			return true;
 		}
 
@@ -88,7 +88,7 @@ final class Session {
 		Plugins::get()->activate(__METHOD__, 1, func_get_args());
 
 		// Log failed log in
-		Log::error(Database::get(), __METHOD__, __LINE__, 'User (' . $username . ') has tried to log in from ' . (isset($_SERVER['HTTP_X_REAL_IP']) ? $_SERVER['HTTP_X_REAL_IP'] : $_SERVER['REMOTE_ADDR']));
+		Log::error(Database::get(), __METHOD__, __LINE__, 'User (' . $username . ') has tried to log in from ' . ($_SERVER['HTTP_X_REAL_IP'] ?? $_SERVER['REMOTE_ADDR']));
 
 		return false;
 	}
