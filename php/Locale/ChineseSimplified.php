@@ -80,7 +80,7 @@ final class ChineseSimplified
 			'TITLE_NEW_ALBUM'			=> '输入相册标题：',
 			'UNTITLED'					=> '未命名',
 			'UNSORTED'					=> '未分类',
-			'STARED'					=> '星标',
+			'STARRED'					=> '星标',
 			'RECENT'					=> '最新',
 			'PUBLIC'					=> '公开',
 			'NUM_PHOTOS'				=> '照片',

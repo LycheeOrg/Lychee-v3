@@ -81,7 +81,7 @@ final class Swedish
 			'TITLE_NEW_ALBUM'			=> 'Skriv en titel för det nya albumet:',
 			'UNTITLED'					=> 'Saknar titel',
 			'UNSORTED'					=> 'Osorterat',
-			'STARED'					=> 'Stjärnmärkta',
+			'STARRED'					=> 'Stjärnmärkta',
 			'RECENT'					=> 'Nyligen',
 			'PUBLIC'					=> 'Publika',
 			'NUM_PHOTOS'				=> 'Fotografier',

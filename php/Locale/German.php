@@ -30,13 +30,13 @@ final class German
 			'LOGS'				=> 'Logs anzeigen',
 			'SIGN_OUT'			=> 'Abmelden',
 			'UPDATE_AVAILABLE'	=> 'Update verfügbar!',
-			'DEFAULT_LICENSE'   => 'Standard-Lizenz für neue Uploads:',
+			'DEFAULT_LICENSE'	=> 'Standard-Lizenz für neue Uploads:',
 			'SET_LICENSE'		=> 'Lizenz anwenden',
 			'SAVE_RISK'			=> 'Änderungen speichern, ich kenne das Risiko!',
-			'MORE'              => 'Mehr',
+			'MORE'				=> 'Mehr',
 
 			'SMART_ALBUMS'		=> 'Intelligente Alben',
-			'SHARED_ALBUMS'	    => 'Freigegebene Alben',         
+			'SHARED_ALBUMS'		=> 'Freigegebene Alben',
 			'ALBUMS'			=> 'Alben',
 			'PHOTOS'			=> 'Bilder',
 
@@ -44,24 +44,24 @@ final class German
 			'RENAME_ALL'		=> 'Alle umbenennen',
 			'MERGE'				=> 'Zusammenführen',
 			'MERGE_ALL'			=> 'Alle zusammenführen',
-			'MAKE_PUBLIC' 		=> 'Veröffentlichen',
-			'SHARE_ALBUM' 		=> 'Album freigeben',
-			'SHARE_PHOTO' 		=> 'Foto freigeben',
+			'MAKE_PUBLIC'		=> 'Veröffentlichen',
+			'SHARE_ALBUM'		=> 'Album freigeben',
+			'SHARE_PHOTO'		=> 'Foto freigeben',
 			'DOWNLOAD_ALBUM'	=> 'Album herunterladen',
 			'ABOUT_ALBUM'		=> 'Über dieses Album',
 			'DELETE_ALBUM'		=> 'Album löschen',
 
-			'DELETE_ALBUM_QUESTION' 		=> 'Album und Fotos löschen',
+			'DELETE_ALBUM_QUESTION'			=> 'Album und Fotos löschen',
 			'KEEP_ALBUM'					=> 'Album behalten',
-			'DELETE_ALBUM_CONFIRMATION_1' 	=> 'Sind Sie sicher, dass Sie das Album',
+			'DELETE_ALBUM_CONFIRMATION_1'	=> 'Sind Sie sicher, dass Sie das Album',
 			'DELETE_ALBUM_CONFIRMATION_2'	=> 'und alle enthaltenen Fotos löschen wollen? Diese Aktion kann nicht rückgängig gemacht werden!',
 
-			'DELETE_ALBUMS_QUESTION' 		=> 'Alben und Fotos löschen',
+			'DELETE_ALBUMS_QUESTION'		=> 'Alben und Fotos löschen',
 			'KEEP_ALBUMS'					=> 'Alben behalten',
 			'DELETE_ALBUMS_CONFIRMATION_1'	=> 'Sind Sie sicher, dass Sie alle',
 			'DELETE_ALBUMS_CONFIRMATION_2'	=> 'ausgewählten Alben und die enthaltenen Fotos löschen wollen? Diese Aktion kann nicht rückgängig gemacht werden!',
 
-			'DELETE_UNSORTED_CONFIRM' 		=> 'Sind Sie sicher, dass Sie alle Fotos aus \'Unsortiert\' löschen wollen?<br>Diese Aktion kann nicht rückgängig gemacht werden!',
+			'DELETE_UNSORTED_CONFIRM'		=> 'Sind Sie sicher, dass Sie alle Fotos aus \'Unsortiert\' löschen wollen?<br>Diese Aktion kann nicht rückgängig gemacht werden!',
 			'CLEAR_UNSORTED'				=> 'Unsortierte löschen',
 			'KEEP_UNSORTED'					=> 'Unsortierte behalten',
 
@@ -132,7 +132,7 @@ final class German
 			'ALBUM_PASSWORD'			=> 'Kennwort',
 			'ALBUM_PASSWORD_PROT'		=> 'Kennwortgeschützt',
 			'ALBUM_PASSWORD_PROT_EXPL'	=> 'Album nur einsehbar mit gültigem Kennwort.',
-			'ALBUM_PASSWORD_REQUIRED' 	=> 'Dieses Album ist mit einem Kennwort geschützt. Geben Sie unten das Kennwort ein, um das Album anzusehen:',
+			'ALBUM_PASSWORD_REQUIRED'	=> 'Dieses Album ist mit einem Kennwort geschützt. Geben Sie unten das Kennwort ein, um das Album anzusehen:',
 			'ALBUM_MERGE_1'				=> 'Sind Sie sicher, dass Sie das Album',
 			'ALBUM_MERGE_2'				=> 'mit diesem Album zusammenführen wollen',
 			'ALBUMS_MERGE'				=> 'Sind Sie sicher, dass Sie alle ausgewählten Alben mit diesem Album zusammenführen möchten?',
@@ -141,9 +141,9 @@ final class German
 			'ALBUM_MOVE_1'				=> 'Sind Sie sicher, dass Sie das Album',
 			'ALBUM_MOVE_2'				=> 'in folgendes Album verschieben möchten?',
 			'ALBUMS_MOVE'				=> 'Sind Sie sicher, dass Sie die ausgewählten Alben in folgendes Album verschieben wollen?',
-			'MOVE_ALBUMS'               => "Alben verschieben",
-			'NOT_MOVE_ALBUMS'           => "Nicht verschieben",
-			'ROOT' 						=> "Basis",
+			'MOVE_ALBUMS'				=> "Alben verschieben",
+			'NOT_MOVE_ALBUMS'			=> "Nicht verschieben",
+			'ROOT'						=> "Basis",
 			'ALBUM_REUSE'				=> "Weiterverwendung",
 			'ALBUM_LICENSE'				=> 'Lizenz',
 			'ALBUM_SET_LICENSE'			=> 'Lizenz festlegen',
@@ -163,9 +163,9 @@ final class German
 			'PHOTO_NEW_LICENSE'			=> 'Neue Lizenz hinzufügen',
 			'PHOTO_SET_LICENSE'			=> 'Lizenz festlegen',
 			'PHOTO_LICENSE'				=> 'Lizenz',
-			'PHOTO_REUSE'               => 'Weiterverwendung',
-			'PHOTO_LICENSE_NONE'        => 'Keine',
-			'PHOTO_RESERVED'            => 'Alle Rechte vorbehalten',			
+			'PHOTO_REUSE'				=> 'Weiterverwendung',
+			'PHOTO_LICENSE_NONE'		=> 'Keine',
+			'PHOTO_RESERVED'			=> 'Alle Rechte vorbehalten',
 			'PHOTO_IMAGE'				=> 'Bild',
 			'PHOTO_SIZE'				=> 'Größe',
 			'PHOTO_FORMAT'				=> 'Format',
@@ -196,8 +196,8 @@ final class German
 			'PHOTO_DELETE_2'			=> 'löschen wollen? Diese Aktion kann nicht rückgängig gemacht werden!',
 			'PHOTO_DELETE_ALL_1'		=> 'Sind Sie sicher, dass Sie alle',
 			'PHOTO_DELETE_ALL_2'		=> 'ausgewählten Fotos löschen wollen? Diese Aktion kann nicht rückgängig gemacht werden!',
-			'PHOTO_NEW_TITLE' 			=> 'Geben Sie einen neuen Titel für dieses Foto ein:',
-			'PHOTOS_NEW_TITLE_2' 		=> 'ausgewählten Fotos ein:',
+			'PHOTO_NEW_TITLE'			=> 'Geben Sie einen neuen Titel für dieses Foto ein:',
+			'PHOTOS_NEW_TITLE_2'		=> 'ausgewählten Fotos ein:',
 			'PHOTO_MAKE_PRIVATE_ALBUM'	=> 'Dieses Foto befindet sich in einem öffentlichen Album. Um dieses Foto als privat oder öffentlich zu markieren, bearbeiten Sie die Sichtbarkeit des übergeordneten Albums.',
 			'PHOTO_SHOW_ALBUM'			=> 'Album anzeigen',
 
@@ -209,19 +209,19 @@ final class German
 			'ERROR_CONFIG_FILE'			=> "Kann diese Konfiguration nicht speichern. Zugriff verweigert auf <b>'data/'</b>. Bitte setzen Sie die Schreibrechte auf <b>'data/'</b> and <b>'uploads/'</b>. Lesen Sie die README-Datei für mehr Informationen.",
 			'ERROR_UNKNOWN'				=> 'Etwas Unerwartetes ist passiert. Bitte probieren Sie es erneut und überprüfen Sie die Installation und Ihren Server. Lesen Sie die README-Datei für mehr Informationen.',
 			'ERROR_LOGIN'				=> 'Kann Login nicht speichern. Bitte versuchen Sie es erneut mit einem anderen Benutzernamen und Kennwort!',
-			'SUCCESS'					=> 'OK',			        
+			'SUCCESS'					=> 'OK',
 			'RETRY'						=> 'Noch einmal versuchen',
 
-			'SETTINGS_WARNING'              => 'Ändern dieser erweiterten Einstellungen kann sich negativ auf die Stabilität, Sicherheit und Geschwindigkeit dieser Anwendung auswirken. Sie sollten sie nur ändern, wenn Sie genau wissen, was Sie tun.',
+			'SETTINGS_WARNING'				=> 'Ändern dieser erweiterten Einstellungen kann sich negativ auf die Stabilität, Sicherheit und Geschwindigkeit dieser Anwendung auswirken. Sie sollten sie nur ändern, wenn Sie genau wissen, was Sie tun.',
 			'SETTINGS_SUCCESS_LOGIN'		=> 'Benutzerdaten aktualisiert',
 			'SETTINGS_SUCCESS_SORT'			=> 'Sortierreihenfolge aktualisiert',
 			'SETTINGS_SUCCESS_DROPBOX'		=> 'Dropbox-Schlüssel aktualisiert',
 			'SETTINGS_SUCCESS_LANG'			=> 'Sprache aktualisiert',
-			'SETTINGS_SUCCESS_LAYOUT' 		=> 'Layout aktualisiert',
+			'SETTINGS_SUCCESS_LAYOUT'		=> 'Layout aktualisiert',
 			'SETTINGS_SUCCESS_IMAGE_OVERLAY'=> 'EXIF-Overlay-Einstellungen aktualisiert',
 			'SETTINGS_SUCCESS_LICENSE'		=> 'Standard-Lizenz aktualisiert',
-			'SETTINGS_SUCCESS_CSS'		    => 'CSS aktualisiert',
-			'SETTINGS_SUCCESS_UPDATE'       => 'Einstellungen erfolgreich aktualisiert',
+			'SETTINGS_SUCCESS_CSS'			=> 'CSS aktualisiert',
+			'SETTINGS_SUCCESS_UPDATE'		=> 'Einstellungen erfolgreich aktualisiert',
 
 			'DB_INFO_TITLE'				=> 'Geben Sie die Informationen zu Ihrer Datenbankverbindung an:',
 			'DB_INFO_HOST'				=> 'Name des Datenbankservers (optional)',
@@ -233,12 +233,12 @@ final class German
 			'DB_CONNECT'				=> 'Verbinden',
 
 			'LOGIN_TITLE'				=> 'Geben Sie Benutzername und Kennwort für Ihre Installation an:',
-			'LOGIN_USERNAME' 			=> 'Neuer Benutzername',
-			'LOGIN_PASSWORD' 			=> 'Neues Kennwort',
+			'LOGIN_USERNAME'			=> 'Neuer Benutzername',
+			'LOGIN_PASSWORD'			=> 'Neues Kennwort',
 			'LOGIN_CREATE'				=> 'Benutzer anlegen',
 
 			'PASSWORD_TITLE'			=> 'Geben Sie Ihr bestehendes Kennwort ein:',
-			'USERNAME_CURRENT'			=> 'Bestehender Benutzername',			            		
+			'USERNAME_CURRENT'			=> 'Bestehender Benutzername',
 			'PASSWORD_CURRENT'			=> 'Bestehendes Kennwort',
 			'PASSWORD_TEXT'				=> 'Ihr Benutzername und Passwort werden wie folgt geändert:',
 			'PASSWORD_CHANGE'			=> 'Benutzer ändern',
@@ -277,15 +277,15 @@ final class German
 
 			'DROPBOX_TITLE'				=> 'Dropbox-Schlüssel festlegen',
 			'DROPBOX_TEXT'				=> "Um Ihre Fotos von Dropbox zu importieren, brauchen Sie einen gültigen API-Key von <a href='https://www.dropbox.com/developers/apps/create'>der Dropbox-Webseite</a>. Erstellen Sie einen persönlichen Schlüssel und geben Sie ihn darunter ein:",
-			
+
 			'LANG_TEXT'					=> 'Sprache für Lychee ändern:',
 			'LANG_TITLE'				=> 'Sprache festlegen',
 
 			'CSS_TEXT'					=> 'CSS personalisieren:',
-			'CSS_TITLE'				    => 'CSS ändern',
-			
-			'LAYOUT_TEXT' 				=> 'Ausgerichtetes Layout benutzen:',
-			'IMAGE_OVERLAY_TEXT'		=> 'EXIF-Daten-Overlay standardmäßig anzeigen:',			
+			'CSS_TITLE'					=> 'CSS ändern',
+
+			'LAYOUT_TEXT'				=> 'Ausgerichtetes Layout benutzen:',
+			'IMAGE_OVERLAY_TEXT'		=> 'EXIF-Daten-Overlay standardmäßig anzeigen:',
 
 			'VIEW_NO_RESULT'			=> 'Keine Ergebnisse',
 			'VIEW_NO_PUBLIC_ALBUMS'		=> 'Keine öffentlichen Alben',
@@ -320,8 +320,8 @@ final class German
 			'UPLOAD_ABSOLUTE_PATH'		=> 'Absoluter Pfad zum Verzeichnis',
 			'UPLOAD_IMPORT_SERVER_EMPT'	=> 'Konnte Import nicht starten, weil der Ordner leer ist.',
 
-			'ABOUT_SUBTITLE'			=> 'Selbst gehostetes Foto-Manaagement, aber richtig!',
-			'ABOUT_DESCRIPTION'			=> 'ist ein freies Foto-Management-Werkzeug, dass auf Ihrem Server oder Webspace läuft. Die Installation ist eine Sache von Sekunden. Hochladen, Organisieren und Teilen von Fotos funktioniert wie in einer nativen Anwendung. Lychee hält alles bereit, was Sie benötigen, und alle Bilder werden sicher abgespeichert.'			
+			'ABOUT_SUBTITLE'			=> 'Selbst gehostetes Foto-Management, aber richtig!',
+			'ABOUT_DESCRIPTION'			=> 'ist ein freies Foto-Management-Werkzeug, dass auf Ihrem Server oder Webspace läuft. Die Installation ist eine Sache von Sekunden. Hochladen, Organisieren und Teilen von Fotos funktioniert wie in einer nativen Anwendung. Lychee hält alles bereit, was Sie benötigen, und alle Bilder werden sicher abgespeichert.'
 		);
 
 		return $locale;

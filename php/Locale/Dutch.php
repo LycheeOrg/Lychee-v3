@@ -80,7 +80,7 @@ final class Dutch
 			'TITLE_NEW_ALBUM'			=> 'Voer een titel voor het album in:',
 			'UNTITLED'					=> 'Ongetiteld',
 			'UNSORTED'					=> 'Ongesoorteerd',
-			'STARED'					=> 'Met ster',
+			'STARRED'					=> 'Met ster',
 			'RECENT'					=> 'Recentelijk',
 			'PUBLIC'					=> 'Publiekelijk',
 			'NUM_PHOTOS'				=> 'Foto\'s',

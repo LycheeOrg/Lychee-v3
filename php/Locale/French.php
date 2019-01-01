@@ -79,7 +79,7 @@ final class French
 			'TITLE_NEW_ALBUM'			=> 'Entrez le titre du nouvel album :',
 			'UNTITLED'					=> 'Sans-titre',
 			'UNSORTED'					=> 'Non-triés',
-			'STARED'					=> 'Favoris',
+			'STARRED'					=> 'Favoris',
 			'RECENT'					=> 'Récent',
 			'PUBLIC'					=> 'Public',
 			'NUM_PHOTOS'				=> 'Photos',
