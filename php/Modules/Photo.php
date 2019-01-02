@@ -1099,14 +1099,11 @@ final class Photo {
 			// Takestamp
 			if (!empty($exif['DateTimeOriginal']))
             {
-                if ($exif['DateTimeOriginal'] == '0000:00:00 00:00:00')
-	            {
-		            $return['takestamp'] = 0;
-	            }
-	            else
-	            {
-		            $return['takestamp'] = date("Y-m-d H:i:s", strtotime($exif['DateTimeOriginal']));
-	            }
+				$return['takestamp'] = strtotime($exif['DateTimeOriginal']);
+            }
+			if ($return['takestamp'] > 2147483647 || $return['takestamp'] < -2147483647) {
+                Log::notice(Database::get(), __METHOD__, __LINE__, 'takestamp = '.$info['takestamp'].' = '.$exif['DateTimeOriginal'].' -- is out of range, fixing it to 0.');
+                $return['takestamp'] = 0;
             }
 
 			if (!empty($exif['LensInfo'])) $return['lens'] = trim($exif['LensInfo']);
