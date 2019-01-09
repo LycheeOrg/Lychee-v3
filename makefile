@@ -41,6 +41,7 @@ dist: clean
 	@cp -r robots.txt Lychee-v$(VERSION)
 	@cp -r version.md Lychee-v$(VERSION)
 	@cp -r view.php Lychee-v$(VERSION)
+	@touch Lychee-v$(VERSION)/dist/user.css
 	@touch Lychee-v$(VERSION)/uploads/big/index.html
 	@touch Lychee-v$(VERSION)/uploads/small/index.html
 	@touch Lychee-v$(VERSION)/uploads/medium/index.html
