@@ -621,6 +621,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "capulo",
+      "name": "capulo",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/25885970?v=4",
+      "profile": "https://github.com/capulo",
+      "contributions": [
+        "bug"
+      ]
     }
   ]
 }
