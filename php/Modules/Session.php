@@ -67,7 +67,7 @@ final class Session {
 				$obj = json_decode($json);
 				$return['update_json'] = $obj->lychee->version;
 				$return['update_available'] = ((intval(substr($return['config']['version'],8))) < $return['update_json']);
-			} catch (Exception $e) {
+			} catch (\Exception $e) {
 				Log::notice(Database::get(), __METHOD__, __LINE__, 'Could not access: https://lycheeorg.github.io/update.json');
 			}
 		}
