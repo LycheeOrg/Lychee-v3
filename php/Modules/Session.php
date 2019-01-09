@@ -58,6 +58,20 @@ final class Session {
 
 		$return['locale'] = Lang::get_lang(Settings::get()['lang']);
 
+		$return['update_json'] = 0;
+		$return['update_available'] = false;
+		if($return['config']['checkForUpdates'] == '1')
+		{
+			try {
+				$json = file_get_contents('https://lycheeorg.github.io/update.json');
+				$obj = json_decode($json);
+				$return['update_json'] = $obj->lychee->version;
+				$return['update_available'] = ((intval(substr($return['config']['version'],8))) < $return['update_json']);
+			} catch (Exception $e) {
+				Log::notice(Database::get(), __METHOD__, __LINE__, 'Could not access: https://lycheeorg.github.io/update.json');
+			}
+		}
+
 		// Call plugins
 		Plugins::get()->activate(__METHOD__, 1, func_get_args());
 
