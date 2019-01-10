@@ -27,4 +27,4 @@ CREATE TABLE IF NOT EXISTS `?` (
   PRIMARY KEY (`id`),
   KEY `Index_album` (`album`),
   KEY `Index_star` (`star`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

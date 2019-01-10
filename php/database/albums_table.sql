@@ -13,4 +13,4 @@ CREATE TABLE IF NOT EXISTS `?` (
   `min_takestamp` int(11) NOT NULL,
   `max_takestamp` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

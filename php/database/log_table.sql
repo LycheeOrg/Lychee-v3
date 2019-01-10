@@ -9,4 +9,4 @@ CREATE TABLE IF NOT EXISTS `?` (
   `line` int(11) NOT NULL,
   `text` text,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
