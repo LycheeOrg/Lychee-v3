@@ -2,7 +2,7 @@
 
 #### A great looking and easy-to-use photo-management-system.
 
-*Since the 1st of April 2018 this project has moved to it's own Organisation (https://github.com/LycheeOrg) where people are able to submit their fixes to it. We, the Organisation owners, want to thank electerious (Tobias Reich) for the opportunity to make this project live on.*
+*Since the 1st of April 2018 this project has moved to its own Organisation (https://github.com/LycheeOrg) where people are able to submit their fixes to it. We, the Organisation owners, want to thank electerious (Tobias Reich) for the opportunity to make this project live on.*
 
 ![Lychee](https://camo.githubusercontent.com/b9010f02c634219795950e034f511f4cf4af5c60/68747470733a2f2f732e656c6563746572696f75732e636f6d2f696d616765732f6c79636865652f312e6a706567)
 ![Lychee](https://camo.githubusercontent.com/5484591f0b15b6ba27d4845b292cc5d3a988b3b9/68747470733a2f2f732e656c6563746572696f75732e636f6d2f696d616765732f6c79636865652f322e6a706567)
@@ -11,7 +11,7 @@ Lychee is a free photo-management tool, which runs on your server or web-space. 
 
 ## Installation
 
-To run Lychee, everything you need is a web-server with PHP 7.1 or later and a MySQL-Database. Follow the instructions to install Lychee on your server. [Installation &#187;](https://github.com/LycheeOrg/Lychee/wiki/Installation)
+To run Lychee, everything you need is a web-server with PHP 7.1 or later and a MySQL database. Follow the instructions to install Lychee on your server. [Installation &#187;](https://github.com/LycheeOrg/Lychee/wiki/Installation)
 
 ## How to use
 
@@ -54,9 +54,9 @@ Various docker builds include :
 
 ### Plugins and Extensions
 
-The plugin-system of Lychee allows you to execute scripts when a certain action fires. Plugins are hooks, which are injected directly into Lychee. [Plugin documentation &#187;](https://github.com/LycheeOrg/Lychee/wiki/Plugins)
+The plugin system of Lychee allows you to execute scripts when a certain action fires. Plugins are hooks, which are injected directly into Lychee. [Plugin documentation &#187;](https://github.com/LycheeOrg/Lychee/wiki/Plugins)
 
-It's also possible to build extensions upon Lychee. The way to do so isn't documented and can change every time. We recommend using the plugin-system, when possible.
+It's also possible to build extensions upon Lychee. The way to do so isn't documented and can change every time. We recommend using the plugin system, when possible.
 
 Here's a list of all available Plugins and Extensions:
 
