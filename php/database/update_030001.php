@@ -57,4 +57,4 @@ if ($result->num_rows===0) {
 }
 
 // Set version
-if (Database::setVersion($connection, '030001')===false) Response::error('Could not update version of database!');
+if (Database::setVersion($connection, 'update_030001')===false) Response::error('Could not update version of database!');

@@ -39,6 +39,6 @@ $query  = Database::prepare($connection, "UPDATE ? a SET a.min_takestamp = (SELE
 $result = Database::execute($connection, $query, 'update_030108', __LINE__);
 
 // Set version
-if (Database::setVersion($connection, '030108')===false) Response::error('Could not update version of database!');
+if (Database::setVersion($connection, 'update_030108')===false) Response::error('Could not update version of database!');
 
 ?>

@@ -27,4 +27,4 @@ $result = Database::execute($connection, $query, 'update_030000', __LINE__);
 if ($result===false) Response::error('Could not reset publicity of photos in database!');
 
 // Set version
-if (Database::setVersion($connection, '030000')===false) Response::error('Could not update version of database!');
+if (Database::setVersion($connection, 'update_030000')===false) Response::error('Could not update version of database!');
