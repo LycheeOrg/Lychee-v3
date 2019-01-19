@@ -154,7 +154,7 @@ final class Import {
 				// Folder
 
 				$album              = new Album(null);
-				$newAlbumID         = $album->add('[Import] ' . basename($file));
+				$newAlbumID         = $album->add(basename($file), true);
 				$contains['albums'] = true;
 
 				if ($newAlbumID===false) {

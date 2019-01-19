@@ -206,7 +206,7 @@ final class Photo {
 					Log::error(Database::get(), __METHOD__, __LINE__, 'Could not copy photo to uploads');
 					if ($returnOnError===true) return false;
 					Response::error('Could not copy photo to uploads!');
-				} else @unlink($tmp_name);
+				} elseif (Settings::get()['deleteImported']==='1') @unlink($tmp_name);
 			} else {
 				if (!@move_uploaded_file($tmp_name, $path)) {
 					Log::error(Database::get(), __METHOD__, __LINE__, 'Could not move photo to uploads');

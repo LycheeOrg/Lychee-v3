@@ -23,7 +23,15 @@ final class Album {
 	/**
 	 * @return string|false ID of the created album.
 	 */
-	public function add($title = 'Untitled') {
+	public function add($title = 'Untitled', $use_existing = false) {
+
+		// Check if album exists
+		if ($use_existing) {
+			$exists = $this->exists($title);
+			if ($exists!==false) {
+				return $exists;
+			}
+		}
 
 		// Call plugins
 		Plugins::get()->activate(__METHOD__, 0, func_get_args());
@@ -693,6 +701,29 @@ final class Album {
 
 		if ($result===false) return false;
 		return true;
+
+	}
+
+	/**
+	 * @return string|false ID of an album with the given title or false if no such album exists.
+	 */
+	private function exists($title) {
+
+		$query = Database::prepare(Database::get(), "SELECT id FROM ? WHERE title = '?' LIMIT 1", array(LYCHEE_TABLE_ALBUMS, $title));
+
+		$result = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
+
+		if ($result===false) return false;
+
+		if ($result->num_rows===1) {
+
+			$result = $result->fetch_object();
+
+			return $result->id;
+
+		}
+
+		return false;
 
 	}
 
