@@ -1297,6 +1297,7 @@ lychee.locale = {
 	'ABOUT_LYCHEE': 'About Lychee',
 	'DIAGNOSTICS': 'Diagnostics',
 	'LOGS': 'Show Logs',
+	'CLEAN_LOGS': 'Clean Noise',
 	'SIGN_OUT': 'Sign Out',
 	'UPDATE_AVAILABLE': 'Update available!',
 	'DEFAULT_LICENSE': 'Default License for new uploads:',

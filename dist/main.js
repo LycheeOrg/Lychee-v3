@@ -94,7 +94,8 @@ var _templateObject = _taggedTemplateLiteral(["<input class='text' name='title' 
     _templateObject50 = _taggedTemplateLiteral(["\n\t\t\t<div class=\"setCSS\">\n\t\t\t\t<a id=\"basicModal__action_more\" class=\"basicModal__button basicModal__button_MORE\">", "</a>\n\t\t\t</div>\n\t\t\t"], ["\n\t\t\t<div class=\"setCSS\">\n\t\t\t\t<a id=\"basicModal__action_more\" class=\"basicModal__button basicModal__button_MORE\">", "</a>\n\t\t\t</div>\n\t\t\t"]),
     _templateObject51 = _taggedTemplateLiteral(["\n\t\t\t<div id=\"fullSettings\">\n\t\t\t\t<div class=\"setting_line\">\n\t\t\t\t<p class=\"warning\">\n\t\t\t\t", "\n\t\t\t\t</p>\n\t\t\t\t</div>\n\t\t\t\t"], ["\n\t\t\t<div id=\"fullSettings\">\n\t\t\t\t<div class=\"setting_line\">\n\t\t\t\t<p class=\"warning\">\n\t\t\t\t", "\n\t\t\t\t</p>\n\t\t\t\t</div>\n\t\t\t\t"]),
     _templateObject52 = _taggedTemplateLiteral(["\n\t\t\t<div class=\"setting_line\">\n\t\t\t\t<p>\n\t\t\t\t<span class=\"text\">$", "</span>\n\t\t\t\t<input class=\"text\" name=\"$", "\" type=\"text\" value=\"$", "\" placeholder=\"\" />\n\t\t\t\t</p>\n\t\t\t</div>\n\t\t"], ["\n\t\t\t<div class=\"setting_line\">\n\t\t\t\t<p>\n\t\t\t\t<span class=\"text\">$", "</span>\n\t\t\t\t<input class=\"text\" name=\"$", "\" type=\"text\" value=\"$", "\" placeholder=\"\" />\n\t\t\t\t</p>\n\t\t\t</div>\n\t\t"]),
-    _templateObject53 = _taggedTemplateLiteral(["\n\t\t\t<a id=\"FullSettingsSave_button\"  class=\"basicModal__button basicModal__button_SAVE\">", "</a>\n\t\t</div>\n\t\t\t"], ["\n\t\t\t<a id=\"FullSettingsSave_button\"  class=\"basicModal__button basicModal__button_SAVE\">", "</a>\n\t\t</div>\n\t\t\t"]);
+    _templateObject53 = _taggedTemplateLiteral(["\n\t\t\t<a id=\"FullSettingsSave_button\"  class=\"basicModal__button basicModal__button_SAVE\">", "</a>\n\t\t</div>\n\t\t\t"], ["\n\t\t\t<a id=\"FullSettingsSave_button\"  class=\"basicModal__button basicModal__button_SAVE\">", "</a>\n\t\t</div>\n\t\t\t"]),
+    _templateObject54 = _taggedTemplateLiteral(["<div class=\"clear_logs\"><a id=\"Clean_Noise\" class=\"basicModal__button\">", "</a></div>"], ["<div class=\"clear_logs\"><a id=\"Clean_Noise\" class=\"basicModal__button\">", "</a></div>"]);
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
@@ -2979,6 +2980,7 @@ lychee.locale = {
 	'ABOUT_LYCHEE': 'About Lychee',
 	'DIAGNOSTICS': 'Diagnostics',
 	'LOGS': 'Show Logs',
+	'CLEAN_LOGS': 'Clean Noise',
 	'SIGN_OUT': 'Sign Out',
 	'UPDATE_AVAILABLE': 'Update available!',
 	'DEFAULT_LICENSE': 'Default License for new uploads:',
@@ -6772,14 +6774,26 @@ view.logs_diagnostics = {
 		lychee.setTitle(get, false);
 	},
 
-	clearContent: function clearContent() {
+	clearContent: function clearContent(get) {
 		lychee.content.unbind('mousedown');
-		lychee.content.html('<pre class="logs_diagnostics_view"></pre>');
+		var html = '';
+
+		if (lychee.api_V2 && get === 'Logs') {
+			html += lychee.html(_templateObject54, lychee.locale['CLEAN_LOGS']);
+		}
+		html += '<pre class="logs_diagnostics_view"></pre>';
+		lychee.content.html(html);
+
+		$("#Clean_Noise").on('click', function () {
+			api.post_raw('Logs::clearNoise', {}, function () {
+				view.logs_diagnostics.init('Logs');
+			});
+		});
 	},
 
 	content: {
 		init: function init(get) {
-			view.logs_diagnostics.clearContent();
+			view.logs_diagnostics.clearContent(get);
 			api.post_raw(get, {}, function (data) {
 				$(".logs_diagnostics_view").html(data);
 			});
