@@ -463,7 +463,11 @@ header.bind = function () {
 		photo.setStar([photo.getID()]);
 	});
 	header.dom('#button_back_home').on(eventName, function () {
-		lychee.goto();
+		if (!album.json.parent_id) {
+			lychee.goto();
+		} else {
+			lychee.goto(album.getParent());
+		}
 	});
 	header.dom('#button_back').on(eventName, function () {
 		lychee.goto(album.getID());

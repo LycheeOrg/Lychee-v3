@@ -244,9 +244,8 @@ album.isSmartID = function (id) {
 
 album.getParent = function () {
 
-	if (album.json == null || album.isSmartID(album.json.id) === true || album.json.parent === 0) return '';
-
-	return album.json.parent;
+	if (album.json == null || album.isSmartID(album.json.id) === true || !album.json.parent_id || album.json.parent_id === 0) return '';
+	return album.json.parent_id;
 };
 
 album.getID = function () {
@@ -2001,7 +2000,11 @@ header.bind = function () {
 		photo.setStar([photo.getID()]);
 	});
 	header.dom('#button_back_home').on(eventName, function () {
-		lychee.goto();
+		if (!album.json.parent_id) {
+			lychee.goto();
+		} else {
+			lychee.goto(album.getParent());
+		}
 	});
 	header.dom('#button_back').on(eventName, function () {
 		lychee.goto(album.getID());
@@ -2209,7 +2212,7 @@ $(document).ready(function () {
 	});
 
 	Mousetrap.bindGlobal(['esc', 'command+up'], function () {
-		if (basicModal.visible() === true) basicModal.cancel();else if (visible.leftMenu()) leftMenu.close();else if (visible.contextMenu()) contextMenu.close();else if (visible.photo()) lychee.goto(album.getID());else if (visible.album()) lychee.goto();else if (visible.albums() && header.dom('.header__search').val().length !== 0) search.reset();
+		if (basicModal.visible() === true) basicModal.cancel();else if (visible.leftMenu()) leftMenu.close();else if (visible.contextMenu()) contextMenu.close();else if (visible.photo()) lychee.goto(album.getID());else if (visible.album() && !album.json.parent_id) lychee.goto();else if (visible.album()) lychee.goto(album.getParent());else if (visible.albums() && header.dom('.header__search').val().length !== 0) search.reset();
 		return false;
 	});
 
