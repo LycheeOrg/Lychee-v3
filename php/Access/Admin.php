@@ -58,6 +58,7 @@ final class Admin extends Access {
 
 			// Settings functions
 			case 'Settings::setImageOverlay':     self::setImageOverlay(); break;
+			case 'Settings::setOverlayType':	  self::setOverlayType(); break;
 			case 'Settings::setLayout':     self::setLayoutAction(); break;
 			case 'Settings::setLang':      	self::setLangAction(); break;
 			case 'Settings::setDefaultLicense':	  self::setDefaultLicenseAction(); break;
@@ -353,6 +354,13 @@ final class Admin extends Access {
 		Validator::required(isset($_POST['image_overlay']), __METHOD__);
 
 		Response::json(Settings::setImageOverlay($_POST['image_overlay']));
+	}
+
+	private static function setOverlayType() {
+
+		Validator::required(isset($_POST['image_overlay_type']), __METHOD__);
+
+		Response::json(Settings::setOverlayType($_POST['image_overlay_type']));
 	}
 
 	private static function setSortingAction() {

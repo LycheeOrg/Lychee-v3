@@ -207,6 +207,10 @@ final class Settings {
 		return true;
 	}
 
+	public static function setOverlayType($imageOverlayType) {
+		if (self::set('image_overlay_type', ($imageOverlayType == '') ? $imageOverlayType : '', true)===false) return false;
+		return true;
+	}
 
 	/**
 	 * Sets a new sorting for the photos.
