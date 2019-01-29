@@ -675,6 +675,17 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "roblandry",
+      "name": "roblandry",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/1853884?v=4",
+      "profile": "https://github.com/roblandry",
+      "contributions": [
+        "bug",
+        "code",
+        "infra"
+      ]
     }
   ]
 }
