@@ -208,7 +208,7 @@ final class Settings {
 	}
 
 	public static function setOverlayType($imageOverlayType) {
-		if (self::set('image_overlay_type', ($imageOverlayType == '') ? $imageOverlayType : '', true)===false) return false;
+		if (self::set('image_overlay_type', $imageOverlayType, true)===false) return false;
 		return true;
 	}
 
