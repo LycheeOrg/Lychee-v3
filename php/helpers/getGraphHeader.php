@@ -3,7 +3,7 @@
 use Lychee\Modules\Database;
 use Lychee\Modules\Photo;
 
-function getGraphHeader($theID,$getType) {
+function getGraphHeader($theID,$getType='photo') {
 
 	// allow album data
 	if ($getType == 'album'){
