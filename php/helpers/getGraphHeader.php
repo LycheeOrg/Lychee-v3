@@ -3,7 +3,18 @@
 use Lychee\Modules\Database;
 use Lychee\Modules\Photo;
 
-function getGraphHeader($photoID) {
+function getGraphHeader($theID,$getType) {
+
+	// allow album data
+	if ($getType == 'album'){
+		$query  = Database::prepare(Database::get(), "SELECT id FROM ? WHERE album = '?' LIMIT 1", array(LYCHEE_TABLE_PHOTOS, $theID));
+		$result = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
+		if ($result===false) return false;
+		$row = $result->fetch_object();
+		$photoID = $row->id;
+	} else {
+		$photoID = $theID;
+	}
 
 	$photo = new Photo($photoID);
 	if ($photo->getPublic('')===false) return false;

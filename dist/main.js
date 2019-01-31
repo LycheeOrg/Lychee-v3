@@ -712,7 +712,8 @@ album.setPublic = function (albumID, modal, e) {
 
 album.share = function (service) {
 
-	var url = location.href;
+	//var url = location.href;
+    let url  = album.getViewLink(album.getID());
 
 	switch (service) {
 		case 'twitter':
@@ -957,6 +958,19 @@ album.reload = function () {
 album.refresh = function () {
 
 	album.json = null;
+};
+
+album.getViewLink = function(albumID) {
+
+	let url = 'index.php?a=' + albumID + '#' + albumID;
+	if(lychee.api_V2)
+	{
+		url = 'view?p=' + photoID;
+	}
+
+	if (location.href.indexOf('index.html')>0) return location.href.replace('index.html' + location.hash, url);
+	else                                       return location.href.replace(location.hash, url)
+
 };
 
 /**
@@ -1885,9 +1899,10 @@ contextMenu.sharePhoto = function (photoID, e) {
 
 contextMenu.shareAlbum = function (albumID, e) {
 
+    var link = album.getViewLink(albumID);
 	var iconClass = 'ionicons';
 
-	var items = [{ title: "<input readonly id=\"link\" value=\"" + location.href + "\">", fn: function fn() {}, class: 'basicContext__item--noHover' }, {}, { title: build.iconic('twitter', iconClass) + 'Twitter', fn: function fn() {
+	var items = [{ title: "<input readonly id=\"link\" value=\"" + link + "\">", fn: function fn() {}, class: 'basicContext__item--noHover' }, {}, { title: build.iconic('twitter', iconClass) + 'Twitter', fn: function fn() {
 			return album.share('twitter');
 		} }, { title: build.iconic('facebook', iconClass) + 'Facebook', fn: function fn() {
 			return album.share('facebook');
@@ -4411,7 +4426,7 @@ photo.getDirectLink = function () {
 
 photo.getViewLink = function (photoID) {
 
-	var url = 'view.php?p=' + photoID;
+	var url = 'index.php?p=' + photoID;
 	if (lychee.api_V2) {
 		url = 'view?p=' + photoID;
 	}

@@ -18,6 +18,29 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<meta name="apple-mobile-web-app-capable" content="yes">
+		<?php
+
+			if (isset($_GET['a'])&&$_GET['a']>0){
+				# Load required files
+				require(__DIR__ . '/php/define.php');
+				require(__DIR__ . '/php/autoload.php');
+				require(__DIR__ . '/php/helpers/getGraphHeader.php');
+
+				echo getGraphHeader($_GET['a'],'album');
+			}
+
+			if (isset($_GET['p'])&&$_GET['p']>0){
+
+				# Load required files
+				require(__DIR__ . '/php/define.php');
+				require(__DIR__ . '/php/autoload.php');
+				require(__DIR__ . '/php/helpers/getGraphHeader.php');
+
+				echo getGraphHeader($_GET['p'],'photo');
+
+			}
+
+		?>
 
 	</head>
 	<body>
@@ -703,8 +726,27 @@
 	<!-- Loading -->
 	<div id="loading"></div>
 
+
 	<!-- Header -->
 	<header class="header">
+
+		<?php
+		// hide header if is photo
+		if (isset($_GET['p'])&&$_GET['p']>0) { ?>
+
+		<div class="header__toolbar header__toolbar--public header__toolbar--visible">
+
+			<a class="header__title"></a>
+
+			<a class="button button--share" id="button_share" title="Share Photo">
+				<svg class="iconic"><use xlink:href="#share"></use></svg>
+			</a>
+			<a class="button button--info" id="button_info" title="About Photo">
+				<svg class="iconic"><use xlink:href="#info"></use></svg>
+			</a>
+
+		</div>
+		<?php } else { ?>
 
 		<div class="header__toolbar header__toolbar--public">
 
@@ -733,6 +775,11 @@
 			</a>
 
 		</div>
+		<?php
+		// hide header if is album
+		if (isset($_GET['a'])&&$_GET['a']>0) {
+
+		} else { ?>
 		<div class="header__toolbar header__toolbar--album">
 
 			<a class="button" id="button_back_home" title="Close Album">
@@ -759,6 +806,8 @@
 			</a>
 
 		</div>
+		<?php } ?>
+
 		<div class="header__toolbar header__toolbar--photo">
 
 			<a class="button" id="button_back" title="Close Photo">
@@ -789,6 +838,7 @@
 			</a>
 
 		</div>
+		<?php } ?>
 
 	</header>
 
@@ -815,7 +865,12 @@
 	</div>
 
 	<!-- JS -->
-	<script async type="text/javascript" src="dist/main.js"></script>
+	<?php
+	if (isset($_GET['p'])&&$_GET['p']>0) {
+		echo '<script async type="text/javascript" src="dist/view.js"></script>';
+	} else {
+		echo '<script async type="text/javascript" src="dist/main.js"></script>';
+	} ?>
 
 	</body>
 </html>
