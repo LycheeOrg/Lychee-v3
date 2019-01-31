@@ -208,8 +208,26 @@ final class Settings {
 	}
 
 	public static function setOverlayType($imageOverlayType) {
-		if (self::set('image_overlay_type', $imageOverlayType, true)===false) return false;
-		return true;
+		$overlays = [ 'exif', 'desc', 'takedate' ];
+
+		$found = false;
+		$i = 0;
+
+		while(!$found && $i < count($overlays)) {
+			if ($overlays[$i] === $imageOverlayType) $found = true;
+			$i++;
+		}
+
+		if(!$found) {
+			Log::error(Database::get(), __METHOD__, __LINE__, 'Cound not find the submitted overlay type');
+		}
+		else {
+			if (self::set('image_overlay_type', $imageOverlayType, true)===false) return false;
+			return true;
+		}
+		Log::error(Database::get(), __METHOD__, __LINE__, 'Could not update settings. Unknown overlay default.');
+		return false;
+
 	}
 
 	/**
