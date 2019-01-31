@@ -23,9 +23,19 @@ function getGraphHeader($photoID) {
 	if ($row->medium==='1') $dir = 'medium';
 	else                    $dir = 'big';
 
-	$parseUrl = parse_url('http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
-	$url      = '//' . $parseUrl['host'] . $parseUrl['path'] . '?' . $parseUrl['query'];
-	$picture  = '//' . $parseUrl['host'] . $parseUrl['path'] . '/../uploads/' . $dir . '/' . $row->url;
+	// Fixed https display
+	$isSecure = false;
+	if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
+	    $isSecure = true;
+	}
+	elseif (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https' || !empty($_SERVER['HTTP_X_FORWARDED_SSL']) && $_SERVER['HTTP_X_FORWARDED_SSL'] == 'on') {
+	    $isSecure = true;
+	}
+	$REQUEST_PROTOCOL = $isSecure ? 'https' : 'http';
+
+	$parseUrl = parse_url($REQUEST_PROTOCOL. '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
+	$url      = $REQUEST_PROTOCOL. '://' . $parseUrl['host'] . $parseUrl['path'] . '?' . $parseUrl['query'];
+	$picture  = $REQUEST_PROTOCOL. '://' . $parseUrl['host'] . $parseUrl['path'] . '/../uploads/' . $dir . '/' . $row->url;
 
 	$url     = htmlentities($url);
 	$picture = htmlentities($picture);
