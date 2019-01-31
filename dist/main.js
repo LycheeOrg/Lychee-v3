@@ -965,7 +965,7 @@ album.getViewLink = function(albumID) {
 	let url = 'view.php?a=' + albumID + '#' + albumID;
 	if(lychee.api_V2)
 	{
-		url = 'view?p=' + photoID;
+		url = 'view?a=' + albumID;
 	}
 
 	if (location.href.indexOf('index.html')>0) return location.href.replace('index.html' + location.hash, url);
