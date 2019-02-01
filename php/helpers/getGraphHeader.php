@@ -35,7 +35,11 @@ function getGraphHeader($theID,$getType='photo') {
 	else                    $dir = 'big';
 
 	$parseUrl = parse_url('http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
-	$url      = '//' . $parseUrl['host'] . $parseUrl['path'] . '?' . $parseUrl['query'];
+	if ($getType == 'album'){
+		$url      = '//' . $parseUrl['host'] . $parseUrl['path'] . '?' . $parseUrl['query'] . '#' . $theID;
+	} else {
+		$url      = '//' . $parseUrl['host'] . $parseUrl['path'] . '?' . $parseUrl['query'];
+	}
 	$picture  = '//' . $parseUrl['host'] . $parseUrl['path'] . '/../uploads/' . $dir . '/' . $row->url;
 
 	$url     = htmlentities($url);
