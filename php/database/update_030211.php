@@ -17,8 +17,6 @@ if ($result->num_rows===0) {
 
 	$query  = Database::prepare($connection, "INSERT INTO `?` (`key`, `value`) VALUES ('image_overlay_type', 'exif')", array(LYCHEE_TABLE_SETTINGS));
 	$result = Database::execute($connection, $query, 'update_030211', __LINE__);
-	$query 	= Database::prepare($connection, "INSERT INTO `?` (`key`, `value`) VALUES ('image_overlay_type_default', 'exif')", array(LYCHEE_TABLE_SETTINGS)))
-	$result	= Database::prepare($connection, $query, 'update_030211', __LINE__);
 
 	if ($result===false) Response::error('Could not add image_overlay_type to database!');
 
