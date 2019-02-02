@@ -53,6 +53,7 @@ final class Session {
 			unset($return['config']['location']);
 			unset($return['config']['imagick']);
 			unset($return['config']['plugins']);
+			unset($return['config']['php_script_limit']);
 
 		}
 

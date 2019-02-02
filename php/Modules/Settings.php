@@ -207,6 +207,26 @@ final class Settings {
 		return true;
 	}
 
+	public static function setOverlayType($imageOverlayType) {
+		$overlays = [ 'exif', 'desc', 'takedate' ];
+
+		$found = false;
+		$i = 0;
+
+		while(!$found && $i < count($overlays)) {
+			if ($overlays[$i] === $imageOverlayType) $found = true;
+			$i++;
+		}
+
+		if(!$found) {
+			Log::error(Database::get(), __METHOD__, __LINE__, 'Cound not find the submitted overlay type');
+			Response::error(Database::get(), __METHOD__, __LINE__, 'Cound not find the submitted overlay type');
+		}
+		else {
+			if (self::set('image_overlay_type', $imageOverlayType, true)===false) return false;
+			return true;
+		}
+	}
 
 	/**
 	 * Sets a new sorting for the photos.

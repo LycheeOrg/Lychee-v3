@@ -886,7 +886,7 @@ final class Photo {
 			// Use takestamp
 			$photo['cameraDate'] = '1';
 			$photo['sysdate']    = strftime('%d %B %Y', substr($data['id'], 0, -4));
-			$photo['takedate']    = strftime('%d %B %Y', $data['takestamp']);
+			$photo['takedate']    = strftime('%d %B %Y - %k:%M', $data['takestamp']);
 
 		} else {
 

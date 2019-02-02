@@ -32,6 +32,7 @@ final class English
 			'UPDATE_AVAILABLE'	=> 'Update available!',
 			'DEFAULT_LICENSE'	=> 'Default license for new uploads:',
 			'SET_LICENSE'		=> 'Set License',
+			'SET_OVERLAY_TYPE'	=> 'Set Overlay',
 
 			'SMART_ALBUMS'		=> 'Smart albums',
 			'SHARED_ALBUMS'		=> 'Shared albums',
@@ -277,7 +278,12 @@ final class English
 			'LANG_TITLE'				=> 'Change Language',
 
 			'LAYOUT_TEXT'				=> 'Use justified layout:',
-			'IMAGE_OVERLAY_TEXT'		=> 'Display EXIF data overlay by default:',
+			'IMAGE_OVERLAY_TEXT'		=> 'Display data overlay by default:',
+
+			'LAYOUT_TYPE'				=> 'Data to use in image overlay:',
+			'OVERLAY_EXIF'				=> 'Photo EXIF data',
+			'OVERLAY_DESCRIPTION'		=> 'Photo description',
+			'OVERLAY_DATE'				=> 'Photo date taken',
 
 			'VIEW_NO_RESULT'			=> 'No results',
 			'VIEW_NO_PUBLIC_ALBUMS'		=> 'No public albums',

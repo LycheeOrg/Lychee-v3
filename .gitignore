@@ -7,6 +7,7 @@ uploads/small/*
 uploads/thumb/*
 
 dist/user.css
+dist/frame.js
 
 !uploads/big/index.html
 !uploads/import/index.html
