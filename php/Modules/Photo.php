@@ -796,7 +796,7 @@ final class Photo {
 	public static function prepareData(array $data) {
 
 		// Expects the following:
-		// (array) $data = ['id', 'title', 'tags', 'public', 'star', 'album', 'thumbUrl', 'takestamp', 'url', 'medium']
+		// (array) $data = ['id', 'title', ...]
 
 		// Init
 		$photo = null;
@@ -809,6 +809,7 @@ final class Photo {
 		$photo['public'] 		= $data['public'];
 		$photo['star']   		= $data['star'];
 		$photo['album']  		= $data['album'];
+		$photo['size']  		= $data['size'];
 		$photo['type']   		= $data['type'];
 		$photo['width']  		= $data['width'];
 		$photo['height'] 		= $data['height'];
