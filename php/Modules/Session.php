@@ -54,6 +54,7 @@ final class Session {
 			unset($return['config']['imagick']);
 			unset($return['config']['plugins']);
 			unset($return['config']['php_script_limit']);
+			unset($return['config']['useExiftool']);
 
 		}
 

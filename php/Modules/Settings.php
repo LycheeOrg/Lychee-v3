@@ -349,4 +349,20 @@ final class Settings {
 		return false;
 	}
 
+        /**
+         * @return bool Returns the useExiftool setting.
+         */
+        public static function useExiftool() {
+                return (bool) (self::get()['useExiftool'] === '1');
+        }
+
+        /**
+         * @return bool Set the useExiftool setting.
+         */
+        public static function setUseExiftool($enable) {
+		Log::notice(Database::get(), __METHOD__, __LINE__, 'Change useExiftool to: ' . $enable);
+		if (self::set('useExiftool', $enable)===false) return false;
+                return true;
+        }
+
 }
