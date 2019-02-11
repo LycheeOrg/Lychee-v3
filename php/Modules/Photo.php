@@ -1063,16 +1063,13 @@ final class Photo {
 			$exif = false;
 			if(Settings::useExiftool()) {
 				Log::notice(Database::get(), __METHOD__, __LINE__, 'Using exiftool');
-				system('which exiftool 2>&1 > /dev/null', $status);
-				if ($status == 0) {
-					$handle = @popen("exiftool -php -q $url 2>&1", 'r');
-					$exiftool = @fread($handle, 8192);
-					@pclose($handle);
-					if (false!==$exiftool && strlen($exiftool) > 0) {
-						$exiftool = @eval('return ' . "$exiftool");
-						if (is_array($exiftool) && is_array($exiftool[0])) {
-							$exif = $exiftool[0];
-						}
+				$handle = @popen("exiftool -php -q $url 2>&1", 'r');
+				$exiftool = @fread($handle, 8192);
+				@pclose($handle);
+				if (false!==$exiftool && strlen($exiftool) > 0) {
+					$exiftool = @eval('return ' . "$exiftool");
+					if (is_array($exiftool) && is_array($exiftool[0])) {
+						$exif = $exiftool[0];
 					}
 				}
 			}

@@ -353,6 +353,8 @@ final class Settings {
          * @return bool Returns the useExiftool setting.
          */
         public static function useExiftool() {
+                system('which exiftool 2>&1 > /dev/null', $status);
+                if ($status != 0) return false;
                 return (bool) (self::get()['useExiftool'] === '1');
         }
 
