@@ -2497,8 +2497,8 @@ loadingBar.hide = function (force) {
 lychee = {
 
 	title: document.title,
-	version: '3.2.11',
-	versionCode: '030211', // not really needed anymore
+	version: '3.2.12',
+	versionCode: '030212', // not really needed anymore
 
 	updatePath: 'https://LycheeOrg.github.io/update.json',
 	updateURL: 'https://github.com/LycheeOrg/Lychee/releases',
