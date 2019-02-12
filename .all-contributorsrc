@@ -686,6 +686,16 @@
         "code",
         "infra"
       ]
+    },
+    {
+      "login": "mir07",
+      "name": "Michael Rasmussen",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/2576455?v=4",
+      "profile": "https://github.com/mir07",
+      "contributions": [
+        "bug",
+        "code"
+      ]
     }
   ]
 }
