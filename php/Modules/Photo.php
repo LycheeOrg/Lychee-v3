@@ -1060,7 +1060,26 @@ final class Photo {
 		}
 
 		// Read EXIF
-		if ($info['mime']=='image/jpeg') $exif = @exif_read_data($url, 'EXIF', false, false);
+		if ($info['mime']=='image/jpeg') {
+			$exif = false;
+			if(Settings::useExiftool()) {
+				Log::notice(Database::get(), __METHOD__, __LINE__, 'Using exiftool');
+				$handle = @popen("exiftool -php -q $url 2>&1", 'r');
+				$exiftool = @fread($handle, 8192);
+				@pclose($handle);
+				if (false!==$exiftool && strlen($exiftool) > 0) {
+					$exiftool = @eval('return ' . "$exiftool");
+					if (is_array($exiftool) && is_array($exiftool[0])) {
+						$exif = $exiftool[0];
+					}
+				}
+			}
+			// If exiftool is not available
+			// or using exiftool fails in any way fallback to exif_read_data
+			if (!is_array($exif)) {
+				$exif = @exif_read_data($url, 'EXIF', false, false);
+			}
+		}
 		else $exif = false;
 
 		// EXIF Metadata
@@ -1072,9 +1091,11 @@ final class Photo {
 
 			// ISO
 			if (!empty($exif['ISOSpeedRatings'])) $return['iso'] = $exif['ISOSpeedRatings'];
+			else if (!empty($exif['ISO'])) $return['iso'] = trim($exif['ISO']);
 
 			// Aperture
 			if (!empty($exif['COMPUTED']['ApertureFNumber'])) $return['aperture'] = $exif['COMPUTED']['ApertureFNumber'];
+			else if (!empty($exif['Aperture'])) $return['aperture'] = 'f/' . trim($exif['Aperture']);
 
 			// Make
 			if (!empty($exif['Make'])) $return['make'] = trim($exif['Make']);
@@ -1092,6 +1113,9 @@ final class Photo {
 					$temp = $temp[0] / $temp[1];
 					$temp = round($temp, 1);
 					$return['focal'] = $temp . ' mm';
+				} else if (strpos($exif['FocalLength'], 'mm')!==false) {
+					$temp = substr($exif['FocalLength'], 0, strpos($exif['FocalLength'], '.'));
+					$return['focal'] = $temp . ' mm';
 				} else {
 					$return['focal'] = $exif['FocalLength'] . ' mm';
 				}
@@ -1108,6 +1132,7 @@ final class Photo {
             }
 
 			if (!empty($exif['LensInfo'])) $return['lens'] = trim($exif['LensInfo']);
+			else if(!empty($exif['Lens'])) $return['lens'] = trim($exif['Lens']);
 
 			// Lens field from Lightroom
 			if ($return['lens'] == '' && !empty($exif['UndefinedTag:0xA434'])) $return['lens'] = trim($exif['UndefinedTag:0xA434']);
