@@ -46,25 +46,27 @@ if (!extension_loaded('json'))     $error .= ('Error: PHP json extension not act
 if (!extension_loaded('zip'))      $error .= ('Error: PHP zip extension not activated' . PHP_EOL);
 
 // Permissions
-if (hasPermissions(LYCHEE_UPLOADS_BIG)===false)    $error .= ('Error: \'uploads/big\' is missing or has insufficient read/write privileges' . PHP_EOL);
-if (hasPermissions(LYCHEE_UPLOADS_SMALL)===false)  $error .= ('Error: \'uploads/small\' is missing or has insufficient read/write privileges' . PHP_EOL);
-if (hasPermissions(LYCHEE_UPLOADS_MEDIUM)===false) $error .= ('Error: \'uploads/medium\' is missing or has insufficient read/write privileges' . PHP_EOL);
-if (hasPermissions(LYCHEE_UPLOADS_THUMB)===false)  $error .= ('Error: \'uploads/thumb\' is missing or has insufficient read/write privileges' . PHP_EOL);
-if (hasPermissions(LYCHEE_UPLOADS_IMPORT)===false) $error .= ('Error: \'uploads/import\' is missing or has insufficient read/write privileges' . PHP_EOL);
-if (hasPermissions(LYCHEE_UPLOADS)===false)        $error .= ('Error: \'uploads/\' is missing or has insufficient read/write privileges' . PHP_EOL);
-if (hasPermissions(LYCHEE_DATA)===false)           $error .= ('Error: \'data/\' is missing or has insufficient read/write privileges' . PHP_EOL);
+if (hasPermissions(LYCHEE_UPLOADS_BIG)===false)    $error .= ('Error: \'uploads/big\' is missing or has insufficient read/write privileges.' . PHP_EOL);
+if (hasPermissions(LYCHEE_UPLOADS_SMALL)===false)  $error .= ('Error: \'uploads/small\' is missing or has insufficient read/write privileges.' . PHP_EOL);
+if (hasPermissions(LYCHEE_UPLOADS_MEDIUM)===false) $error .= ('Error: \'uploads/medium\' is missing or has insufficient read/write privileges.' . PHP_EOL);
+if (hasPermissions(LYCHEE_UPLOADS_THUMB)===false)  $error .= ('Error: \'uploads/thumb\' is missing or has insufficient read/write privileges.' . PHP_EOL);
+if (hasPermissions(LYCHEE_UPLOADS_IMPORT)===false) $error .= ('Error: \'uploads/import\' is missing or has insufficient read/write privileges.' . PHP_EOL);
+if (hasPermissions(LYCHEE_UPLOADS)===false)        $error .= ('Error: \'uploads/\' is missing or has insufficient read/write privileges.' . PHP_EOL);
+if (hasPermissions(LYCHEE_DATA)===false)           $error .= ('Error: \'data/\' is missing or has insufficient read/write privileges.' . PHP_EOL);
+if (hasPermissions(LYCHEE_DIST)===false)           $error .= ('Error: \'dist/\' has insufficient read/write privileges.' . PHP_EOL);
+if (!file_exists(LYCHEE_DIST.'/user.css'))				 $error .= ('Error: \'dist/user.css/\' does not exists.' . PHP_EOL);
 
 // About GD
 $gdVersion = array('GD Version' => '-');
 if (function_exists('gd_info')) {
 	$gdVersion = gd_info();
-	if (!$gdVersion['JPEG Support'])                                          $error .= ('Error: PHP gd extension without jpeg support' . PHP_EOL);
-	if (!$gdVersion['PNG Support'])                                           $error .= ('Error: PHP gd extension without png support' . PHP_EOL);
-	if (!$gdVersion['GIF Read Support'] || !$gdVersion['GIF Create Support']) $error .= ('Error: PHP gd extension without full gif support' . PHP_EOL);
+	if (!$gdVersion['JPEG Support'])                                          $error .= ('Error: PHP gd extension without jpeg support.' . PHP_EOL);
+	if (!$gdVersion['PNG Support'])                                           $error .= ('Error: PHP gd extension without png support.' . PHP_EOL);
+	if (!$gdVersion['GIF Read Support'] || !$gdVersion['GIF Create Support']) $error .= ('Error: PHP gd extension without full gif support.' . PHP_EOL);
 }
 
 // Load config
-if (!file_exists(LYCHEE_CONFIG_FILE)) exit('Error: Configuration not found. Please install Lychee for additional tests');
+if (!file_exists(LYCHEE_CONFIG_FILE)) exit('Error: Configuration not found. Please install Lychee for additional tests.');
 require(LYCHEE_CONFIG_FILE);
 
 // Database
