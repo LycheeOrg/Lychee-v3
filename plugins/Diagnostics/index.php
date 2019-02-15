@@ -54,7 +54,7 @@ if (hasPermissions(LYCHEE_UPLOADS_IMPORT)===false)		$error .= ('Error: \'uploads
 if (hasPermissions(LYCHEE_UPLOADS)===false)				$error .= ('Error: \'uploads/\' is missing or has insufficient read/write privileges.' . PHP_EOL);
 if (hasPermissions(LYCHEE_DATA)===false)				$error .= ('Error: \'data/\' is missing or has insufficient read/write privileges.' . PHP_EOL);
 if (hasPermissions(LYCHEE_DIST.'/user.css')===false) {
-														$error .= ('Warning: \'dist/user.css/\' does not exist or has insufficient read/write privileges.' . PHP_EOL);
+														$error .= ('Warning: \'dist/user.css\' does not exist or has insufficient read/write privileges.' . PHP_EOL);
 		if (hasPermissions(LYCHEE_DIST)===false)			$error .= ('Warning: \'dist/\' has insufficient read/write privileges.' . PHP_EOL);
 }
 
