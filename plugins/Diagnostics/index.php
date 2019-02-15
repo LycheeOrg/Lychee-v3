@@ -46,15 +46,15 @@ if (!extension_loaded('json'))     $error .= ('Error: PHP json extension not act
 if (!extension_loaded('zip'))      $error .= ('Error: PHP zip extension not activated' . PHP_EOL);
 
 // Permissions
-if (hasPermissions(LYCHEE_UPLOADS_BIG)===false)    $error .= ('Error: \'uploads/big\' is missing or has insufficient read/write privileges.' . PHP_EOL);
-if (hasPermissions(LYCHEE_UPLOADS_SMALL)===false)  $error .= ('Error: \'uploads/small\' is missing or has insufficient read/write privileges.' . PHP_EOL);
-if (hasPermissions(LYCHEE_UPLOADS_MEDIUM)===false) $error .= ('Error: \'uploads/medium\' is missing or has insufficient read/write privileges.' . PHP_EOL);
-if (hasPermissions(LYCHEE_UPLOADS_THUMB)===false)  $error .= ('Error: \'uploads/thumb\' is missing or has insufficient read/write privileges.' . PHP_EOL);
-if (hasPermissions(LYCHEE_UPLOADS_IMPORT)===false) $error .= ('Error: \'uploads/import\' is missing or has insufficient read/write privileges.' . PHP_EOL);
-if (hasPermissions(LYCHEE_UPLOADS)===false)        $error .= ('Error: \'uploads/\' is missing or has insufficient read/write privileges.' . PHP_EOL);
-if (hasPermissions(LYCHEE_DATA)===false)           $error .= ('Error: \'data/\' is missing or has insufficient read/write privileges.' . PHP_EOL);
-if (hasPermissions(LYCHEE_DIST)===false)           $error .= ('Error: \'dist/\' has insufficient read/write privileges.' . PHP_EOL);
-if (!file_exists(LYCHEE_DIST.'/user.css'))				 $error .= ('Error: \'dist/user.css/\' does not exists.' . PHP_EOL);
+if (hasPermissions(LYCHEE_UPLOADS_BIG)===false)    		$error .= ('Error: \'uploads/big\' is missing or has insufficient read/write privileges.' . PHP_EOL);
+if (hasPermissions(LYCHEE_UPLOADS_SMALL)===false)  		$error .= ('Error: \'uploads/small\' is missing or has insufficient read/write privileges.' . PHP_EOL);
+if (hasPermissions(LYCHEE_UPLOADS_MEDIUM)===false) 		$error .= ('Error: \'uploads/medium\' is missing or has insufficient read/write privileges.' . PHP_EOL);
+if (hasPermissions(LYCHEE_UPLOADS_THUMB)===false)  		$error .= ('Error: \'uploads/thumb\' is missing or has insufficient read/write privileges.' . PHP_EOL);
+if (hasPermissions(LYCHEE_UPLOADS_IMPORT)===false) 		$error .= ('Error: \'uploads/import\' is missing or has insufficient read/write privileges.' . PHP_EOL);
+if (hasPermissions(LYCHEE_UPLOADS)===false)        		$error .= ('Error: \'uploads/\' is missing or has insufficient read/write privileges.' . PHP_EOL);
+if (hasPermissions(LYCHEE_DATA)===false)           		$error .= ('Error: \'data/\' is missing or has insufficient read/write privileges.' . PHP_EOL);
+if (hasPermissions(LYCHEE_DIST)===false)           		$error .= ('Warning: \'dist/\' has insufficient read/write privileges.' . PHP_EOL);
+if (hasPermissions(LYCHEE_DIST.'/user.css')===false)	$error .= ('Warning: \'dist/user.css/\' does not exists or has insufficient read/write privileges.' . PHP_EOL);
 
 // About GD
 $gdVersion = array('GD Version' => '-');
