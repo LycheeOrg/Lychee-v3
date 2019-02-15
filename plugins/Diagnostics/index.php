@@ -1,9 +1,9 @@
 <?php
 
 /**
- * @author      Tobias Reich
- * @copyright   2015 by Tobias Reich
- * @description This file takes a look at your Lychee-configuration and displays all errors it can find.
+ * @author		Tobias Reich
+ * @copyright	2015 by Tobias Reich
+ * @description	This file takes a look at your Lychee-configuration and displays all errors it can find.
  */
 
 namespace Diagnostics;
@@ -34,37 +34,37 @@ echo('Diagnostics' . PHP_EOL);
 echo('-----------' . PHP_EOL);
 
 // PHP Version
-if (floatval(phpversion())<7.1)    $error .= ('Error: Upgrade to PHP 7.1 or higher' . PHP_EOL);
+if (floatval(phpversion())<7.1)		$error .= ('Error: Upgrade to PHP 7.1 or higher' . PHP_EOL);
 
 // Extensions
-if (!extension_loaded('session'))  $error .= ('Error: PHP session extension not activated' . PHP_EOL);
-if (!extension_loaded('exif'))     $error .= ('Error: PHP exif extension not activated' . PHP_EOL);
-if (!extension_loaded('mbstring')) $error .= ('Error: PHP mbstring extension not activated' . PHP_EOL);
-if (!extension_loaded('gd'))       $error .= ('Error: PHP gd extension not activated' . PHP_EOL);
-if (!extension_loaded('mysqli'))   $error .= ('Error: PHP mysqli extension not activated' . PHP_EOL);
-if (!extension_loaded('json'))     $error .= ('Error: PHP json extension not activated' . PHP_EOL);
-if (!extension_loaded('zip'))      $error .= ('Error: PHP zip extension not activated' . PHP_EOL);
+if (!extension_loaded('session'))	$error .= ('Error: PHP session extension not activated' . PHP_EOL);
+if (!extension_loaded('exif'))		$error .= ('Error: PHP exif extension not activated' . PHP_EOL);
+if (!extension_loaded('mbstring'))	$error .= ('Error: PHP mbstring extension not activated' . PHP_EOL);
+if (!extension_loaded('gd'))		$error .= ('Error: PHP gd extension not activated' . PHP_EOL);
+if (!extension_loaded('mysqli'))	$error .= ('Error: PHP mysqli extension not activated' . PHP_EOL);
+if (!extension_loaded('json'))		$error .= ('Error: PHP json extension not activated' . PHP_EOL);
+if (!extension_loaded('zip'))		$error .= ('Error: PHP zip extension not activated' . PHP_EOL);
 
 // Permissions
-if (hasPermissions(LYCHEE_UPLOADS_BIG)===false)    		$error .= ('Error: \'uploads/big\' is missing or has insufficient read/write privileges.' . PHP_EOL);
-if (hasPermissions(LYCHEE_UPLOADS_SMALL)===false)  		$error .= ('Error: \'uploads/small\' is missing or has insufficient read/write privileges.' . PHP_EOL);
-if (hasPermissions(LYCHEE_UPLOADS_MEDIUM)===false) 		$error .= ('Error: \'uploads/medium\' is missing or has insufficient read/write privileges.' . PHP_EOL);
-if (hasPermissions(LYCHEE_UPLOADS_THUMB)===false)  		$error .= ('Error: \'uploads/thumb\' is missing or has insufficient read/write privileges.' . PHP_EOL);
-if (hasPermissions(LYCHEE_UPLOADS_IMPORT)===false) 		$error .= ('Error: \'uploads/import\' is missing or has insufficient read/write privileges.' . PHP_EOL);
-if (hasPermissions(LYCHEE_UPLOADS)===false)        		$error .= ('Error: \'uploads/\' is missing or has insufficient read/write privileges.' . PHP_EOL);
-if (hasPermissions(LYCHEE_DATA)===false)           		$error .= ('Error: \'data/\' is missing or has insufficient read/write privileges.' . PHP_EOL);
+if (hasPermissions(LYCHEE_UPLOADS_BIG)===false)			$error .= ('Error: \'uploads/big\' is missing or has insufficient read/write privileges.' . PHP_EOL);
+if (hasPermissions(LYCHEE_UPLOADS_SMALL)===false)		$error .= ('Error: \'uploads/small\' is missing or has insufficient read/write privileges.' . PHP_EOL);
+if (hasPermissions(LYCHEE_UPLOADS_MEDIUM)===false)		$error .= ('Error: \'uploads/medium\' is missing or has insufficient read/write privileges.' . PHP_EOL);
+if (hasPermissions(LYCHEE_UPLOADS_THUMB)===false)		$error .= ('Error: \'uploads/thumb\' is missing or has insufficient read/write privileges.' . PHP_EOL);
+if (hasPermissions(LYCHEE_UPLOADS_IMPORT)===false)		$error .= ('Error: \'uploads/import\' is missing or has insufficient read/write privileges.' . PHP_EOL);
+if (hasPermissions(LYCHEE_UPLOADS)===false)				$error .= ('Error: \'uploads/\' is missing or has insufficient read/write privileges.' . PHP_EOL);
+if (hasPermissions(LYCHEE_DATA)===false)				$error .= ('Error: \'data/\' is missing or has insufficient read/write privileges.' . PHP_EOL);
 if (hasPermissions(LYCHEE_DIST.'/user.css')===false) {
-																											$error .= ('Warning: \'dist/user.css/\' does not exists or has insufficient read/write privileges.' . PHP_EOL);
-		if (hasPermissions(LYCHEE_DIST)===false) $error .= ('Warning: \'dist/\' has insufficient read/write privileges.' . PHP_EOL);
+														$error .= ('Warning: \'dist/user.css/\' does not exist or has insufficient read/write privileges.' . PHP_EOL);
+		if (hasPermissions(LYCHEE_DIST)===false)			$error .= ('Warning: \'dist/\' has insufficient read/write privileges.' . PHP_EOL);
 }
 
 // About GD
 $gdVersion = array('GD Version' => '-');
 if (function_exists('gd_info')) {
 	$gdVersion = gd_info();
-	if (!$gdVersion['JPEG Support'])                                          $error .= ('Error: PHP gd extension without jpeg support.' . PHP_EOL);
-	if (!$gdVersion['PNG Support'])                                           $error .= ('Error: PHP gd extension without png support.' . PHP_EOL);
-	if (!$gdVersion['GIF Read Support'] || !$gdVersion['GIF Create Support']) $error .= ('Error: PHP gd extension without full gif support.' . PHP_EOL);
+	if (!$gdVersion['JPEG Support'])											$error .= ('Error: PHP gd extension without jpeg support.' . PHP_EOL);
+	if (!$gdVersion['PNG Support'])												$error .= ('Error: PHP gd extension without png support.' . PHP_EOL);
+	if (!$gdVersion['GIF Read Support'] || !$gdVersion['GIF Create Support'])	$error .= ('Error: PHP gd extension without full gif support.' . PHP_EOL);
 }
 
 // Load config
@@ -76,23 +76,23 @@ $database = new Mysqli($dbHost, $dbUser, $dbPassword, $dbName);
 if (mysqli_connect_errno()!=0) $error .= ('Error: ' . mysqli_connect_errno() . ': ' . mysqli_connect_error() . '' . PHP_EOL);
 
 // Config
-if (!isset($dbName)||$dbName==='') $error .= ('Error: No property for $dbName in config.php' . PHP_EOL);
-if (!isset($dbUser)||$dbUser==='') $error .= ('Error: No property for $dbUser in config.php' . PHP_EOL);
-if (!isset($dbPassword))           $error .= ('Error: No property for $dbPassword in config.php' . PHP_EOL);
-if (!isset($dbHost)||$dbHost==='') $error .= ('Error: No property for $dbHost in config.php' . PHP_EOL);
+if (!isset($dbName)||$dbName==='')	$error .= ('Error: No property for $dbName in config.php' . PHP_EOL);
+if (!isset($dbUser)||$dbUser==='')	$error .= ('Error: No property for $dbUser in config.php' . PHP_EOL);
+if (!isset($dbPassword))			$error .= ('Error: No property for $dbPassword in config.php' . PHP_EOL);
+if (!isset($dbHost)||$dbHost==='')	$error .= ('Error: No property for $dbHost in config.php' . PHP_EOL);
 
 // Load settings
 $settings = Settings::get();
 
 // Settings
-if (!isset($settings['username'])||$settings['username']=='')             $error .= ('Error: Username empty or not set in database' . PHP_EOL);
-if (!isset($settings['password'])||$settings['password']=='')             $error .= ('Error: Password empty or not set in database' . PHP_EOL);
-if (!isset($settings['sortingPhotos'])||$settings['sortingPhotos']=='')   $error .= ('Error: Wrong property for sortingPhotos in database' . PHP_EOL);
-if (!isset($settings['sortingAlbums'])||$settings['sortingAlbums']=='')   $error .= ('Error: Wrong property for sortingAlbums in database' . PHP_EOL);
-if (!isset($settings['plugins']))                                         $error .= ('Error: No property for plugins in database' . PHP_EOL);
-if (!isset($settings['imagick'])||$settings['imagick']=='')               $error .= ('Error: No or wrong property for imagick in database' . PHP_EOL);
-if (!isset($settings['identifier'])||$settings['identifier']=='')         $error .= ('Error: No or wrong property for identifier in database' . PHP_EOL);
-if (!isset($settings['skipDuplicates'])||$settings['skipDuplicates']=='') $error .= ('Error: No or wrong property for skipDuplicates in database' . PHP_EOL);
+if (!isset($settings['username'])||$settings['username']=='')					$error .= ('Error: Username empty or not set in database' . PHP_EOL);
+if (!isset($settings['password'])||$settings['password']=='')					$error .= ('Error: Password empty or not set in database' . PHP_EOL);
+if (!isset($settings['sortingPhotos'])||$settings['sortingPhotos']=='')			$error .= ('Error: Wrong property for sortingPhotos in database' . PHP_EOL);
+if (!isset($settings['sortingAlbums'])||$settings['sortingAlbums']=='')			$error .= ('Error: Wrong property for sortingAlbums in database' . PHP_EOL);
+if (!isset($settings['plugins']))												$error .= ('Error: No property for plugins in database' . PHP_EOL);
+if (!isset($settings['imagick'])||$settings['imagick']=='')						$error .= ('Error: No or wrong property for imagick in database' . PHP_EOL);
+if (!isset($settings['identifier'])||$settings['identifier']=='')				$error .= ('Error: No or wrong property for identifier in database' . PHP_EOL);
+if (!isset($settings['skipDuplicates'])||$settings['skipDuplicates']=='')		$error .= ('Error: No or wrong property for skipDuplicates in database' . PHP_EOL);
 if (!isset($settings['checkForUpdates'])||($settings['checkForUpdates']!='0'&&$settings['checkForUpdates']!='1')) $error .= ('Error: No or wrong property for checkForUpdates in database' . PHP_EOL);
 
 // Check dropboxKey
@@ -110,8 +110,8 @@ if (!extension_loaded('imagick')) echo('Warning: Pictures that are rotated lose 
 else if (!$settings['imagick']) echo('Warning: Pictures that are rotated lose their metadata! Please enable Imagick in settings to avoid that.' . PHP_EOL);
 
 // Output
-if ($error==='') echo('No critical problems found. Lychee should work without problems!' . PHP_EOL);
-else             echo $error;
+if ($error==='')	echo('No critical problems found. Lychee should work without problems!' . PHP_EOL);
+else				echo $error;
 
 // Show separator
 echo(PHP_EOL . PHP_EOL . 'System Information' . PHP_EOL);
@@ -127,10 +127,10 @@ if ((isset($_SESSION['login'])&&$_SESSION['login']===true)&&
 
 	// About imagick
 	$imagick = extension_loaded('imagick');
-	if ($imagick===true) $imagickVersion = @Imagick::getVersion();
-	else                 $imagick = '-';
-	if (!isset($imagickVersion, $imagickVersion['versionNumber'])||$imagickVersion==='') $imagickVersion = '-';
-	else                                                                                 $imagickVersion = $imagickVersion['versionNumber'];
+	if ($imagick===true)	$imagickVersion = @Imagick::getVersion();
+	else					$imagick = '-';
+	if (!isset($imagickVersion, $imagickVersion['versionNumber'])||$imagickVersion==='')	$imagickVersion = '-';
+	else																					$imagickVersion = $imagickVersion['versionNumber'];
 
 	// Output system information
 	if($json['version'] == NULL)
