@@ -589,7 +589,15 @@ final class Photo {
 	        }
 	        else
 	        {
-		        $newHeight = $newWidth/($width/$height);
+		        $tmpHeight = $newWidth/($width/$height);
+				if($newHeight != 0 && $tmpHeight > $newHeight)
+				{
+					$newWidth = $newHeight*($width/$height);
+				}
+				else
+				{
+					$newHeight = $tmpHeight;
+				}
 	        }
 	        $medium   = imagecreatetruecolor($newWidth, $newHeight);
 	        // Create new image
