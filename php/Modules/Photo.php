@@ -157,7 +157,7 @@ final class Photo {
             if (!in_array($type, self::$validTypes, true)) {
                 Log::error(Database::get(), __METHOD__, __LINE__, 'Photo type not supported');
                 if ($returnOnError===true) return false;
-                Response::error('Photo type not supported!'.$file['type']);
+                Response::error('Photo type not supported! '.$file['type']);
             }
         }
 
