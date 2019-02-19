@@ -198,14 +198,8 @@ final class Settings {
 	}
 
 	public static function setLayout($layout) {
-		if ($layout == 'squares') {
-			return self::set('justified_layout', '0');
-		}
-		if ($layout == 'justified') {
-			return self::set('justified_layout', '1');
-		}
-		if ($layout == 'unjustified') {
-			return self::set('justified_layout', '2');
+		if ($layout == '0' || $layout == '1' || $layout == '2') {
+			return self::set('layout', $layout);
 		}
 		Log::error(Database::get(), __METHOD__, __LINE__, 'Could not update settings. Unknown layout.');
 		return false;
