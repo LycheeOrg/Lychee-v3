@@ -344,9 +344,9 @@ final class Admin extends Access {
 
 	private static function setLayoutAction() {
 
-		Validator::required(isset($_POST['justified_layout']), __METHOD__);
+		Validator::required(isset($_POST['layout']), __METHOD__);
 
-		Response::json(Settings::setLayout($_POST['justified_layout']));
+		Response::json(Settings::setLayout($_POST['layout']));
 	}
 
 	private static function setImageOverlay() {

@@ -198,8 +198,17 @@ final class Settings {
 	}
 
 	public static function setLayout($layout) {
-		if (self::set('justified_layout', ($layout == '1') ? '1' : '0', true)===false) return false;
-		return true;
+		if ($layout == 'squares') {
+			return self::set('justified_layout', '0');
+		}
+		if ($layout == 'justified') {
+			return self::set('justified_layout', '1');
+		}
+		if ($layout == 'unjustified') {
+			return self::set('justified_layout', '2');
+		}
+		Log::error(Database::get(), __METHOD__, __LINE__, 'Could not update settings. Unknown layout.');
+		return false;
 	}
 
 	public static function setImageOverlay($imageOverlay) {

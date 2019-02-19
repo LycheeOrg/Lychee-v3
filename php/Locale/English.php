@@ -277,10 +277,15 @@ final class English
 			'LANG_TEXT'					=> 'Change Lychee language for:',
 			'LANG_TITLE'				=> 'Change Language',
 
-			'LAYOUT_TEXT'				=> 'Use justified layout:',
+			'LAYOUT_TYPE'				=> 'Layout of photos:',
+			'LAYOUT_SQUARES'			=> 'Square thumbnails',
+			'LAYOUT_JUSTIFIED'			=> 'With aspect, justified',
+			'LAYOUT_UNJUSTIFIED'		=> 'With aspect, unjustified',
+			'SET_LAYOUT'				=> 'Change layout',
+
 			'IMAGE_OVERLAY_TEXT'		=> 'Display data overlay by default:',
 
-			'LAYOUT_TYPE'				=> 'Data to use in image overlay:',
+			'OVERLAY_TYPE'				=> 'Data to use in image overlay:',
 			'OVERLAY_EXIF'				=> 'Photo EXIF data',
 			'OVERLAY_DESCRIPTION'		=> 'Photo description',
 			'OVERLAY_DATE'				=> 'Photo date taken',
