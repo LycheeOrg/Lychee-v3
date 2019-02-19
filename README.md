@@ -1,8 +1,8 @@
 # Lychee
 
-![Release number](https://img.shields.io/github/release/LycheeOrg/Lychee.svg)
-![license](https://img.shields.io/github/license/LycheeOrg/Lychee.svg)
-![Gitter](https://img.shields.io/gitter/room/LycheeOrg/Lobby.svg?logo=gitter)
+[![Release number](https://img.shields.io/github/release/LycheeOrg/Lychee.svg)](https://github.com/LycheeOrg/Lychee/releases)
+[![license](https://img.shields.io/github/license/LycheeOrg/Lychee.svg)](https://github.com/LycheeOrg/Lychee/blob/master/LICENSE)
+[![Gitter](https://img.shields.io/gitter/room/LycheeOrg/Lobby.svg?logo=gitter)](https://gitter.im/LycheeOrg/Lobby)
 
 
 #### A great looking and easy-to-use photo-management-system.
