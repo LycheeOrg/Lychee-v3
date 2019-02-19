@@ -20,6 +20,7 @@ require($lychee . 'php/autoload.php');
 
 require($lychee . 'php/helpers/hasPermissions.php');
 
+
 // Start the session
 session_start();
 
@@ -150,6 +151,22 @@ if ((isset($_SESSION['login'])&&$_SESSION['login']===true)&&
 	echo('Imagick Version:        ' . $imagickVersion . PHP_EOL);
 	echo('GD Version:             ' . $gdVersion['GD Version'] . PHP_EOL);
 	echo('Plugins:                ' . implode($settings['plugins'], ', ') . PHP_EOL);
+
+	// Show separator
+	echo(PHP_EOL . PHP_EOL . 'Config Information' . PHP_EOL);
+	echo('------------------' . PHP_EOL);
+
+	unset($settings['username']);
+	unset($settings['password']);
+	unset($settings['identifier']);
+	unset($settings['dropboxKey']);
+
+	// Load settings
+	foreach ($settings as $key => $value)
+	{
+		if(!is_array($value))
+			echo(str_pad($key.':', 24).' '.$value . PHP_EOL);
+	}
 
 } else {
 
