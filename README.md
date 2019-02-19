@@ -1,5 +1,10 @@
 # Lychee
 
+[![Release number](https://img.shields.io/github/release/LycheeOrg/Lychee.svg)](https://github.com/LycheeOrg/Lychee/releases)
+[![license](https://img.shields.io/github/license/LycheeOrg/Lychee.svg)](https://github.com/LycheeOrg/Lychee/blob/master/LICENSE)
+[![Gitter](https://img.shields.io/gitter/room/LycheeOrg/Lobby.svg?logo=gitter)](https://gitter.im/LycheeOrg/Lobby)
+
+
 #### A great looking and easy-to-use photo-management-system.
 
 *Since the 1st of April 2018 this project has moved to its own Organisation (https://github.com/LycheeOrg) where people are able to submit their fixes to it. We, the Organisation owners, want to thank electerious (Tobias Reich) for the opportunity to make this project live on.*
