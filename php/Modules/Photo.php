@@ -1166,12 +1166,13 @@ final class Photo {
 
 		// Check dependencies
 		Validator::required(isset($this->photoIDs), __METHOD__);
+		Validator::required(isset($this->kind), __METHOD__);
 
 		// Call plugins
 		Plugins::get()->activate(__METHOD__, 0, func_get_args());
 
 		// Get photo
-		$query  = Database::prepare(Database::get(), "SELECT title, url FROM ? WHERE id = '?' LIMIT 1", array(LYCHEE_TABLE_PHOTOS, $this->photoIDs));
+		$query  = Database::prepare(Database::get(), "SELECT title, url, medium, small FROM ? WHERE id = '?' LIMIT 1", array(LYCHEE_TABLE_PHOTOS, $this->photoIDs));
 		$photos = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
 
 		if ($photos===false) return false;
@@ -1204,25 +1205,41 @@ final class Photo {
 		// Escape title
 		$photo->title = str_replace($badChars, '', $photo->title);
 
+		// determine the file based on given size
+		switch ($this->size) {
+			case 'MEDIUM':
+				$filepath = LYCHEE_UPLOADS_MEDIUM;
+				break;
+			case 'SMALL':
+				$filepath = LYCHEE_UPLOADS_SMALL;
+				break;
+			default:
+				$filepath = LYCHEE_UPLOADS_BIG;
+		}
+		
+		if (!$this->size == 'full') {
+			$filepath = LYCHEE_UPLOADS_BIG . $photo->url;	
+		}
+		if (!$this>
+		$fullfilepath = $filepath . $photo->url;
 		// Check the file actually exists
-		if (!file_exists(LYCHEE_UPLOADS_BIG . $photo->url)) {
-			Log::error(Database::get(), __METHOD__, __LINE__, 'Original photo missing: ' .LYCHEE_UPLOADS_BIG .$photo->url);
+		if (!file_exists($fullfilepath)) {
+			Log::error(Database::get(), __METHOD__, __LINE__, 'Original photo missing: ' .$fullfilepath);
 			return false;
 		}
 
 		// Set headers
 		header("Content-Type: application/octet-stream");
 		header("Content-Disposition: attachment; filename=\"" . $photo->title . $extension . "\"");
-		header("Content-Length: " . filesize(LYCHEE_UPLOADS_BIG . $photo->url));
+		header("Content-Length: " . filesize($fullfilepath));
 
 		// Send file
-		readfile(LYCHEE_UPLOADS_BIG . $photo->url);
+		readfile($fullfilepath);
 
 		// Call plugins
 		Plugins::get()->activate(__METHOD__, 1, func_get_args());
 
 		return true;
-
 	}
 
 	/**
