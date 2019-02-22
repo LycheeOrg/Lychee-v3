@@ -71,6 +71,8 @@ final class Dutch
 			'DELETE'					=> 'Verwijder',
 			'DELETE_ALL'				=> 'Verwijder alle',
 			'DOWNLOAD'					=> 'Download',
+			'DOWNLOAD_MEDIUM'			=> 'Download mittelgroot',
+			'DOWNLOAD_SMALL'			=> 'Download klein',
 			'UPLOAD_PHOTO'				=> 'Upload Foto',
 			'IMPORT_LINK'				=> 'Importeer van Link',
 			'IMPORT_DROPBOX'			=> 'Importeer van Dropbox',
