@@ -1166,7 +1166,7 @@ final class Photo {
 
 		// Check dependencies
 		Validator::required(isset($this->photoIDs), __METHOD__);
-		Validator::required(isset($this->kind), __METHOD__);
+		Validator::required(isset($kind), __METHOD__);
 
 		// Call plugins
 		Plugins::get()->activate(__METHOD__, 0, func_get_args());
@@ -1206,7 +1206,7 @@ final class Photo {
 		$photo->title = str_replace($badChars, '', $photo->title);
 
 		// determine the file based on given size
-		switch ($this->size) {
+		switch ($kind) {
 			case 'MEDIUM':
 				$filepath = LYCHEE_UPLOADS_MEDIUM;
 				break;
@@ -1217,10 +1217,6 @@ final class Photo {
 				$filepath = LYCHEE_UPLOADS_BIG;
 		}
 		
-		if (!$this->size == 'full') {
-			$filepath = LYCHEE_UPLOADS_BIG . $photo->url;	
-		}
-		if (!$this>
 		$fullfilepath = $filepath . $photo->url;
 		// Check the file actually exists
 		if (!file_exists($fullfilepath)) {
