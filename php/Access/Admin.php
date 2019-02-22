@@ -397,9 +397,11 @@ final class Admin extends Access {
 	private static function getPhotoArchiveAction() {
 
 		Validator::required(isset($_GET['photoID']), __METHOD__);
+		Validator::required(isset($_GET['kind']), __METHOD__);
 
 		$photo = new Photo($_GET['photoID']);
-		$photo->getArchive();
+		$kind = $_GET['kind'];
+		$photo->getArchive($kind);
 
 	}
 
