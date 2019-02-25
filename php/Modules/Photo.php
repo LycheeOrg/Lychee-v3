@@ -1220,7 +1220,7 @@ final class Photo {
 		$fullfilepath = $filepath . $photo->url;
 		// Check the file actually exists
 		if (!file_exists($fullfilepath)) {
-			Log::error(Database::get(), __METHOD__, __LINE__, 'Original photo missing: ' .$fullfilepath);
+			Log::error(Database::get(), __METHOD__, __LINE__, 'File is missing: ' .$fullfilepath);
 			return false;
 		}
 
