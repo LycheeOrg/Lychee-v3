@@ -1162,7 +1162,7 @@ final class Photo {
 	 * Starts a download of a photo.
 	 * @return resource|boolean Sends a ZIP-file or returns false on failure.
 	 */
-	public function getArchive() {
+	public function getArchive($kind) {
 
 		// Check dependencies
 		Validator::required(isset($this->photoIDs), __METHOD__);
@@ -1226,7 +1226,7 @@ final class Photo {
 
 		// Set headers
 		header("Content-Type: application/octet-stream");
-		header("Content-Disposition: attachment; filename=\"" . $photo->title . $extension . "\"");
+		header("Content-Disposition: attachment; filename=\"" . $photo->title . '_' . $kind . $extension . "\"");
 		header("Content-Length: " . filesize($fullfilepath));
 
 		// Send file
