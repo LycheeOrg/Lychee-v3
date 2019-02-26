@@ -71,6 +71,8 @@ final class ChineseSimplified
 			'DELETE'						=> '删除',
 			'DELETE_ALL'					=> '删除全部',
 			'DOWNLOAD'						=> '下载',
+			'DOWNLOAD_MEDIUM'				=> '下载中等大小',
+			'DOWNLOAD_SMALL'				=> '下载小尺寸',
 			'UPLOAD_PHOTO'					=> '上传相片',
 			'IMPORT_LINK'					=> '从链接导入',
 			'IMPORT_DROPBOX'				=> '从 Dropbox 导入',
