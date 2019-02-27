@@ -399,7 +399,8 @@ final class Admin extends Access {
 		Validator::required(isset($_GET['photoID']), __METHOD__);
 
 		$photo = new Photo($_GET['photoID']);
-		$photo->getArchive();
+		$kind = isset($_GET['kind']) ? $_GET['kind'] : 'FULL';
+		$photo->getArchive($kind);
 
 	}
 

@@ -162,6 +162,7 @@ final class Guest extends Access {
 		Validator::required(isset($_GET['photoID'], $_GET['password']), __METHOD__);
 
 		$photo = new Photo($_GET['photoID']);
+		$kind = isset($_GET['kind']) ? $_GET['kind'] : 'FULL';
 
 		$pgP = $photo->getPublic($_GET['password']);
 
@@ -169,7 +170,7 @@ final class Guest extends Access {
 		if ($pgP===2) {
 
 			// Photo Public
-			$photo->getArchive();
+			$photo->getArchive($kind);
 
 		} else {
 

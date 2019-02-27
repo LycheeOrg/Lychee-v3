@@ -1162,10 +1162,11 @@ final class Photo {
 	 * Starts a download of a photo.
 	 * @return resource|boolean Sends a ZIP-file or returns false on failure.
 	 */
-	public function getArchive() {
+	public function getArchive($kind) {
 
 		// Check dependencies
 		Validator::required(isset($this->photoIDs), __METHOD__);
+		Validator::required(isset($kind), __METHOD__);
 
 		// Call plugins
 		Plugins::get()->activate(__METHOD__, 0, func_get_args());
@@ -1204,25 +1205,37 @@ final class Photo {
 		// Escape title
 		$photo->title = str_replace($badChars, '', $photo->title);
 
+		// determine the file based on given size
+		switch ($kind) {
+			case 'MEDIUM':
+				$filepath = LYCHEE_UPLOADS_MEDIUM;
+				break;
+			case 'SMALL':
+				$filepath = LYCHEE_UPLOADS_SMALL;
+				break;
+			default:
+				$filepath = LYCHEE_UPLOADS_BIG;
+		}
+		
+		$fullfilepath = $filepath . $photo->url;
 		// Check the file actually exists
-		if (!file_exists(LYCHEE_UPLOADS_BIG . $photo->url)) {
-			Log::error(Database::get(), __METHOD__, __LINE__, 'Original photo missing: ' .LYCHEE_UPLOADS_BIG .$photo->url);
+		if (!file_exists($fullfilepath)) {
+			Log::error(Database::get(), __METHOD__, __LINE__, 'File is missing: ' .$fullfilepath);
 			return false;
 		}
 
 		// Set headers
 		header("Content-Type: application/octet-stream");
-		header("Content-Disposition: attachment; filename=\"" . $photo->title . $extension . "\"");
-		header("Content-Length: " . filesize(LYCHEE_UPLOADS_BIG . $photo->url));
+		header("Content-Disposition: attachment; filename=\"" . $photo->title . '_' . $kind . $extension . "\"");
+		header("Content-Length: " . filesize($fullfilepath));
 
 		// Send file
-		readfile(LYCHEE_UPLOADS_BIG . $photo->url);
+		readfile($fullfilepath);
 
 		// Call plugins
 		Plugins::get()->activate(__METHOD__, 1, func_get_args());
 
 		return true;
-
 	}
 
 	/**

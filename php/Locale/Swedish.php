@@ -72,6 +72,8 @@ final class Swedish
 			'DELETE'						=> 'Radera',
 			'DELETE_ALL'					=> 'Radera alla',
 			'DOWNLOAD'						=> 'Ladda ner',
+			'DOWNLOAD_SMALL'				=> 'Ladda ner liten',
+			'DOWNLOAD_MEDIUM'				=> 'Ladda ner medelstorlek',
 			'UPLOAD_PHOTO'					=> 'Ladda upp fotografi',
 			'IMPORT_LINK'					=> 'Importera från länk',
 			'IMPORT_DROPBOX'				=> 'Importera från Dropbox',
