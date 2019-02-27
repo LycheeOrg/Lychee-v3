@@ -830,7 +830,7 @@ final class Photo {
 		$photo['lens']   		= isset($data['lens']) ? $data['lens'] : ''; // isset should not be needed
 
 
-		if($photo['shutter'] != '' && substr($photo['shutter'], 0,2) != '1/'){
+		if($photo['shutter'] != '' && substr($photo['shutter'], 0,2) != '1/' && $photo['shutter'] != 'None'){
 
 			// this should fix it... hopefully.
 			preg_match('/(\d+)\/(\d+) s/', $photo['shutter'], $matches);
