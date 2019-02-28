@@ -8,6 +8,9 @@ uploads/thumb/*
 
 dist/user.css
 dist/frame.js
+dist/frame.css
+dist/landing.js
+dist/landing.css
 
 !uploads/big/index.html
 !uploads/import/index.html

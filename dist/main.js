@@ -94,10 +94,11 @@ var _templateObject = _taggedTemplateLiteral(["<input class='text' name='title' 
     _templateObject50 = _taggedTemplateLiteral(["<p>"], ["<p>"]),
     _templateObject51 = _taggedTemplateLiteral(["linear-gradient(to bottom, rgba(0, 0, 0, .4), rgba(0, 0, 0, .4)), url(\"", "\")"], ["linear-gradient(to bottom, rgba(0, 0, 0, .4), rgba(0, 0, 0, .4)), url(\"", "\")"]),
     _templateObject52 = _taggedTemplateLiteral(["\n\t\t\t<div class=\"setCSS\">\n\t\t\t\t<a id=\"basicModal__action_more\" class=\"basicModal__button basicModal__button_MORE\">", "</a>\n\t\t\t</div>\n\t\t\t"], ["\n\t\t\t<div class=\"setCSS\">\n\t\t\t\t<a id=\"basicModal__action_more\" class=\"basicModal__button basicModal__button_MORE\">", "</a>\n\t\t\t</div>\n\t\t\t"]),
-    _templateObject53 = _taggedTemplateLiteral(["\n\t\t\t<div id=\"fullSettings\">\n\t\t\t\t<div class=\"setting_line\">\n\t\t\t\t<p class=\"warning\">\n\t\t\t\t", "\n\t\t\t\t</p>\n\t\t\t\t</div>\n\t\t\t\t"], ["\n\t\t\t<div id=\"fullSettings\">\n\t\t\t\t<div class=\"setting_line\">\n\t\t\t\t<p class=\"warning\">\n\t\t\t\t", "\n\t\t\t\t</p>\n\t\t\t\t</div>\n\t\t\t\t"]),
-    _templateObject54 = _taggedTemplateLiteral(["\n\t\t\t<div class=\"setting_line\">\n\t\t\t\t<p>\n\t\t\t\t<span class=\"text\">$", "</span>\n\t\t\t\t<input class=\"text\" name=\"$", "\" type=\"text\" value=\"$", "\" placeholder=\"\" />\n\t\t\t\t</p>\n\t\t\t</div>\n\t\t"], ["\n\t\t\t<div class=\"setting_line\">\n\t\t\t\t<p>\n\t\t\t\t<span class=\"text\">$", "</span>\n\t\t\t\t<input class=\"text\" name=\"$", "\" type=\"text\" value=\"$", "\" placeholder=\"\" />\n\t\t\t\t</p>\n\t\t\t</div>\n\t\t"]),
-    _templateObject55 = _taggedTemplateLiteral(["\n\t\t\t<a id=\"FullSettingsSave_button\"  class=\"basicModal__button basicModal__button_SAVE\">", "</a>\n\t\t</div>\n\t\t\t"], ["\n\t\t\t<a id=\"FullSettingsSave_button\"  class=\"basicModal__button basicModal__button_SAVE\">", "</a>\n\t\t</div>\n\t\t\t"]),
-    _templateObject56 = _taggedTemplateLiteral(["<div class=\"clear_logs\"><a id=\"Clean_Noise\" class=\"basicModal__button\">", "</a></div>"], ["<div class=\"clear_logs\"><a id=\"Clean_Noise\" class=\"basicModal__button\">", "</a></div>"]);
+    _templateObject53 = _taggedTemplateLiteral(["\n\t\t\t\t<div id=\"fullSettings\">\n\t\t\t\t<div class=\"setting_line\">\n\t\t\t\t<p class=\"warning\">\n\t\t\t\t", "\n\t\t\t\t</p>\n\t\t\t\t</div>\n\t\t\t\t"], ["\n\t\t\t\t<div id=\"fullSettings\">\n\t\t\t\t<div class=\"setting_line\">\n\t\t\t\t<p class=\"warning\">\n\t\t\t\t", "\n\t\t\t\t</p>\n\t\t\t\t</div>\n\t\t\t\t"]),
+    _templateObject54 = _taggedTemplateLiteral(["\n\t\t\t\t\t\t<div class=\"setting_category\">\n\t\t\t\t\t\t<p>\n\t\t\t\t\t\t$", "\n\t\t\t\t\t\t</p>\n\t\t\t\t\t\t</div>"], ["\n\t\t\t\t\t\t<div class=\"setting_category\">\n\t\t\t\t\t\t<p>\n\t\t\t\t\t\t$", "\n\t\t\t\t\t\t</p>\n\t\t\t\t\t\t</div>"]),
+    _templateObject55 = _taggedTemplateLiteral(["\n\t\t\t<div class=\"setting_line\">\n\t\t\t\t<p>\n\t\t\t\t<span class=\"text\">$", "</span>\n\t\t\t\t<input class=\"text\" name=\"$", "\" type=\"text\" value=\"$", "\" placeholder=\"\" />\n\t\t\t\t</p>\n\t\t\t</div>\n\t\t"], ["\n\t\t\t<div class=\"setting_line\">\n\t\t\t\t<p>\n\t\t\t\t<span class=\"text\">$", "</span>\n\t\t\t\t<input class=\"text\" name=\"$", "\" type=\"text\" value=\"$", "\" placeholder=\"\" />\n\t\t\t\t</p>\n\t\t\t</div>\n\t\t"]),
+    _templateObject56 = _taggedTemplateLiteral(["\n\t\t\t<a id=\"FullSettingsSave_button\"  class=\"basicModal__button basicModal__button_SAVE\">", "</a>\n\t\t</div>\n\t\t\t"], ["\n\t\t\t<a id=\"FullSettingsSave_button\"  class=\"basicModal__button basicModal__button_SAVE\">", "</a>\n\t\t</div>\n\t\t\t"]),
+    _templateObject57 = _taggedTemplateLiteral(["<div class=\"clear_logs\"><a id=\"Clean_Noise\" class=\"basicModal__button\">", "</a></div>"], ["<div class=\"clear_logs\"><a id=\"Clean_Noise\" class=\"basicModal__button\">", "</a></div>"]);
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
@@ -111,6 +112,155 @@ function gup(b) {
 
 	if (c === null) return '';else return c[1];
 }
+/**
+ * @description This module communicates with Lychee's API
+ */
+
+api = {
+
+	path: 'php/index.php',
+	onError: null
+
+};
+
+api.get_url = function (fn) {
+
+	var api_url = '';
+
+	if (lychee.api_V2) {
+		// because the api is defined directly by the function called in the route.php
+		api_url = 'api/' + fn;
+	} else {
+		api_url = api.path;
+	}
+
+	return api_url;
+};
+
+api.post = function (fn, params, callback) {
+
+	loadingBar.show();
+
+	params = $.extend({ function: fn }, params);
+
+	var api_url = api.get_url(fn);
+
+	var success = function success(data) {
+
+		setTimeout(loadingBar.hide, 100);
+
+		// Catch errors
+		if (typeof data === 'string' && data.substring(0, 7) === 'Error: ') {
+			api.onError(data.substring(7, data.length), params, data);
+			return false;
+		}
+
+		callback(data);
+	};
+
+	var error = function error(jqXHR, textStatus, errorThrown) {
+
+		api.onError('Server error or API not found.', params, errorThrown);
+	};
+
+	$.ajax({
+		type: 'POST',
+		url: api_url,
+		data: params,
+		dataType: 'json',
+		success: success,
+		error: error
+	});
+};
+
+api.get = function (url, callback) {
+
+	loadingBar.show();
+
+	var success = function success(data) {
+
+		setTimeout(loadingBar.hide, 100);
+
+		// Catch errors
+		if (typeof data === 'string' && data.substring(0, 7) === 'Error: ') {
+			api.onError(data.substring(7, data.length), params, data);
+			return false;
+		}
+
+		callback(data);
+	};
+
+	var error = function error(jqXHR, textStatus, errorThrown) {
+
+		api.onError('Server error or API not found.', {}, errorThrown);
+	};
+
+	$.ajax({
+		type: 'GET',
+		url: url,
+		data: {},
+		dataType: 'text',
+		success: success,
+		error: error
+	});
+};
+
+api.post_raw = function (fn, params, callback) {
+	loadingBar.show();
+
+	params = $.extend({ function: fn }, params);
+
+	var api_url = api.get_url(fn);
+
+	var success = function success(data) {
+
+		setTimeout(loadingBar.hide, 100);
+
+		// Catch errors
+		if (typeof data === 'string' && data.substring(0, 7) === 'Error: ') {
+			api.onError(data.substring(7, data.length), params, data);
+			return false;
+		}
+
+		callback(data);
+	};
+
+	var error = function error(jqXHR, textStatus, errorThrown) {
+
+		api.onError('Server error or API not found.', params, errorThrown);
+	};
+
+	$.ajax({
+		type: 'POST',
+		url: api_url,
+		data: params,
+		dataType: 'text',
+		success: success,
+		error: error
+	});
+};
+csrf = {};
+
+csrf.addLaravelCSRF = function (event, jqxhr, settings) {
+	if (settings.url !== lychee.updatePath) {
+		jqxhr.setRequestHeader('X-XSRF-TOKEN', csrf.getCookie('XSRF-TOKEN'));
+	}
+};
+
+csrf.escape = function (s) {
+	return s.replace(/([.*+?\^${}()|\[\]\/\\])/g, '\\$1');
+};
+
+csrf.getCookie = function (name) {
+	// we stop the selection at = (default json) but also at % to prevent any %3D at the end of the string
+	var match = document.cookie.match(RegExp('(?:^|;\\s*)' + csrf.escape(name) + '=([^;^%]*)'));
+	return match ? match[1] : null;
+};
+
+csrf.bind = function () {
+	$(document).on('ajaxSend', csrf.addLaravelCSRF);
+};
+
 (function ($) {
 	var Swipe = function Swipe(el) {
 		var self = this;
@@ -1148,133 +1298,6 @@ albums.refresh = function () {
 };
 
 /**
- * @description This module communicates with Lychee's API
- */
-
-api = {
-
-	path: 'php/index.php',
-	onError: null
-
-};
-
-api.get_url = function (fn) {
-
-	var api_url = '';
-
-	if (lychee.api_V2) {
-		// because the api is defined directly by the function called in the route.php
-		api_url = 'api/' + fn;
-	} else {
-		api_url = api.path;
-	}
-
-	return api_url;
-};
-
-api.post = function (fn, params, callback) {
-
-	loadingBar.show();
-
-	params = $.extend({ function: fn }, params);
-
-	var api_url = api.get_url(fn);
-
-	var success = function success(data) {
-
-		setTimeout(loadingBar.hide, 100);
-
-		// Catch errors
-		if (typeof data === 'string' && data.substring(0, 7) === 'Error: ') {
-			api.onError(data.substring(7, data.length), params, data);
-			return false;
-		}
-
-		callback(data);
-	};
-
-	var error = function error(jqXHR, textStatus, errorThrown) {
-
-		api.onError('Server error or API not found.', params, errorThrown);
-	};
-
-	$.ajax({
-		type: 'POST',
-		url: api_url,
-		data: params,
-		dataType: 'json',
-		success: success,
-		error: error
-	});
-};
-
-api.get = function (url, callback) {
-
-	loadingBar.show();
-
-	var success = function success(data) {
-
-		setTimeout(loadingBar.hide, 100);
-
-		// Catch errors
-		if (typeof data === 'string' && data.substring(0, 7) === 'Error: ') {
-			api.onError(data.substring(7, data.length), params, data);
-			return false;
-		}
-
-		callback(data);
-	};
-
-	var error = function error(jqXHR, textStatus, errorThrown) {
-
-		api.onError('Server error or API not found.', {}, errorThrown);
-	};
-
-	$.ajax({
-		type: 'GET',
-		url: url,
-		data: {},
-		dataType: 'text',
-		success: success,
-		error: error
-	});
-};
-
-api.post_raw = function (fn, params, callback) {
-	loadingBar.show();
-
-	params = $.extend({ function: fn }, params);
-
-	var api_url = api.get_url(fn);
-
-	var success = function success(data) {
-
-		setTimeout(loadingBar.hide, 100);
-
-		// Catch errors
-		if (typeof data === 'string' && data.substring(0, 7) === 'Error: ') {
-			api.onError(data.substring(7, data.length), params, data);
-			return false;
-		}
-
-		callback(data);
-	};
-
-	var error = function error(jqXHR, textStatus, errorThrown) {
-
-		api.onError('Server error or API not found.', params, errorThrown);
-	};
-
-	$.ajax({
-		type: 'POST',
-		url: api_url,
-		data: params,
-		dataType: 'text',
-		success: success,
-		error: error
-	});
-};
-/**
  * @description This module is used to generate HTML-Code.
  */
 
@@ -1793,10 +1816,17 @@ contextMenu.photoMore = function (photoID, e) {
 	// b) Downloadable is 1 and public mode is on
 	var showDownload = lychee.publicMode === false || album.json && album.json.downloadable && album.json.downloadable === '1' && lychee.publicMode === true;
 
+	var showMedium = photo.json.medium && photo.json.medium !== '' && showDownload;
+	var showSmall = photo.json.small && photo.json.small !== '' && showDownload;
+
 	var items = [{ title: build.iconic('fullscreen-enter') + lychee.locale['FULL_PHOTO'], visible: lychee.full_photo, fn: function fn() {
 			return window.open(photo.getDirectLink());
 		} }, { title: build.iconic('cloud-download') + lychee.locale['DOWNLOAD'], visible: showDownload, fn: function fn() {
-			return photo.getArchive(photoID);
+			return photo.getArchive(photoID, 'FULL');
+		} }, { title: build.iconic('cloud-download') + lychee.locale['DOWNLOAD_MEDIUM'], visible: showMedium, fn: function fn() {
+			return photo.getArchive(photoID, 'MEDIUM');
+		} }, { title: build.iconic('cloud-download') + lychee.locale['DOWNLOAD_SMALL'], visible: showSmall, fn: function fn() {
+			return photo.getArchive(photoID, 'SMALL');
 		} }];
 
 	basicContext.show(items, e.originalEvent);
@@ -1930,28 +1960,6 @@ contextMenu.close = function () {
 	if (visible.multiselect()) multiselect.close();
 };
 
-csrf = {};
-
-csrf.addLaravelCSRF = function (event, jqxhr, settings) {
-	if (settings.url !== lychee.updatePath) {
-		jqxhr.setRequestHeader('X-XSRF-TOKEN', csrf.getCookie('XSRF-TOKEN'));
-	}
-};
-
-csrf.escape = function (s) {
-	return s.replace(/([.*+?\^${}()|\[\]\/\\])/g, '\\$1');
-};
-
-csrf.getCookie = function (name) {
-	// we stop the selection at = (default json) but also at % to prevent any %3D at the end of the string
-	var match = document.cookie.match(RegExp('(?:^|;\\s*)' + csrf.escape(name) + '=([^;^%]*)'));
-	return match ? match[1] : null;
-};
-
-csrf.bind = function () {
-	$(document).on('ajaxSend', csrf.addLaravelCSRF);
-};
-
 /**
  * @description This module takes care of the header.
  */
@@ -1997,7 +2005,7 @@ header.bind = function () {
 		contextMenu.photoMore(photo.getID(), e);
 	});
 	header.dom('#button_move').on(eventName, function (e) {
-		contextMenu.move([photo.getID()], e);
+		contextMenu.move([photo.getID()], e, photo.setAlbum);
 	});
 	header.dom('.header__hostedwith').on(eventName, function () {
 		window.open(lychee.website);
@@ -2100,7 +2108,7 @@ header.setMode = function (mode) {
 			header.dom('.header__toolbar--album').addClass('header__toolbar--visible');
 
 			// Hide download button when album empty
-			if (album.json.photos === false) $('#button_archive').hide();else $('#button_archive').show();
+			if (!album.json || album.json.photos === false) $('#button_archive').hide();else $('#button_archive').show();
 
 			// Hide download button when not logged in and album not downloadable
 			if (lychee.publicMode === true && album.json.downloadable === '0') $('#button_archive').hide();
@@ -3063,7 +3071,9 @@ lychee.locale = {
 	'COPY_ALL_TO': 'Copy All to...',
 	'DELETE': 'Delete',
 	'DELETE_ALL': 'Delete All',
-	'DOWNLOAD': 'Download',
+	'DOWNLOAD': 'Download original size',
+	'DOWNLOAD_MEDIUM': 'Download medium size',
+	'DOWNLOAD_SMALL': 'Download small size',
 	'UPLOAD_PHOTO': 'Upload Photo',
 	'IMPORT_LINK': 'Import from Link',
 	'IMPORT_DROPBOX': 'Import from Dropbox',
@@ -4158,7 +4168,7 @@ photo.setAlbum = function (photoIDs, albumID) {
 	if (!photoIDs) return false;
 	if (photoIDs instanceof Array === false) photoIDs = [photoIDs];
 
-	photoIDs.forEach(function (id, index, array) {
+	photoIDs.forEach(function (id) {
 
 		// Change reference for the next and previous photo
 		if (album.getByID(id).nextPhoto !== '' || album.getByID(id).previousPhoto !== '') {
@@ -4190,7 +4200,7 @@ photo.setAlbum = function (photoIDs, albumID) {
 		if (data !== true) {
 			lychee.error(null, params, data);
 		} else {
-			album.reload();
+			if (visible.album()) album.reload();
 		}
 	});
 };
@@ -4463,10 +4473,10 @@ photo.setLicense = function (photoID) {
 	});
 };
 
-photo.getArchive = function (photoID) {
+photo.getArchive = function (photoID, kind) {
 
 	var link = void 0;
-	var url = api.path + "?function=Photo::getArchive&photoID=" + photoID;
+	var url = api.path + "?function=Photo::getArchive&photoID=" + photoID + "&kind=" + kind;
 
 	if (location.href.indexOf('index.html') > 0) link = location.href.replace(location.hash, '').replace('index.html', url);else link = location.href.replace(location.hash, '') + url;
 
@@ -6198,11 +6208,6 @@ view.album = {
 			// Add photos to view
 			lychee.content.html(html);
 			view.album.content.justify();
-			if (lychee.layout === '2') {
-				$('.unjustified-layout > div').each(function (i) {
-					$(this).css('width', (album.json.photos[i].height > 0 ? album.json.photos[i].width / album.json.photos[i].height : 1) * parseInt($(this).css('height'), 10) + 'px');
-				});
-			}
 		},
 
 		title: function title(photoID) {
@@ -6244,26 +6249,43 @@ view.album = {
 		},
 
 		justify: function justify() {
-			if (lychee.layout !== '1') return;
 			if (!album.json.photos || album.json.photos === false) return;
-			var ratio = [];
-			$.each(album.json.photos, function (i) {
-				var l_width = this.width > 0 ? this.width : 200;
-				var l_height = this.height > 0 ? this.height : 200;
-				ratio[i] = l_width / l_height;
-			});
-			var layoutGeometry = require('justified-layout')(ratio, {
-				containerWidth: $('.justified-layout').width(),
-				containerPadding: 0
-			});
-			if (lychee.admin) console.log(layoutGeometry);
-			$('.justified-layout').css('height', layoutGeometry.containerHeight + 'px').css('height', layoutGeometry.containerHeight + 'px');
-			$('.justified-layout > div').each(function (i) {
-				$(this).css('top', layoutGeometry.boxes[i].top);
-				$(this).css('width', layoutGeometry.boxes[i].width);
-				$(this).css('height', layoutGeometry.boxes[i].height);
-				$(this).css('left', layoutGeometry.boxes[i].left);
-			});
+			if (lychee.layout === '1') {
+				var ratio = [];
+				$.each(album.json.photos, function (i) {
+					var l_width = this.width > 0 ? this.width : 200;
+					var l_height = this.height > 0 ? this.height : 200;
+					ratio[i] = l_width / l_height;
+				});
+				var layoutGeometry = require('justified-layout')(ratio, {
+					containerWidth: $('.justified-layout').width(),
+					containerPadding: 0
+				});
+				if (lychee.admin) console.log(layoutGeometry);
+				$('.justified-layout').css('height', layoutGeometry.containerHeight + 'px').css('height', layoutGeometry.containerHeight + 'px');
+				$('.justified-layout > div').each(function (i) {
+					$(this).css('top', layoutGeometry.boxes[i].top);
+					$(this).css('width', layoutGeometry.boxes[i].width);
+					$(this).css('height', layoutGeometry.boxes[i].height);
+					$(this).css('left', layoutGeometry.boxes[i].left);
+				});
+			} else if (lychee.layout === '2') {
+				var containerWidth = parseFloat($('.unjustified-layout').width(), 10);
+				$('.unjustified-layout > div').each(function (i) {
+					var ratio = album.json.photos[i].height > 0 ? album.json.photos[i].width / album.json.photos[i].height : 1;
+					var height = parseFloat($(this).css('max-height'), 10);
+					var width = height * ratio;
+					var margin = parseFloat($(this).css('margin-right'), 10);
+
+					if (width > containerWidth - margin) {
+						width = containerWidth - margin;
+						height = width / ratio;
+					}
+
+					$(this).css('width', width + 'px');
+					$(this).css('height', height + 'px');
+				});
+			}
 		}
 
 	},
@@ -6741,12 +6763,18 @@ view.full_settings = {
 
 				var msg = lychee.html(_templateObject53, lychee.locale['SETTINGS_WARNING']);
 
+				var prev = '';
 				$.each(data, function () {
 
-					msg += lychee.html(_templateObject54, this.key, this.key, this.value);
+					if (this.cat && prev !== this.cat) {
+						msg += lychee.html(_templateObject54, this.cat);
+						prev = this.cat;
+					}
+
+					msg += lychee.html(_templateObject55, this.key, this.key, this.value);
 				});
 
-				msg += lychee.html(_templateObject55, lychee.locale['SAVE_RISK']);
+				msg += lychee.html(_templateObject56, lychee.locale['SAVE_RISK']);
 				$(".settings_view").append(msg);
 
 				settings.bind('#FullSettingsSave_button', '#fullSettings', settings.save);
@@ -6909,7 +6937,7 @@ view.logs_diagnostics = {
 		var html = '';
 
 		if (lychee.api_V2 && get === 'Logs') {
-			html += lychee.html(_templateObject56, lychee.locale['CLEAN_LOGS']);
+			html += lychee.html(_templateObject57, lychee.locale['CLEAN_LOGS']);
 		}
 		html += '<pre class="logs_diagnostics_view"></pre>';
 		lychee.content.html(html);
