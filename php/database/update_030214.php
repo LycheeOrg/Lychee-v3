@@ -18,7 +18,7 @@ $result = Database::execute($connection, $query, 'update_030214', __LINE__);
 if ($result->num_rows===0) {
 
 	$query  = Database::prepare($connection, "INSERT INTO `?` (`key`, `value`) VALUES ('full_photo', '1')", array(LYCHEE_TABLE_SETTINGS));
-	$result = Database::execute($connection, $query, 'update_030213', __LINE__);
+	$result = Database::execute($connection, $query, 'update_030214', __LINE__);
 
 	if ($result===false) Response::error('Could not insert setting key full_photo!');
 }
