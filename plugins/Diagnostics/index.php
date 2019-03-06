@@ -58,6 +58,10 @@ if (hasPermissions(LYCHEE_DIST.'/user.css')===false) {
 														$error .= ('Warning: \'dist/user.css\' does not exist or has insufficient read/write privileges.' . PHP_EOL);
 		if (hasPermissions(LYCHEE_DIST)===false)			$error .= ('Warning: \'dist/\' has insufficient read/write privileges.' . PHP_EOL);
 }
+$perms = fileperms(LYCHEE_CONFIG_FILE);
+if($perms & 0x0004)										$error .= ('Error: \'data/config.php\' is world readable.' . PHP_EOL);
+if($perms & 0x0002)										$error .= ('Error: \'data/config.php\' is world writable.' . PHP_EOL);
+if($perms & 0x0001)										$error .= ('Error: \'data/config.php\' is world executable.' . PHP_EOL); // we do not look at the sticky bit.
 
 // About GD
 $gdVersion = array('GD Version' => '-');

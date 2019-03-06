@@ -43,6 +43,11 @@ $config = "<?php
 		// Save file
 		if (@file_put_contents(LYCHEE_CONFIG_FILE, $config)===false) return 'Warning: Could not create file!';
 
+		// prevent world readable
+		// this will fail silently do we want that ?
+		chmod(LYCHEE_CONFIG_FILE, 0750);
+		// if(!chmod(LYCHEE_CONFIG_FILE, 0750)) $error .= ('Warning: Could not change \'data/config.php\' permissions.' . PHP_EOL);
+
 		return true;
 
 	}
