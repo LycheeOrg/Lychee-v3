@@ -9,6 +9,7 @@ uploads/thumb/*
 dist/user.css
 dist/frame.js
 dist/frame.css
+dist/page.css
 dist/landing.js
 dist/landing.css
 
