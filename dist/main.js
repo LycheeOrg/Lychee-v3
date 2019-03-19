@@ -2286,7 +2286,7 @@ $(document).ready(function () {
 		if (!visible.photo()) {
 			album.add();return false;
 		}
-	}).bind(['s', 'f'], function () {
+	}).bind(['s'], function () {
 		if (visible.photo()) {
 			header.dom('#button_star').click();return false;
 		} else if (visible.albums()) {
@@ -2328,7 +2328,7 @@ $(document).ready(function () {
 		if (visible.photo()) {
 			photo.update_overlay_type();return false;
 		}
-	}).bind(['F'], function () {
+	}).bind(['f'], function () {
 		if (visible.album() || visible.photo()) {
 			lychee.fullscreenToggle();return false;
 		}
@@ -2743,7 +2743,6 @@ lychee.init = function () {
 			lychee.checkForUpdates = data.config.checkForUpdates || '1';
 			lychee.lang = data.config.lang || '';
 			lychee.lang_available = data.config.lang_available || {};
-			lychee.imagick = data.config.imagick && data.config.imagick === '1' || false;
 			lychee.layout = data.config.layout || '1';
 			lychee.image_overlay_default = data.config.image_overlay && data.config.image_overlay === '1' || false;
 			lychee.image_overlay = lychee.image_overlay_default;
