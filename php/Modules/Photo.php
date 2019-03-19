@@ -49,7 +49,7 @@ final class Photo {
 	}
 
 	/**
-	 * Creats new photo(s).
+	 * Creates new photo(s).
 	 * Exits on error.
 	 * Use $returnOnError if you want to handle errors by your own.
 	 * @return string|false ID of the added photo.
@@ -468,7 +468,7 @@ final class Photo {
 			$ffprobe = FFMpeg\FFProbe::create();
 			$ffmpeg = FFMpeg\FFMpeg::create();
 			$duration = $ffprobe
-				->format($path) // extracts file informations
+				->format($path) // extracts file information
 				->get('duration');
 			$dimension = new FFMpeg\Coordinate\Dimension(200, 200);
 			$video = $ffmpeg->open($path);

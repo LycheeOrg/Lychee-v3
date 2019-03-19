@@ -33,7 +33,7 @@ if ($result===false) {
 
 }
 
-// Do the intial setup of the takestamps
+// Do the initial setup of the takestamps
 $query  = Database::prepare($connection, "UPDATE ? a SET a.min_takestamp = (SELECT IFNULL(min(takestamp), 0) FROM ? WHERE a.id = album), a.max_takestamp = (SELECT IFNULL(max(takestamp), 0) FROM ? WHERE a.id = album)",
 							array(LYCHEE_TABLE_ALBUMS, LYCHEE_TABLE_PHOTOS, LYCHEE_TABLE_PHOTOS));
 $result = Database::execute($connection, $query, 'update_030108', __LINE__);
