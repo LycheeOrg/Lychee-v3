@@ -1140,7 +1140,9 @@ final class Photo {
             }
 
 			if (!empty($exif['LensInfo'])) $return['lens'] = trim($exif['LensInfo']);
+			else if(!empty($exif['LensID'])) $return['lens'] = trim($exif['LensID']);
 			else if(!empty($exif['LensSpec'])) $return['lens'] = trim($exif['LensSpec']);
+			else if(!empty($exif['Lens'])) $return['lens'] = trim($exif['Lens']);
 
 			// Lens field from Lightroom
 			if ($return['lens'] == '' && !empty($exif['UndefinedTag:0xA434'])) $return['lens'] = trim($exif['UndefinedTag:0xA434']);
