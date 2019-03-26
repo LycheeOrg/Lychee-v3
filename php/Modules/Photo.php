@@ -1072,8 +1072,11 @@ final class Photo {
 			$exif = false;
 			if(Settings::useExiftool()) {
 				Log::notice(Database::get(), __METHOD__, __LINE__, 'Using exiftool');
+				$exiftool = '';
 				$handle = @popen("exiftool -php -q $url 2>&1", 'r');
-				$exiftool = @fread($handle, 8192);
+				while (!feof($handle)) {
+					$exiftool .= @fread($handle, 8192);
+				}
 				@pclose($handle);
 				if (false!==$exiftool && strlen($exiftool) > 0) {
 					$exiftool = @eval('return ' . "$exiftool");
