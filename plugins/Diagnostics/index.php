@@ -130,6 +130,10 @@ if ((isset($_SESSION['login'])&&$_SESSION['login']===true)&&
 	$json = file_get_contents(LYCHEE_SRC . 'package.json');
 	$json = json_decode($json, true);
 
+	// Load git info
+	$git_head = file_get_contents(LYCHEE . '.git/FETCH_HEAD');
+	if ($git_head==false) $git_head = 'No git data found. Probably installed from release.' . PHP_EOL;
+
 	// About imagick
 	$imagick = extension_loaded('imagick');
 	if ($imagick===true)	$imagickVersion = @Imagick::getVersion();
@@ -146,6 +150,7 @@ if ((isset($_SESSION['login'])&&$_SESSION['login']===true)&&
 	{
 	echo('Lychee Version (json):  ' . $json['version'] . PHP_EOL);
 	}
+	echo('Lychee Version (git):   ' . $git_head);
 	echo('DB Version:             ' . $settings['version'] . PHP_EOL);
 	echo('System:                 ' . PHP_OS . PHP_EOL);
 	echo('PHP Version:            ' . floatval(phpversion()) . PHP_EOL);
