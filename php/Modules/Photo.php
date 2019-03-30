@@ -830,24 +830,24 @@ final class Photo {
 		$photo['lens']   		= isset($data['lens']) ? $data['lens'] : ''; // isset should not be needed
 
 
-		if($photo['shutter'] != '' && substr($photo['shutter'], 0,2) != '1/'){
+		if($photo['shutter'] != '' && substr($photo['shutter'], 0,2) != '1/') {
 
-			// this should fix it... hopefully.
 			preg_match('/(\d+)\/(\d+) s/', $photo['shutter'], $matches);
-			$a = intval($matches[1]);
-			$b = intval($matches[2]);
-			$gcd = gcd($a,$b);
-			$a = $a / $gcd;
-			$b = $b / $gcd;
-			if ($a == 1)
-			{
-				$photo['shutter'] = '1/'. $b . ' s';
+			if ($matches) {
+				$a = intval($matches[1]);
+				$b = intval($matches[2]);
+				$gcd = gcd($a,$b);
+				$a = $a / $gcd;
+				$b = $b / $gcd;
+				if ($a == 1)
+				{
+					$photo['shutter'] = '1/'. $b . ' s';
+				}
+				else
+				{
+					$photo['shutter'] = ($a / $b) . ' s';
+				}
 			}
-			else
-			{
-				$photo['shutter'] = ($a / $b) . ' s';
-			}
-
 		}
 		if ($photo['shutter'] == '1/1 s')
 	    {
