@@ -131,8 +131,18 @@ if ((isset($_SESSION['login'])&&$_SESSION['login']===true)&&
 	$json = json_decode($json, true);
 
 	// Load git info
-	$git_head = file_get_contents(LYCHEE . '.git/FETCH_HEAD');
-	if ($git_head==false) $git_head = 'No git data found. Probably installed from release.' . PHP_EOL;
+	// Load Git info
+	$git_head = @file_get_contents(LYCHEE . '.git/HEAD');
+	if ($git_head !== false) {
+		$branch = explode("/", $git_head, 3)[2]; //separate out by the "/" in the string
+		$git_head = @file_get_contents(sprintf(LYCHEE . '.git/refs/heads/%s', trim($branch)));
+	}
+	if ($git_head == false) {
+		$git_head = 'No git data found. Probably installed from release.' . PHP_EOL;
+	}
+	else {
+		$git_head = substr($git_head, 0, 7).' ('.trim($branch).')' . PHP_EOL;
+	}
 
 	// About imagick
 	$imagick = extension_loaded('imagick');
