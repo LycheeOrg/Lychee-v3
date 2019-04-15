@@ -21,15 +21,17 @@ function search($term) {
 	 * Photos
 	 */
 
-	$query  = Database::prepare(Database::get(), "SELECT id, title, tags, public, star, album, thumbUrl, takestamp, url, medium FROM ? WHERE title LIKE '%?%' OR description LIKE '%?%' OR tags LIKE '%?%'", array(LYCHEE_TABLE_PHOTOS, $term, $term, $term));
+	$query  = Database::prepare(Database::get(), "SELECT id, title, tags, public, star, album, thumbUrl, takestamp, url, medium, small, width, height FROM ? WHERE title LIKE '%?%' OR description LIKE '%?%' OR tags LIKE '%?%'", array(LYCHEE_TABLE_PHOTOS, $term, $term, $term));
 	$result = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
 
 	if ($result===false) return false;
 
+	$i = 0;
 	while($photo = $result->fetch_assoc()) {
 
 		$photo = Photo::prepareData($photo);
-		$return['photos'][$photo['id']] = $photo;
+		$return['photos'][$i] = $photo;
+		$i++;
 
 	}
 
@@ -42,6 +44,7 @@ function search($term) {
 
 	if ($result===false) return false;
 
+	$i = 0;
 	while($album = $result->fetch_assoc()) {
 
 		// Turn data from the database into a front-end friendly format
@@ -61,7 +64,8 @@ function search($term) {
 		}
 
 		// Add to return
-		$return['albums'][$album['id']] = $album;
+		$return['albums'][$i] = $album;
+		$i++;
 
 	}
 
