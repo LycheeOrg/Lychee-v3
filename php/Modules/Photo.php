@@ -1154,6 +1154,10 @@ final class Photo {
 			if (!empty($exif['GPSLatitude']) && !empty($exif['GPSLatitudeRef'])) $return['latitude'] = getGPSCoordinate($exif['GPSLatitude'], $exif['GPSLatitudeRef']);
 			if (!empty($exif['GPSLongitude']) && !empty($exif['GPSLongitudeRef'])) $return['longitude'] = getGPSCoordinate($exif['GPSLongitude'], $exif['GPSLongitudeRef']);
 
+			// Check data is a valid string
+			foreach ($return as $k => $v) {
+				if (!mb_check_encoding($v)) $return[$k] = '';
+			}
 		}
 
 		// Call plugins
