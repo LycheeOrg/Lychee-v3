@@ -11,6 +11,7 @@ use Lychee\Modules\Config;
 use Lychee\Modules\Response;
 use Lychee\Modules\Settings;
 use Lychee\Modules\Validator;
+use Lychee\Modules\Session;
 
 use Lychee\Access\Installation;
 use Lychee\Access\Admin;
@@ -72,8 +73,7 @@ if (!empty($fn)) {
 	}
 
 	// Check if user is logged
-	if ((isset($_SESSION['login'])&&$_SESSION['login']===true)&&
-		(isset($_SESSION['identifier'])&&$_SESSION['identifier']===Settings::get()['identifier'])) {
+	if (Session::isLoggedIn()) {
 
 		/**
 		 * Admin Access

@@ -4,6 +4,8 @@ use Lychee\Modules\Album;
 use Lychee\Modules\Database;
 use Lychee\Modules\Photo;
 use Lychee\Modules\Settings;
+use Lychee\Modules\Session;
+use Lychee\Modules\Log;
 
 /**
  * @return array|false Returns an array with albums and photos.
@@ -21,7 +23,23 @@ function search($term) {
 	 * Photos
 	 */
 
-	$query  = Database::prepare(Database::get(), "SELECT id, title, tags, public, star, album, thumbUrl, takestamp, url, medium, small, width, height FROM ? WHERE title LIKE '%?%' OR description LIKE '%?%' OR tags LIKE '%?%'", array(LYCHEE_TABLE_PHOTOS, $term, $term, $term));
+	$query  = Database::prepare(Database::get(), "
+		SELECT 
+			p.id, p.title, p.tags, p.public, p.star, p.album, p.thumbUrl, p.takestamp, p.url, p.medium, p.small, p.width, p.height 
+		FROM 
+			? p 
+			join ? a on a.id = p.album
+		WHERE (
+				p.title LIKE '%?%' 
+				OR p.description LIKE '%?%' 
+				OR p.tags LIKE '%?%'
+			)
+			AND (
+				? = 1
+				OR a.public = 1 
+				OR p.public = 1
+			)
+	", array(LYCHEE_TABLE_PHOTOS, LYCHEE_TABLE_ALBUMS, $term, $term, $term, ((Session::isLoggedIn()) ? 1 : 0)));
 	$result = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
 
 	if ($result===false) return false;
@@ -39,7 +57,20 @@ function search($term) {
 	 * Albums
 	 */
 
-	$query  = Database::prepare(Database::get(), "SELECT id, title, public, sysstamp, password FROM ? WHERE title LIKE '%?%' OR description LIKE '%?%'", array(LYCHEE_TABLE_ALBUMS, $term, $term));
+	$query  = Database::prepare(Database::get(), "
+		SELECT 
+			id, title, public, sysstamp, password 
+		FROM 
+			? 
+		WHERE (
+				title LIKE '%?%' 
+				OR description LIKE '%?%'
+			)
+			AND (
+				? = 1
+				OR public = 1
+			)
+		", array(LYCHEE_TABLE_ALBUMS, $term, $term,((Session::isLoggedIn()) ? 1 : 0)));
 	$result = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
 
 	if ($result===false) return false;

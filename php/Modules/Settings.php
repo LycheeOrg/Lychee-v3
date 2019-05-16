@@ -205,6 +205,11 @@ final class Settings {
 		return false;
 	}
 
+	public static function setPublicSearch($publicSearch) {
+		if (self::set('public_search', ($publicSearch == '1') ? '1' : '0', true)===false) return false;
+		return true;
+	}
+
 	public static function setImageOverlay($imageOverlay) {
 		if (self::set('image_overlay', ($imageOverlay == '1') ? '1' : '0', true)===false) return false;
 		return true;
