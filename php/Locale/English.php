@@ -289,7 +289,7 @@ final class English
 			'SET_LAYOUT'				=> 'Change layout',
 			'PUBLIC_SEARCH_TEXT'		=> 'Public search allowed:',
 
-			'IMAGE_OVERLAY_TEXT'		=> 'Display data overlay by default:',			
+			'IMAGE_OVERLAY_TEXT'		=> 'Display data overlay by default:',
 
 			'OVERLAY_TYPE'				=> 'Data to use in image overlay:',
 			'OVERLAY_EXIF'				=> 'Photo EXIF data',
@@ -330,10 +330,7 @@ final class English
 			'UPLOAD_IMPORT_SERVER_EMPT'	=> 'Could not start import because the folder was empty!',
 
 			'ABOUT_SUBTITLE'			=> 'Self-hosted photo-management done right',
-			'ABOUT_DESCRIPTION'			=> 'is a free photo-management tool, which runs on your server or web-space. Installing is a matter of seconds. Upload, manage and share photos like from a native application. Lychee comes with everything you need and all your photos are stored securely.',
-
-			'HEADER_HOSTEDWITH'			=> 'Hosted with Lychee',
-			'HEADER_SEARCH_PLACEHOLDER'	=> 'Search …'
+			'ABOUT_DESCRIPTION'			=> 'is a free photo-management tool, which runs on your server or web-space. Installing is a matter of seconds. Upload, manage and share photos like from a native application. Lychee comes with everything you need and all your photos are stored securely.'
 		);
 
 		return $locale;
