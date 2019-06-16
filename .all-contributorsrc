@@ -706,6 +706,17 @@
         "bug",
         "code"
       ]
+    },
+    {
+      "login": "guzzisti",
+      "name": "rwa",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/10488791?v=4",
+      "profile": "https://www.rw-foto.net",
+      "contributions": [
+        "code",
+        "bug"
+      ]
     }
-  ]
+  ],
+  "commitConvention": "none"
 }
