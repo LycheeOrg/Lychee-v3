@@ -127,8 +127,8 @@ final class Session {
 
 
 	/**
-	 * Unsets the session values.
-	 * @return boolean Returns true when logout was successful.
+	 * Check if user is logged in.
+	 * @return boolean Returns true if user is logged in.
 	 */
 	static public function isLoggedIn() {
 		return (
