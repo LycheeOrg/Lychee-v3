@@ -716,6 +716,15 @@
         "code",
         "bug"
       ]
+    },
+    {
+      "login": "copperschnack",
+      "name": "copperschnack",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/14861913?v=4",
+      "profile": "https://github.com/copperschnack",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "commitConvention": "none"
