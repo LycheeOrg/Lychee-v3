@@ -731,7 +731,7 @@ var _templateObject = _taggedTemplateLiteral(["<svg class='iconic ", "'><use xli
     _templateObject5 = _taggedTemplateLiteral(["\n\t\t\t<div class='album ", "' data-id='", "'>\n\t\t\t\t  ", "\n\t\t\t\t  ", "\n\t\t\t\t  ", "\n\t\t\t\t<div class='overlay'>\n\t\t\t\t\t<h1 title='$", "'>$", "</h1>\n\t\t\t\t\t<a>$", "</a>\n\t\t\t\t</div>\n\t\t\t"], ["\n\t\t\t<div class='album ", "' data-id='", "'>\n\t\t\t\t  ", "\n\t\t\t\t  ", "\n\t\t\t\t  ", "\n\t\t\t\t<div class='overlay'>\n\t\t\t\t\t<h1 title='$", "'>$", "</h1>\n\t\t\t\t\t<a>$", "</a>\n\t\t\t\t</div>\n\t\t\t"]),
     _templateObject6 = _taggedTemplateLiteral(["\n\t\t\t\t<div class='badges'>\n\t\t\t\t\t<a class='badge ", " icn-star'>", "</a>\n\t\t\t\t\t<a class='badge ", " ", " icn-share'>", "</a>\n\t\t\t\t\t<a class='badge ", "'>", "</a>\n\t\t\t\t\t<a class='badge ", "'>", "</a>\n\t\t\t\t\t<a class='badge ", "'>", "</a>\n\t\t\t\t</div>\n\t\t\t\t"], ["\n\t\t\t\t<div class='badges'>\n\t\t\t\t\t<a class='badge ", " icn-star'>", "</a>\n\t\t\t\t\t<a class='badge ", " ", " icn-share'>", "</a>\n\t\t\t\t\t<a class='badge ", "'>", "</a>\n\t\t\t\t\t<a class='badge ", "'>", "</a>\n\t\t\t\t\t<a class='badge ", "'>", "</a>\n\t\t\t\t</div>\n\t\t\t\t"]),
     _templateObject7 = _taggedTemplateLiteral(["\n\t\t\t\t<div class='subalbum_badge'>\n\t\t\t\t\t<a class='badge badge--folder'>", "</a>\n\t\t\t\t</div>"], ["\n\t\t\t\t<div class='subalbum_badge'>\n\t\t\t\t\t<a class='badge badge--folder'>", "</a>\n\t\t\t\t</div>"]),
-    _templateObject8 = _taggedTemplateLiteral(["\n\t\t\t<div class='photo' data-album-id='", "' data-id='", "'>\n\t\t\t\t", "\n\t\t\t\t<div class='overlay'>\n\t\t\t\t\t<h1 title='$", "'>$", "</h1>\n\t\t\t"], ["\n\t\t\t<div class='photo' data-album-id='", "' data-id='", "'>\n\t\t\t\t", "\n\t\t\t\t<div class='overlay'>\n\t\t\t\t\t<h1 title='$", "'>$", "</h1>\n\t\t\t"]),
+    _templateObject8 = _taggedTemplateLiteral(["\n\t\t\t<div class='photo ", "' data-album-id='", "' data-id='", "'>\n\t\t\t\t", "\n\t\t\t\t<div class='overlay'>\n\t\t\t\t\t<h1 title='$", "'>$", "</h1>\n\t\t\t"], ["\n\t\t\t<div class='photo ", "' data-album-id='", "' data-id='", "'>\n\t\t\t\t", "\n\t\t\t\t<div class='overlay'>\n\t\t\t\t\t<h1 title='$", "'>$", "</h1>\n\t\t\t"]),
     _templateObject9 = _taggedTemplateLiteral(["<a><span title='Camera Date'>", "</span>", "</a>"], ["<a><span title='Camera Date'>", "</span>", "</a>"]),
     _templateObject10 = _taggedTemplateLiteral(["<a>", "</a>"], ["<a>", "</a>"]),
     _templateObject11 = _taggedTemplateLiteral(["\n\t\t\t\t<div class='badges'>\n\t\t\t\t\t<a class='badge ", " icn-star'>", "</a>\n\t\t\t\t\t<a class='badge ", " icn-share'>", "</a>\n\t\t\t\t</div>\n\t\t\t\t"], ["\n\t\t\t\t<div class='badges'>\n\t\t\t\t\t<a class='badge ", " icn-star'>", "</a>\n\t\t\t\t\t<a class='badge ", " icn-share'>", "</a>\n\t\t\t\t</div>\n\t\t\t\t"]),
@@ -789,6 +789,14 @@ api.get_url = function (fn) {
 	return api_url;
 };
 
+api.isTimeout = function (errorThrown, jqXHR) {
+	if (errorThrown && errorThrown === 'Bad Request' && jqXHR && jqXHR.responseJSON && jqXHR.responseJSON.error && jqXHR.responseJSON.error === 'Session timed out') {
+		return true;
+	}
+
+	return false;
+};
+
 api.post = function (fn, params, callback) {
 
 	loadingBar.show();
@@ -812,7 +820,7 @@ api.post = function (fn, params, callback) {
 
 	var error = function error(jqXHR, textStatus, errorThrown) {
 
-		api.onError('Server error or API not found.', params, errorThrown);
+		api.onError(api.isTimeout(errorThrown, jqXHR) ? 'Session timed out.' : 'Server error or API not found.', params, errorThrown);
 	};
 
 	$.ajax({
@@ -844,7 +852,7 @@ api.get = function (url, callback) {
 
 	var error = function error(jqXHR, textStatus, errorThrown) {
 
-		api.onError('Server error or API not found.', {}, errorThrown);
+		api.onError(api.isTimeout(errorThrown, jqXHR) ? 'Session timed out.' : 'Server error or API not found.', {}, errorThrown);
 	};
 
 	$.ajax({
@@ -879,7 +887,7 @@ api.post_raw = function (fn, params, callback) {
 
 	var error = function error(jqXHR, textStatus, errorThrown) {
 
-		api.onError('Server error or API not found.', params, errorThrown);
+		api.onError(api.isTimeout(errorThrown, jqXHR) ? 'Session timed out.' : 'Server error or API not found.', params, errorThrown);
 	};
 
 	$.ajax({
@@ -1217,7 +1225,7 @@ build.getAlbumThumb = function (data, i) {
 	var thumb = data.thumbs[i];
 
 	if (thumb === 'uploads/thumb/' && isVideo) {
-		return "<span class=\"thumbimg\"><img src='dist/play-icon.png' alt='Photo thumbnail' data-overlay='false' draggable='false'></span>";
+		return "<span class=\"thumbimg\"><img src='img/play-icon.png' alt='Photo thumbnail' data-overlay='false' draggable='false'></span>";
 	}
 
 	thumb2x = '';
@@ -1236,7 +1244,7 @@ build.getAlbumThumb = function (data, i) {
 		}
 	}
 
-	return "<span class=\"thumbimg" + (isVideo ? ' video' : '') + "\"><img class='lazyload' src='dist/placeholder.png' data-src='" + thumb + "' " + (thumb2x !== '' ? 'data-srcset=\'' + thumb2x + ' 2x\'' : '') + " alt='Photo thumbnail' data-overlay='false' draggable='false'></span>";
+	return "<span class=\"thumbimg" + (isVideo ? ' video' : '') + "\"><img class='lazyload' src='img/placeholder.png' data-src='" + thumb + "' " + (thumb2x !== '' ? 'data-srcset=\'' + thumb2x + ' 2x\'' : '') + " alt='Photo thumbnail' data-overlay='false' draggable='false'></span>";
 };
 
 build.album = function (data) {
@@ -1263,7 +1271,7 @@ build.album = function (data) {
 
 	html += lychee.html(_templateObject5, disabled ? "disabled" : "", data.id, build.getAlbumThumb(data, 2), build.getAlbumThumb(data, 1), build.getAlbumThumb(data, 0), data.title, data.title, date_stamp);
 
-	if (lychee.publicMode === false) {
+	if (album.isUploadable() && !disabled) {
 
 		html += lychee.html(_templateObject6, data.star === '1' ? 'badge--star' : '', build.iconic('star'), data.public === '1' ? 'badge--visible' : '', data.hidden === '1' ? 'badge--not--hidden' : 'badge--hidden', build.iconic('eye'), data.unsorted === '1' ? 'badge--visible' : '', build.iconic('list'), data.recent === '1' ? 'badge--visible badge--list' : '', build.iconic('clock'), data.password === '1' ? 'badge--visible' : '', build.iconic('lock-locked'));
 	}
@@ -1278,17 +1286,19 @@ build.album = function (data) {
 };
 
 build.photo = function (data) {
+	var disabled = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
 
 	var html = '';
 	var thumbnail = '';
 	var thumb2x = '';
 
 	var isVideo = data.type && data.type.indexOf('video') > -1;
-	if (data.thumb === 'uploads/thumb/' && isVideo) {
-		thumbnail = "<span class=\"thumbimg\"><img src='dist/play-icon.png' alt='Photo thumbnail' data-overlay='false' draggable='false'></span>";
+	if (data.thumbUrl === 'uploads/thumb/' && isVideo) {
+		thumbnail = "<span class=\"thumbimg\"><img src='img/play-icon.png' alt='Photo thumbnail' data-overlay='false' draggable='false'></span>";
 	} else if (lychee.layout === '0') {
 
-		if (data.thumb2x) {
+		if (data.hasOwnProperty('thumb2x')) {
 			// Lychee v4
 			thumb2x = data.thumb2x;
 		} else {
@@ -1302,56 +1312,61 @@ build.photo = function (data) {
 		}
 
 		thumbnail = "<span class=\"thumbimg" + (isVideo ? ' video' : '') + "\">";
-		thumbnail += "<img class='lazyload' src='dist/placeholder.png' data-src='" + data.thumbUrl + "' " + thumb2x + " alt='Photo thumbnail' data-overlay='false' draggable='false'>";
+		thumbnail += "<img class='lazyload' src='img/placeholder.png' data-src='" + data.thumbUrl + "' " + thumb2x + " alt='Photo thumbnail' data-overlay='false' draggable='false'>";
 		thumbnail += "</span>";
 	} else {
 
 		if (data.small !== '') {
-			if (data.small2x && data.small2x !== '') {
+			if (data.hasOwnProperty('small2x') && data.small2x !== '') {
 				thumb2x = "data-srcset='" + data.small + " " + parseInt(data.small_dim, 10) + "w, " + data.small2x + " " + parseInt(data.small2x_dim, 10) + "w'";
 			}
 
 			thumbnail = "<span class=\"thumbimg" + (isVideo ? ' video' : '') + "\">";
-			thumbnail += "<img class='lazyload' src='dist/placeholder.png' data-src='" + data.small + "' " + thumb2x + " alt='Photo thumbnail' data-overlay='false' draggable='false'>";
+			thumbnail += "<img class='lazyload' src='img/placeholder.png' data-src='" + data.small + "' " + thumb2x + " alt='Photo thumbnail' data-overlay='false' draggable='false'>";
 			thumbnail += "</span>";
 		} else if (data.medium !== '') {
-			if (data.medium2x && data.medium2x !== '') {
+			if (data.hasOwnProperty('medium2x') && data.medium2x !== '') {
 				thumb2x = "data-srcset='" + data.medium + " " + parseInt(data.medium_dim, 10) + "w, " + data.medium2x + " " + parseInt(data.medium2x_dim, 10) + "w'";
 			}
 
 			thumbnail = "<span class=\"thumbimg" + (isVideo ? ' video' : '') + "\">";
-			thumbnail += "<img class='lazyload' src='dist/placeholder.png' data-src='" + data.medium + "' " + thumb2x + " alt='Photo thumbnail' data-overlay='false' draggable='false'>";
+			thumbnail += "<img class='lazyload' src='img/placeholder.png' data-src='" + data.medium + "' " + thumb2x + " alt='Photo thumbnail' data-overlay='false' draggable='false'>";
+			thumbnail += "</span>";
+		} else if (!isVideo) {
+			// Fallback for images with no small or medium.
+			thumbnail = "<span class=\"thumbimg\">";
+			thumbnail += "<img class='lazyload' src='img/placeholder.png' data-src='" + data.url + "' alt='Photo thumbnail' data-overlay='false' draggable='false'>";
 			thumbnail += "</span>";
 		} else {
+			// Fallback for videos with no small (the case of no thumb is
+			// handled at the top of this function).
 
-			thumbnail = "<span class=\"thumbimg" + (isVideo ? ' video' : '') + "\">";
-			thumbnail += "<img class='lazyload' src='dist/placeholder.png' data-src='" + data.url + "' alt='Photo thumbnail' data-overlay='false' draggable='false'>";
+			if (data.hasOwnProperty('thumb2x')) {
+				// Lychee v4
+				thumb2x = data.thumb2x;
+			} else {
+				// Lychee v3
+				var _lychee$retinize3 = lychee.retinize(data.thumbUrl),
+				    thumb2x = _lychee$retinize3.path;
+			}
+
+			if (thumb2x !== '') {
+				thumb2x = "data-srcset='" + data.thumbUrl + " 200w, " + thumb2x + " 400w'";
+			}
+
+			thumbnail = "<span class=\"thumbimg video\">";
+			thumbnail += "<img class='lazyload' src='img/placeholder.png' data-src='" + data.thumbUrl + "' " + thumb2x + " alt='Photo thumbnail' data-overlay='false' draggable='false'>";
 			thumbnail += "</span>";
-
-			// 	{ // safe case if neither medium nor small exists
-			// 	if (data.thumb2x) { // Lychee v4
-			// 		thumb2x = data.thumb2x
-			// 	} else { // Lychee v3
-			// 		var {path: thumb2x} = lychee.retinize(data.thumbUrl)
-			// 	}
-			//
-			// 	if (thumb2x !== '') {
-			// 		thumb2x = `data-srcset='${data.thumbUrl} 200w, ${thumb2x} 400w'`
-			// 	}
-			//
-			// 	thumbnail = `<span class="thumbimg${isVideo ? ' video' : ''}">`;
-			// 	thumbnail += `<img class='lazyload' src='dist/images/placeholder.png' data-src='${data.thumbUrl}' ` + thumb2x + ` alt='Photo thumbnail' data-overlay='false' draggable='false'>`;
-			// 	thumbnail += `</span>`;
 		}
 	}
 
-	html += lychee.html(_templateObject8, data.album, data.id, thumbnail, data.title, data.title);
+	html += lychee.html(_templateObject8, disabled ? "disabled" : "", data.album, data.id, thumbnail, data.title, data.title);
 
 	if (data.cameraDate === '1') html += lychee.html(_templateObject9, build.iconic('camera-slr'), data.takedate);else html += lychee.html(_templateObject10, data.sysdate);
 
 	html += "</div>";
 
-	if (lychee.publicMode === false) {
+	if (album.isUploadable()) {
 
 		html += lychee.html(_templateObject11, data.star === '1' ? 'badge--star' : '', build.iconic('star'), data.public === '1' && album.json.public !== '1' ? 'badge--visible' : '', build.iconic('eye'));
 	}
@@ -1394,7 +1409,7 @@ build.imageview = function (data, visibleControls) {
 		if (data.medium !== '') {
 			var medium = '';
 
-			if (data.medium2x && data.medium2x !== '') {
+			if (data.hasOwnProperty('medium2x') && data.medium2x !== '') {
 				medium = "srcset='" + data.medium + " " + parseInt(data.medium_dim, 10) + "w, " + data.medium2x + " " + parseInt(data.medium2x_dim, 10) + "w'";
 			}
 			img = "<img id='image' class='" + (visibleControls === true ? '' : 'full') + "' src='" + data.medium + "' " + medium + "  draggable='false' alt='medium'>";
@@ -1515,11 +1530,11 @@ header.bind = function () {
 	});
 
 	header.dom('#button_share').on(eventName, function (e) {
-		if (photo.json.public === '1' || photo.json.public === '2' || lychee.api_V2 && !lychee.upload) contextMenu.sharePhoto(photo.getID(), e);else photo.setPublic(photo.getID(), e);
+		if (photo.json.public === '1' || photo.json.public === '2' || !album.isUploadable()) contextMenu.sharePhoto(photo.getID(), e);else photo.setPublic(photo.getID(), e);
 	});
 
 	header.dom('#button_share_album').on(eventName, function (e) {
-		if (album.json.public === '1' || lychee.api_V2 && !lychee.upload) contextMenu.shareAlbum(album.getID(), e);else album.setPublic(album.getID(), true, e);
+		if (album.json.public === '1' || !album.isUploadable()) contextMenu.shareAlbum(album.getID(), e);else album.setPublic(album.getID(), true, e);
 	});
 
 	header.dom('#button_signin').on(eventName, lychee.loginDialog);
@@ -1529,6 +1544,9 @@ header.bind = function () {
 	header.dom('.button_add').on(eventName, contextMenu.add);
 	header.dom('#button_more').on(eventName, function (e) {
 		contextMenu.photoMore(photo.getID(), e);
+	});
+	header.dom('#button_move_album').on(eventName, function (e) {
+		contextMenu.move([album.getID()], e, album.setAlbum, 'ROOT', album.getParent() != '');
 	});
 	header.dom('#button_move').on(eventName, function (e) {
 		contextMenu.move([photo.getID()], e, photo.setAlbum);
@@ -1581,13 +1599,11 @@ header.bind_back = function () {
 
 	header.dom('.header__title').on(eventName, function () {
 		if (lychee.landing_page_enable && visible.albums()) {
-			window.location.href = '/';
+			window.location.href = '.';
 		} else {
 			return false;
 		}
 	});
-
-	header.dom('.header__search').attr('placeholder', lychee.locale["HEADER_SEARCH_PLACEHOLDER"]);
 };
 
 header.show = function () {
@@ -1634,8 +1650,11 @@ header.setMode = function (mode) {
 			header.dom().removeClass('header--view');
 			header.dom('.header__toolbar--albums, .header__toolbar--album, .header__toolbar--photo').removeClass('header__toolbar--visible');
 			header.dom('.header__toolbar--public').addClass('header__toolbar--visible');
-			if (lychee.public_search) header.dom(".header__toolbar--public").append(header.dom(".header__search"));
-			header.dom(".header__hostedwith").html(lychee.locale["HEADER_HOSTEDWITH"]);
+			if (lychee.public_search) {
+				$('.header__search, .header__clear', '.header__toolbar--public').show();
+			} else {
+				$('.header__search, .header__clear', '.header__toolbar--public').hide();
+			}
 
 			return true;
 
@@ -1655,19 +1674,29 @@ header.setMode = function (mode) {
 			header.dom('.header__toolbar--public, .header__toolbar--albums, .header__toolbar--photo').removeClass('header__toolbar--visible');
 			header.dom('.header__toolbar--album').addClass('header__toolbar--visible');
 
-			// Hide download button when album empty
-			if (!album.json || album.json.photos === false) $('#button_archive').hide();else $('#button_archive').show();
-
-			// Hide download button when not logged in and album not downloadable
-			if (lychee.publicMode === true && album.json.downloadable === '0') $('#button_archive').hide();
+			// Hide download button when album empty or we are not allowed to
+			// upload to it and it's not explicitly marked as downloadable.
+			if (!album.json || album.json.photos === false || !album.isUploadable() && album.json.downloadable === '0') {
+				$('#button_archive').hide();
+			} else {
+				$('#button_archive').show();
+			}
 
 			if (albumID === 's' || albumID === 'f' || albumID === 'r') {
-				$('#button_info_album, #button_trash_album, #button_share_album').hide();
+				$('#button_info_album, #button_trash_album, #button_share_album, #button_move_album').hide();
+				$('.button_add, .header__divider', '.header__toolbar--album').show();
 			} else if (albumID === '0') {
-				$('#button_info_album, #button_share_album').hide();
-				$('#button_trash_album').show();
+				$('#button_info_album, #button_share_album, #button_move_album').hide();
+				$('#button_trash_album, .button_add, .header__divider', '.header__toolbar--album').show();
 			} else {
-				$('#button_info_album, #button_trash_album, #button_share_album').show();
+				$('#button_info_album, #button_share_album').show();
+				if (album.isUploadable()) {
+					$('#button_trash_album, #button_move_album, .button_add, .header__divider', '.header__toolbar--album').show();
+					$('#button_share_album').removeClass('button--share').addClass('button--eye').find('use').attr('xlink:href', '#eye');
+				} else {
+					$('#button_trash_album, #button_move_album, .button_add, .header__divider', '.header__toolbar--album').hide();
+					$('#button_share_album').removeClass('button--eye').addClass('button--share').find('use').attr('xlink:href', '#share');
+				}
 			}
 
 			return true;
@@ -1677,8 +1706,16 @@ header.setMode = function (mode) {
 			header.dom().addClass('header--view');
 			header.dom('.header__toolbar--public, .header__toolbar--albums, .header__toolbar--album').removeClass('header__toolbar--visible');
 			header.dom('.header__toolbar--photo').addClass('header__toolbar--visible');
+			if (album.isUploadable()) {
+				$('#button_trash, #button_move, #button_star').show();
+				$('#button_share').removeClass('button--share').addClass('button--eye').find('use').attr('xlink:href', '#eye');
+			} else {
+				$('#button_trash, #button_move, #button_star').hide();
+				$('#button_share').removeClass('button--eye').addClass('button--share').find('use').attr('xlink:href', '#share');
+			}
+
 			// Hide More menu if empty (see contextMenu.photoMore)
-			if (!lychee.full_photo && lychee.publicMode && !(album.json && album.json.downloadable && album.json.downloadable === '1')) {
+			if (!lychee.full_photo && !album.isUploadable() && !(album.json && album.json.downloadable && album.json.downloadable === '1')) {
 				$('#button_more').hide();
 			}
 
@@ -1689,12 +1726,12 @@ header.setMode = function (mode) {
 	return false;
 };
 
+// Note that the pull-down menu is now enabled not only for editable
+// items but for all of public/albums/album/photo views, so 'editable' is a
+// bit of a misnomer at this point...
 header.setEditable = function (editable) {
 
 	var $title = header.dom('.header__title');
-
-	// Hide editable icon when not logged in
-	if (lychee.publicMode === true || lychee.api_V2 && !lychee.upload) editable = false;
 
 	if (editable) $title.addClass('header__title--editable');else $title.removeClass('header__title--editable');
 
@@ -1869,14 +1906,11 @@ sidebar.createStructure.photo = function (data) {
 
 	if (data == null || data === '') return false;
 
-	var editable = false;
+	var editable = album.isUploadable();
 	var exifHash = data.takedate + data.make + data.model + data.shutter + data.aperture + data.focal + data.iso;
 	var structure = {};
 	var _public = '';
 	var isVideo = data.type && data.type.indexOf('video') > -1;
-
-	// Enable editable when user logged in
-	if (lychee.publicMode === false && lychee.upload) editable = true;
 
 	// Set the license string for a photo
 	switch (data.license) {
@@ -1925,6 +1959,11 @@ sidebar.createStructure.photo = function (data) {
 	};
 
 	if (isVideo) {
+		if (data.width === 0 || data.height === 0) {
+			// Remove the "Resolution" line if we don't have the data.
+			structure.image.rows.splice(-1, 1);
+		}
+
 		// We overload the database, storing duration (in full seconds) in
 		// "aperture" and frame rate (floating point with three digits after
 		// the decimal point) in "focal".
@@ -1938,8 +1977,8 @@ sidebar.createStructure.photo = function (data) {
 		}
 	}
 
-	// Only create tags section when user logged in
-	if (lychee.publicMode === false && lychee.upload) {
+	// Only create tags section when the photo is editable
+	if (editable) {
 
 		structure.tags = {
 			title: lychee.locale['PHOTO_TAGS'],
@@ -1987,16 +2026,13 @@ sidebar.createStructure.album = function (data) {
 
 	if (data == null || data === '') return false;
 
-	var editable = false;
+	var editable = album.isUploadable();
 	var structure = {};
 	var _public = '';
 	var hidden = '';
 	var downloadable = '';
 	var password = '';
 	var license = '';
-
-	// Enable editable when user logged in
-	if (lychee.publicMode === false && lychee.upload) editable = true;
 
 	// Set value for public
 	switch (data.public) {
@@ -2086,8 +2122,19 @@ sidebar.createStructure.album = function (data) {
 	structure.album = {
 		title: lychee.locale['ALBUM_ALBUM'],
 		type: sidebar.types.DEFAULT,
-		rows: [{ title: lychee.locale['ALBUM_CREATED'], kind: 'created', value: data.sysdate }, { title: lychee.locale['ALBUM_IMAGES'], kind: 'images', value: (data.photos ? data.photos.length : 0) - videoCount }]
+		rows: [{ title: lychee.locale['ALBUM_CREATED'], kind: 'created', value: data.sysdate }]
 	};
+	if (data.albums && data.albums.length > 0) {
+		structure.album.rows.push({ title: lychee.locale['ALBUM_SUBALBUMS'],
+			kind: 'subalbums', value: data.albums.length });
+	}
+	if (data.photos) {
+		if (data.photos.length - videoCount > 0) {
+			structure.album.rows.push({ title: lychee.locale['ALBUM_IMAGES'],
+				kind: 'images',
+				value: data.photos.length - videoCount });
+		}
+	}
 	if (videoCount > 0) {
 		structure.album.rows.push({ title: lychee.locale['ALBUM_VIDEOS'],
 			kind: 'videos', value: videoCount });
@@ -2505,8 +2552,5 @@ lychee.locale = {
 	'UPLOAD_IMPORT_SERVER_EMPT': 'Could not start import because the folder was empty!',
 
 	'ABOUT_SUBTITLE': 'Self-hosted photo-management done right',
-	'ABOUT_DESCRIPTION': 'is a free photo-management tool, which runs on your server or web-space. Installing is a matter of seconds. Upload, manage and share photos like from a native application. Lychee comes with everything you need and all your photos are stored securely.',
-
-	'HEADER_HOSTEDWITH': 'Hosted with Lychee',
-	'HEADER_SEARCH_PLACEHOLDER': 'Search …'
+	'ABOUT_DESCRIPTION': 'is a free photo-management tool, which runs on your server or web-space. Installing is a matter of seconds. Upload, manage and share photos like from a native application. Lychee comes with everything you need and all your photos are stored securely.'
 };
