@@ -191,6 +191,9 @@ Take a look at the [FAQ](https://github.com/LycheeOrg/Lychee/wiki/FAQ) if you ha
     <td align="center"><a href="https://github.com/copperschnack"><img src="https://avatars3.githubusercontent.com/u/14861913?v=4" width="48px;" alt="copperschnack"/><br /><sub><b>copperschnack</b></sub></a><br /><a href="https://github.com/LycheeOrg/Lychee/commits?author=copperschnack" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/edoaxyz"><img src="https://avatars2.githubusercontent.com/u/17519322?v=4" width="48px;" alt="Edoardo Grassi"/><br /><sub><b>Edoardo Grassi</b></sub></a><br /><a href="#translation-edoaxyz" title="Translation">🌍</a></td>
   </tr>
+  <tr>
+    <td align="center"><a href="http://edwardbetts.com/"><img src="https://avatars1.githubusercontent.com/u/3818?v=4" width="48px;" alt="Edward Betts"/><br /><sub><b>Edward Betts</b></sub></a><br /><a href="#translation-EdwardBetts" title="Translation">🌍</a></td>
+  </tr>
 </table>
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->

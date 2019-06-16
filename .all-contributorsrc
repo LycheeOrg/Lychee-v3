@@ -734,6 +734,15 @@
       "contributions": [
         "translation"
       ]
+    },
+    {
+      "login": "EdwardBetts",
+      "name": "Edward Betts",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/3818?v=4",
+      "profile": "http://edwardbetts.com/",
+      "contributions": [
+        "translation"
+      ]
     }
   ],
   "commitConvention": "none"
