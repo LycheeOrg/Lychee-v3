@@ -125,6 +125,18 @@ final class Session {
 
 	}
 
+
+	/**
+	 * Check if user is logged in.
+	 * @return boolean Returns true if user is logged in.
+	 */
+	static public function isLoggedIn() {
+		return (
+			(isset($_SESSION['login']) && $_SESSION['login']===true) &&
+			(isset($_SESSION['identifier']) && $_SESSION['identifier']===Settings::get()['identifier'])
+		);
+	}
+
 	/**
 	 * Unsets the session values.
 	 * @return boolean Returns true when logout was successful.

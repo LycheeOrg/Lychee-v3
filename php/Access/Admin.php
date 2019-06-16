@@ -60,6 +60,7 @@ final class Admin extends Access {
 			case 'Settings::setImageOverlay':     self::setImageOverlay(); break;
 			case 'Settings::setOverlayType':	  self::setOverlayType(); break;
 			case 'Settings::setLayout':     self::setLayoutAction(); break;
+			case 'Settings::setPublicSearch':     self::setPublicSearch(); break;
 			case 'Settings::setLang':      	self::setLangAction(); break;
 			case 'Settings::setDefaultLicense':	  self::setDefaultLicenseAction(); break;
 			case 'Settings::setLogin':      self::setLoginAction(); break;
@@ -282,16 +283,6 @@ final class Admin extends Access {
 
 	}
 
-	// Search functions
-
-	private static function searchAction() {
-
-		Validator::required(isset($_POST['term']), __METHOD__);
-
-		Response::json(search($_POST['term']));
-
-	}
-
 	// Session functions
 
 	private static function initAction() {
@@ -347,6 +338,13 @@ final class Admin extends Access {
 		Validator::required(isset($_POST['layout']), __METHOD__);
 
 		Response::json(Settings::setLayout($_POST['layout']));
+	}
+
+	private static function setPublicSearch() {
+
+		Validator::required(isset($_POST['public_search']), __METHOD__);
+
+		Response::json(Settings::setPublicSearch($_POST['public_search']));
 	}
 
 	private static function setImageOverlay() {

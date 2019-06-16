@@ -221,6 +221,7 @@ final class English
 			'SETTINGS_SUCCESS_LANG'			=> 'Language updated',
 			'SETTINGS_SUCCESS_LAYOUT'		=> 'Layout updated',
 			'SETTINGS_SUCCESS_IMAGE_OVERLAY'=> 'EXIF Overlay setting updated',
+			'SETTINGS_SUCCESS_PUBLIC_SEARCH'=> 'Public search updated',
 			'SETTINGS_SUCCESS_LICENSE'		=> 'Default license updated',
 
 			'DB_INFO_TITLE'				=> 'Enter your database connection details below:',
@@ -286,6 +287,7 @@ final class English
 			'LAYOUT_JUSTIFIED'			=> 'With aspect, justified',
 			'LAYOUT_UNJUSTIFIED'		=> 'With aspect, unjustified',
 			'SET_LAYOUT'				=> 'Change layout',
+			'PUBLIC_SEARCH_TEXT'		=> 'Public search allowed:',
 
 			'IMAGE_OVERLAY_TEXT'		=> 'Display data overlay by default:',
 
