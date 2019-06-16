@@ -752,6 +752,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "yxhlcl",
+      "name": "yxhlcl",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/20151273?v=4",
+      "profile": "https://github.com/yxhlcl",
+      "contributions": [
+        "bug",
+        "code"
+      ]
     }
   ],
   "commitConvention": "none"
