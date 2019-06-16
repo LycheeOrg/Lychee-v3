@@ -725,6 +725,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "edoaxyz",
+      "name": "Edoardo Grassi",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/17519322?v=4",
+      "profile": "https://github.com/edoaxyz",
+      "contributions": [
+        "translation"
+      ]
     }
   ],
   "commitConvention": "none"
