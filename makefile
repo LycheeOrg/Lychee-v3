@@ -17,6 +17,7 @@ dist: clean
 	@mkdir Lychee-v$(VERSION)/uploads/import
 	@cp -r data/.gitignore Lychee-v$(VERSION)/data
 	@cp -r dist Lychee-v$(VERSION)
+	@cp -r img Lychee-v$(VERSION)
 	@cp -r docs/* Lychee-v$(VERSION)/docs
 	@cp -r Lychee-front/images Lychee-v$(VERSION)/Lychee-front/images
 	@cp -r Lychee-front/scripts Lychee-v$(VERSION)/Lychee-front/scripts
