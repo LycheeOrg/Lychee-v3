@@ -193,6 +193,7 @@ Take a look at the [FAQ](https://github.com/LycheeOrg/Lychee/wiki/FAQ) if you ha
   </tr>
   <tr>
     <td align="center"><a href="http://edwardbetts.com/"><img src="https://avatars1.githubusercontent.com/u/3818?v=4" width="48px;" alt="Edward Betts"/><br /><sub><b>Edward Betts</b></sub></a><br /><a href="#translation-EdwardBetts" title="Translation">🌍</a></td>
+    <td align="center"><a href="https://github.com/romansirokov"><img src="https://avatars0.githubusercontent.com/u/39767597?v=4" width="48px;" alt="romansirokov"/><br /><sub><b>romansirokov</b></sub></a><br /><a href="https://github.com/LycheeOrg/Lychee/commits?author=romansirokov" title="Code">💻</a></td>
   </tr>
 </table>
 
