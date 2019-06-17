@@ -41,6 +41,12 @@ final class Session {
 
 		} else {
 
+			if ($return['config']['hide_version_number'] != '0')
+			{
+				$return['config']['version'] = '';
+				$return['config']['checkForUpdates'] = '0';
+			}
+
 			// Logged out
 			$return['status'] = LYCHEE_STATUS_LOGGEDOUT;
 
@@ -53,13 +59,15 @@ final class Session {
 			unset($return['config']['plugins']);
 			unset($return['config']['php_script_limit']);
 			unset($return['config']['useExiftool']);
+			$return['update_json'] = 0;
+			$return['update_available'] = false;
 
 		}
 
+		unset($return['config']['hide_version_number']);
+
 		$return['locale'] = Lang::get_lang(Settings::get()['lang']);
 
-		$return['update_json'] = 0;
-		$return['update_available'] = false;
 		if($return['config']['checkForUpdates'] == '1')
 		{
 			try {
