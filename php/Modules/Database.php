@@ -86,9 +86,7 @@ final class Database {
 	 * @return string Returns the string description of the last connect error
 	 */
 	private static function connect_error() {
-
-		return mysqli_connect_error();
-
+			return 'Database Connection Error: ' . mysqli_connect_error();
 	}
 
 	/**
