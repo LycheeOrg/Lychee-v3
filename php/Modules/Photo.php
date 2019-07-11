@@ -913,10 +913,7 @@ final class Photo {
 	/**
 	 * @return array|false Returns an array with information about the photo or false on failure.
 	 */
-	public function get($albumID) {
-
-		// Excepts the following:
-		// (string) $albumID = Album which is currently visible to the user
+	public function get() {
 
 		// Check dependencies
 		Validator::required(isset($this->photoIDs), __METHOD__);
@@ -954,7 +951,7 @@ final class Photo {
 		// $photo['url']      = LYCHEE_URL_UPLOADS_BIG . $photo['url'];
 		// $photo['thumbUrl'] = LYCHEE_URL_UPLOADS_THUMB . $photo['thumbUrl'];
 
-		if ($albumID!='false') {
+		if (true) {
 
 			// Only show photo as public when parent album is public
 			// Check if parent album is not 'Unsorted'
@@ -979,9 +976,6 @@ final class Photo {
 				$photo['public'] = ($album['public']==='1' ? '2' : $photo['public']);
 
 			}
-
-			$photo['original_album'] = $photo['album'];
-			$photo['album']          = $albumID;
 
 		}
 

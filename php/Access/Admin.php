@@ -166,10 +166,10 @@ final class Admin extends Access {
 
 	private static function getPhotoAction() {
 
-		Validator::required(isset($_POST['photoID'], $_POST['albumID']), __METHOD__);
+		Validator::required(isset($_POST['photoID']), __METHOD__);
 
 		$photo = new Photo($_POST['photoID']);
-		Response::json($photo->get($_POST['albumID']));
+		Response::json($photo->get());
 
 	}
 

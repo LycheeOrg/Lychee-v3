@@ -99,13 +99,13 @@ final class Guest extends Access {
 
 	private static function getPhotoAction() {
 
-		Validator::required(isset($_POST['photoID'], $_POST['albumID'], $_POST['password']), __METHOD__);
+		Validator::required(isset($_POST['photoID'], $_POST['password']), __METHOD__);
 
 		$photo = new Photo($_POST['photoID']);
 
 		$pgP = $photo->getPublic($_POST['password']);
 
-		if ($pgP===2)      Response::json($photo->get($_POST['albumID']));
+		if ($pgP===2)      Response::json($photo->get());
 		else if ($pgP===1) Response::warning('Wrong password!');
 		else if ($pgP===0) Response::warning('Photo private!');
 
