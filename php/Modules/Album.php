@@ -516,7 +516,7 @@ final class Album {
 		$downloadable = ($downloadable==='1' ? 1 : 0);
 
 		// Set public
-		$query  = Database::prepare(Database::get(), "UPDATE ? SET public = '?', visible = '?', downloadable = '?', password = NULL WHERE id IN (?)", array(LYCHEE_TABLE_ALBUMS, $public, $visible, $downloadable, $this->albumIDs));
+		$query  = Database::prepare(Database::get(), "UPDATE ? SET public = '?', visible = '?', downloadable = '?' WHERE id IN (?)", array(LYCHEE_TABLE_ALBUMS, $public, $visible, $downloadable, $this->albumIDs));
 		$result = Database::execute(Database::get(), $query, __METHOD__, __LINE__);
 
 		if ($result===false) return false;
@@ -535,7 +535,7 @@ final class Album {
 		Plugins::get()->activate(__METHOD__, 1, func_get_args());
 
 		// Set password
-		if (isset($password)&&strlen($password)>0) return $this->setPassword($password);
+		if (isset($password)) return $this->setPassword($password);
 		return true;
 
 	}

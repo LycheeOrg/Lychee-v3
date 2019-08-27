@@ -138,7 +138,7 @@ final class Admin extends Access {
 
 	private static function setAlbumPublicAction() {
 
-		Validator::required(isset($_POST['albumID'], $_POST['password'], $_POST['visible'], $_POST['downloadable']), __METHOD__);
+		Validator::required(isset($_POST['albumID'], $_POST['public'], $_POST['visible'], $_POST['downloadable']), __METHOD__);
 
 		$album = new Album($_POST['albumID']);
 		Response::json($album->setPublic($_POST['public'], $_POST['password'], $_POST['visible'], $_POST['downloadable']));

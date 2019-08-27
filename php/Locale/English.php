@@ -81,7 +81,7 @@ final class English
 			'COPY_ALL_TO'					=> 'Copy All to...',
 			'DELETE'						=> 'Delete',
 			'DELETE_ALL'					=> 'Delete All',
-			'DOWNLOAD'						=> 'Download original size',
+			'DOWNLOAD'						=> 'Download',
 			'DOWNLOAD_MEDIUM'				=> 'Download medium size',
 			'DOWNLOAD_SMALL'				=> 'Download small size',
 			'UPLOAD_PHOTO'					=> 'Upload Photo',
