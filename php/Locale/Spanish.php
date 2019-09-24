@@ -19,7 +19,7 @@ final class Spanish
 			'SIGN_IN'		=> 'Iniciar sesión',
 			'CLOSE'			=> 'Cerrar',
 
-			'SETTINGS'			=> 'Configuración',
+			'SETTINGS'			=> 'Configuraciones',
 			'USERS'				=> 'Usuarios',
 			'SHARING'			=> 'Compartir',
 			'CHANGE_LOGIN'		=> 'Cambiar inicio de sesión',
@@ -146,7 +146,7 @@ final class Spanish
 			'ALBUMS_MOVE'				=> "¿Está seguro de que desea mover todos los álbumes seleccionados al álbum",
 			'MOVE_ALBUMS'				=> "Mover álbumes",
 			'NOT_MOVE_ALBUMS'			=> "No te muevas",
-			'ROOT'						=> "Raíz",
+			'ROOT'						=> "Inicio",
 			'ALBUM_REUSE'				=> "Reutilizar",
 			'ALBUM_LICENSE'				=> 'Licencia',
 			'ALBUM_SET_LICENSE'			=> 'Establecer licencia',
@@ -329,7 +329,7 @@ final class Spanish
 			'UPLOAD_ABSOLUTE_PATH'		=> 'Ruta absoluta al directorio',
 			'UPLOAD_IMPORT_SERVER_EMPT'	=> "No se pudo iniciar la importación porque la carpeta estaba vacía",
 
-			'ABOUT_SUBTITLE'			=> 'Gestión de fotos autohospedada bien',
+			'ABOUT_SUBTITLE'			=> 'Un auto-hosteado gestor de imagenes, bien hecho',
 			'ABOUT_DESCRIPTION'			=> 'es una herramienta gratuita de gestión de fotos, que se ejecuta en su servidor o espacio web. La instalación es cuestión de segundos. Cargue, administre y comparta fotos como desde una aplicación nativa. Lychee viene con todo lo que necesitas y todas tus fotos se almacenan de forma segura.'
 
 		);
