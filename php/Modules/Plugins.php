@@ -79,6 +79,9 @@ final class Plugins implements SplSubject {
 
 		if (!isset($name, $location, $args)) return false;
 
+		// Remove namespace
+		$name = end(...[explode('\\', $name)]);
+
 		// Parse
 		$location = ($location===0 ? 'before' : 'after');
 		$action   = $name . ":" . $location;
