@@ -233,6 +233,9 @@ final class Photo {
 		// Use title of file if IPTC title missing
 		if ($info['title']==='') $info['title'] = substr(basename($file['name'], $extension), 0, 30);
 
+		//decodes any space html entities created in the url method in the Import Class
+		$info['title'] = str_replace('%20',' ', $info['title']);
+
 		if ($exists===false) {
 
 			// Set orientation based on EXIF data
