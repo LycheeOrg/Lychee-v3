@@ -18,6 +18,13 @@ final class Photo {
 		IMAGETYPE_PNG
 	);
 
+	public static $validTypes2 = array(
+		'image/jpg',
+		'image/jpeg',
+		'image/png',
+		'image/gif'
+	);
+
 	public static $validVideoTypes = array(
 		"video/mp4",
 		"video/ogg",
