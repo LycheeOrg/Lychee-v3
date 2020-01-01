@@ -10,12 +10,14 @@ final class Import {
 	 */
 	private function photo($path, $albumID = 0) {
 
-		// No need to validate photo type and extension in this function.
+		// No need to fully validate photo type and extension in this function.
 		// $photo->add will take care of it.
+
+		$mime = mime_content_type($path);
+		if (mb_substr($mime, 0, 5) != "image" && mb_substr($mime, 0, 5) != 'video') return false;
 
 		$info  = getimagesize($path);
 		$size  = filesize($path);
-		$mime = mime_content_type($path);
 		$photo = new Photo(null);
 
 		$nameFile                = array(array());
