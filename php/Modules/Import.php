@@ -10,8 +10,11 @@ final class Import {
 	 */
 	private function photo($path, $albumID = 0) {
 
-		// No need to validate photo type and extension in this function.
+		// No need to fully validate photo type and extension in this function.
 		// $photo->add will take care of it.
+
+		$mime = mime_content_type($path);
+		if (mb_substr($mime, 0, 5) != "image" && mb_substr($mime, 0, 5) != 'video') return false;
 
 		$info  = getimagesize($path);
 		$size  = filesize($path);
@@ -19,7 +22,7 @@ final class Import {
 
 		$nameFile                = array(array());
 		$nameFile[0]['name']     = $path;
-		$nameFile[0]['type']     = $info['mime'];
+		$nameFile[0]['type']     = $mime;
 		$nameFile[0]['tmp_name'] = $path;
 		$nameFile[0]['error']    = 0;
 		$nameFile[0]['size']     = $size;
@@ -163,19 +166,7 @@ final class Import {
 				continue;
 			}
 
-			if (@exif_imagetype($file)!==false) {
-
-				// Photo
-
-				$contains['photos'] = true;
-
-				if ($this->photo($file, $albumID)===false) {
-					$error = true;
-					Log::error(Database::get(), __METHOD__, __LINE__, 'Could not import file (' . $file . ')');
-					continue;
-				}
-
-			} else if (is_dir($file)) {
+			if (is_dir($file)) {
 
 				// Folder
 
@@ -197,6 +188,15 @@ final class Import {
 					continue;
 				}
 
+			} else {
+
+				// File. Checks for valid photo/video types are handled in Photo->add()
+
+				if ($this->photo($file, $albumID)===false) {
+					$error = true;
+					Log::error(Database::get(), __METHOD__, __LINE__, 'Could not import file (' . $file . ')');
+					continue;
+				} else $contains['photos'] = true;
 			}
 
 		}
