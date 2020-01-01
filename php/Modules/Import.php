@@ -15,11 +15,12 @@ final class Import {
 
 		$info  = getimagesize($path);
 		$size  = filesize($path);
+		$mime = mime_content_type($path);
 		$photo = new Photo(null);
 
 		$nameFile                = array(array());
 		$nameFile[0]['name']     = $path;
-		$nameFile[0]['type']     = $info['mime'];
+		$nameFile[0]['type']     = $mime;
 		$nameFile[0]['tmp_name'] = $path;
 		$nameFile[0]['error']    = 0;
 		$nameFile[0]['size']     = $size;
