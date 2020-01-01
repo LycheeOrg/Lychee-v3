@@ -163,19 +163,7 @@ final class Import {
 				continue;
 			}
 
-			if (@exif_imagetype($file)!==false) {
-
-				// Photo
-
-				$contains['photos'] = true;
-
-				if ($this->photo($file, $albumID)===false) {
-					$error = true;
-					Log::error(Database::get(), __METHOD__, __LINE__, 'Could not import file (' . $file . ')');
-					continue;
-				}
-
-			} else if (is_dir($file)) {
+			if (is_dir($file)) {
 
 				// Folder
 
@@ -197,6 +185,15 @@ final class Import {
 					continue;
 				}
 
+			} else {
+
+				// File. Checks for valid photo/video types are handled in Photo->add()
+
+				if ($this->photo($file, $albumID)===false) {
+					$error = true;
+					Log::error(Database::get(), __METHOD__, __LINE__, 'Could not import file (' . $file . ')');
+					continue;
+				} else $contains['photos'] = true;
 			}
 
 		}
